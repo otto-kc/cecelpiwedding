@@ -8,114 +8,73 @@
   <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
 
   <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
 
-  <!-- Cloudinary Upload Widget -->
+  
+  <!-- CSS Comune -->
+  <link rel="stylesheet" href="style.css">
+<!-- Cloudinary Upload Widget -->
   <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
 
   <style>
-    
-    /* NAVBAR */
-    .nav{
-      position:fixed; top:0; left:0; right:0; z-index:1000;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:12px clamp(14px,4vw,28px);
-      background:rgba(250,249,246,0.96);
-      border-bottom:1px solid rgba(0,0,0,0.08);
-      box-shadow:0 4px 20px rgba(0,0,0,0.06);
-      backdrop-filter: blur(8px);
+    /* Upload page layout (navbar da style.css) */
+    .card {
+      max-width: min(720px, 92vw);
+      margin: 110px auto 40px;
+      padding: clamp(24px, 4vw, 40px);
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      text-align: center;
     }
-    .logo-badge{
-      width:56px; height:56px; border-radius:18px;
-      display:grid; place-items:center;
-      font-family:'Marcellus',serif; font-size:26px; font-weight:700;
-      color:#222;
-      border:2px solid #222;
-      background:rgba(250,249,246,0.95);
-      box-shadow:0 8px 18px rgba(0,0,0,0.10);
-      user-select:none;
-      flex:0 0 auto;
-    }
-    .navlinks{ display:flex; gap:clamp(10px,3vw,22px); align-items:center; flex:1 1 auto; }
-    .navlinks a{
-      color:#222; text-decoration:none; font-weight:800;
-      padding:8px 10px; border-radius:10px;
-      transition: background .2s ease, transform .1s;
-      flex:0 0 auto; white-space:nowrap;
-      touch-action: manipulation;
-    }
-    .navlinks a:hover{ background: rgba(0,0,0,0.08); }
-    .navlinks a:active{ transform: translateY(1px); }
-    .navlinks a.nav-upload{ border:1px solid rgba(0,0,0,0.18); background: rgba(0,0,0,0.04); }
-    .navlinks a.nav-upload:hover{ background: rgba(0,0,0,0.08); }
 
-
-/* MOBILE / SMALL-SCREEN NAV IMPROVEMENTS */
-.logo-badge { flex: 0 0 auto; }
-.navlinks {
-  flex: 1 1 auto;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding: 2px 0;
-}
-.navlinks::-webkit-scrollbar { display: none; }
-.navlinks a {
-  flex: 0 0 auto;
-  white-space: nowrap;
-  touch-action: manipulation;
-}
-.navlinks a.nav-upload {
-  border: 1px solid rgba(0,0,0,0.18);
-  background: rgba(0,0,0,0.04);
-}
-.navlinks a.nav-upload:hover { background: rgba(0,0,0,0.08); }
-
-@media (max-width: 720px) {
-  .nav { padding: 10px 12px; }
-  .logo-badge { width: 48px; height: 48px; border-radius: 16px; font-size: 22px; }
-  .navlinks { gap: 10px; }
-  .navlinks a { padding: 8px 8px; font-size: 14px; }
-}
-
-:root { --blue:#008CFF; --coral:#FF3B5B; }
-    *{box-sizing:border-box}
-    body{
-      margin:0; min-height:100vh;
-      padding-top: 90px;
-      font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-      background:linear-gradient(135deg,#c2e9fb,#f9c2f9);
-      display:grid; place-items:center; padding: 20px;
+    .card h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 5vw, 44px);
+      margin: 0 0 12px;
+      color: #111;
     }
-    .card{
-      width:min(680px,92vw);
-      background:#fff; border-radius:22px;
-      padding:36px 28px;
-      box-shadow:0 20px 50px rgba(0,0,0,.12);
-      text-align:center;
-    }
-    h1{
-      font-family:'Marcellus',serif;
-      margin:0 0 8px; font-size:clamp(26px,4vw,36px);
-    }
-    p{color:#2b2b2b; margin:0 0 18px}
-    .btn{
-      display:inline-block; border:0; cursor:pointer;
-      padding:12px 26px; border-radius:999px; color:#fff; font-weight:800;
-      background:linear-gradient(90deg,var(--blue),var(--coral));
-      box-shadow:0 12px 28px rgba(0,0,0,.18);
-      transition:transform .15s ease, box-shadow .15s ease;
-    }
-    .btn:hover{ transform:translateY(-2px); box-shadow:0 16px 34px rgba(0,0,0,.24); }
-    .link{ display:inline-block; margin-top:14px; color:var(--blue); font-weight:800; text-decoration:none }
-    .muted{ font-size:.92rem; color:#475569 }
-  
 
-    /* UPLOAD MOBILE */
-    @media (max-width: 520px) {
-      .card{ padding: 26px 18px; border-radius: 18px; }
-      .btn{ width: 100%; padding: 14px 18px; }
+    .card p {
+      color: #444;
+      line-height: 1.6;
+      margin: 0 0 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 999px;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: #222;
+      font-weight: 800;
+      font-family: inherit;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+
+    .btn:hover {
+      background: var(--btn-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.10);
+    }
+
+    .link {
+      display: inline-block;
+      margin-top: 8px;
+      color: #222;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .link:hover { text-decoration: underline; }
+
+    .muted {
+      color: #666;
+      font-size: 13px;
     }
   </style>
 </head>

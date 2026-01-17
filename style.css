@@ -102,3 +102,13 @@ footer {
 
 /* Cursori: se in futuro vuoi un cursore custom (SVG/PNG), aggiungilo qui */
 a, button { cursor: pointer; }
+
+
+/* Upload Foto: stile discreto (non evidenziato di default) */
+.navlinks a.nav-upload {
+  border: 1px solid rgba(0,0,0,0.20);
+  background: transparent;
+}
+.navlinks a.nav-upload:hover {
+  background: rgba(0,0,0,0.05);
+}
