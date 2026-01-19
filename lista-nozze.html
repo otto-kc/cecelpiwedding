@@ -12,6 +12,7 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -23,6 +24,7 @@
       --btn-bg: rgba(255,255,255,0.95);
       --btn-border: rgba(0,0,0,0.20);
       --btn-hover: rgba(0,0,0,0.05);
+      --gold-color: #D4AF37;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
@@ -44,12 +46,13 @@
     .logo-badge {
       width: 56px; height: 56px; border-radius: 18px;
       display: grid; place-items: center;
-      font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700;
-      background: var(--pearl-white);
+      font-family: 'Dancing Script', cursive; font-size: 28px; font-weight: 700;
+      background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
       color: #222222;
-      border: 2px solid #222222;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+      border: 2px solid #D4AF37;
+      box-shadow: 0 8px 18px rgba(212, 175, 55, 0.20);
       user-select: none;
+      font-style: italic;
     }
     .navlinks { display: flex; gap: clamp(10px, 3vw, 22px); align-items: center; }
     .navlinks a {
@@ -84,60 +87,49 @@
       color: #666;
       margin-bottom: 40px;
       font-size: 18px;
-    }
-    .info-grid {
-      display: grid;
-      gap: 25px;
-      margin-bottom: 40px;
+      font-style: italic;
+      line-height: 1.6;
     }
     .info-item {
-      padding: 20px;
+      padding: 25px;
       background: rgba(255,255,255,0.7);
       border-radius: 16px;
       border: 1px solid rgba(0,0,0,0.08);
+      margin-bottom: 25px;
     }
     .info-item h3 {
       font-family: 'Marcellus', serif;
-      font-size: 20px;
+      font-size: 22px;
       margin: 0 0 15px;
       color: #222;
+      text-align: center;
     }
     .info-item p {
       color: #444;
-      margin: 0 0 10px;
-      line-height: 1.6;
+      margin: 0 0 15px;
+      line-height: 1.7;
+      text-align: center;
     }
-    .gift-list {
-      margin-top: 15px;
+    .iban-box {
+      background: rgba(212, 175, 55, 0.1);
+      padding: 20px;
+      border-radius: 12px;
+      border: 2px solid var(--gold-color);
+      margin: 25px 0;
+      text-align: center;
     }
-    .gift-item {
-      padding: 12px 15px;
-      margin-bottom: 10px;
-      background: rgba(255,255,255,0.9);
-      border-radius: 10px;
-      border: 1px solid rgba(0,0,0,0.06);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .gift-name {
-      font-weight: 600;
+    .iban-number {
+      font-family: monospace;
+      font-size: 18px;
+      font-weight: bold;
       color: #222;
+      margin: 10px 0;
+      letter-spacing: 1px;
     }
-    .gift-price {
+    .iban-details {
       color: #666;
       font-size: 14px;
-    }
-    .iban-info {
-      background: rgba(255,255,255,0.9);
-      padding: 15px;
-      border-radius: 10px;
-      border: 1px dashed rgba(0,0,0,0.2);
-      margin-top: 15px;
-      font-family: monospace;
-      font-size: 14px;
-      color: #333;
-      text-align: center;
+      margin-top: 10px;
     }
     .back-btn {
       display: block;
@@ -188,55 +180,15 @@
   <main class="container">
     <div class="lista-card">
       <h1>Lista nozze</h1>
-      <p class="lista-subtitle">Il vostro regalo più grande è la vostra presenza</p>
+      <p class="lista-subtitle">il regalo più bello è la vostra presenza, ma se volete potete contribuire con un piccolo dono alla nostra luna di miele</p>
       
-      <div class="info-grid">
-        <div class="info-item">
-          <h3>Come funziona</h3>
-          <p>Abbiamo creato questa lista nozze per chi desidera contribuire al nostro viaggio di vita insieme. Potete scegliere se donare un contributo per uno dei nostri desideri o fare un regalo tradizionale.</p>
-          <p>La vostra presenza è già il regalo più prezioso, ma se desiderate contribuire, ecco alcune idee:</p>
+      <div class="info-item">
+        <div class="iban-box">
+          <h3>IBAN</h3>
+          <div class="iban-number">ITXXXXXX</div>
+          <div class="iban-details">Intestato a Capasso Elpidio, Pizzagalli Cecilia</div>
         </div>
-
-        <div class="info-item">
-          <h3>I nostri desideri</h3>
-          <div class="gift-list">
-            <div class="gift-item">
-              <div class="gift-name">Viaggio di nozze</div>
-              <div class="gift-price">Contributo</div>
-            </div>
-            <div class="gift-item">
-              <div class="gift-name">Arredamento casa</div>
-              <div class="gift-price">Contributo</div>
-            </div>
-            <div class="gift-item">
-              <div class="gift-name">Elettrodomestici</div>
-              <div class="gift-price">Contributo</div>
-            </div>
-            <div class="gift-item">
-              <div class="gift-name">Cena romantica</div>
-              <div class="gift-price">Contributo</div>
-            </div>
-            <div class="gift-item">
-              <div class="gift-name">Esperienze insieme</div>
-              <div class="gift-price">Contributo</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="info-item">
-          <h3>Contributo libero</h3>
-          <p>Se preferite fare un contributo libero, potete utilizzare il seguente IBAN:</p>
-          <div class="iban-info">
-            IT00 X123 4567 8901 2345 6789 012
-          </div>
-          <p><small>Intestato a: Elpidio [Cognome] e Cecilia [Cognome]</small></p>
-        </div>
-
-        <div class="info-item">
-          <h3>Regali tradizionali</h3>
-          <p>Se preferite fare un regalo tradizionale, potete contattarci per concordare insieme. Saremo felici di suggerirvi qualcosa che ci possa essere utile per la nostra nuova vita insieme.</p>
-          <p>Potete scriverci a: <a href="mailto:elpidiocecilia@example.com">elpidiocecilia@example.com</a></p>
-        </div>
+        <p>Grazie di cuore per il vostro pensiero. La vostra presenza è già il dono più grande che possiate farci in questo giorno speciale.</p>
       </div>
 
       <a href="index.html" class="back-btn">← Torna alla Home</a>

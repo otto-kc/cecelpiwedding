@@ -7,6 +7,7 @@
   --btn-bg: rgba(255,255,255,0.95);
   --btn-border: rgba(0,0,0,0.20);
   --btn-hover: rgba(0,0,0,0.05);
+  --gold-color: #D4AF37;
 }
 
 * { box-sizing: border-box; }
@@ -44,15 +45,16 @@ body {
   border-radius: 18px;
   display: grid;
   place-items: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 28px;
   font-weight: 700;
-  background: var(--pearl-white);
+  background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
   color: #222222;
-  border: 2px solid #222222;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.10);
+  border: 2px solid #D4AF37;
+  box-shadow: 0 8px 18px rgba(212, 175, 55, 0.20);
   user-select: none;
   flex: 0 0 auto;
+  font-style: italic;
 }
 
 .navlinks {

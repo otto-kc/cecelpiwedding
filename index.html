@@ -12,6 +12,7 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   
   <!-- CSS Comune con cursore personalizzato -->
   <link rel="stylesheet" href="style.css">
@@ -19,61 +20,92 @@
   <style>
     /* SOLO GLI STILI UNICI DELLA HOMEPAGE */
     
-    /* HERO - NO SCROLL */
+    /* HERO CON IMMAGINE DI SFONDO */
     .hero { 
       height: 100vh; 
       display: grid; 
       place-items: center; 
       padding: 0 20px;
       overflow: hidden;
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('immagine1.jpg') center/cover no-repeat;
+      position: relative;
     }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+    
     .hero-content {
       text-align: center;
+      position: relative;
+      z-index: 2;
     }
+    
     .couple-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(48px, 10vw, 120px);
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(56px, 12vw, 140px);
       font-weight: 700;
       margin: 0;
-      color: #111111;
+      color: #D4AF37;
       white-space: nowrap;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+      letter-spacing: 2px;
+      font-style: italic;
     }
+    
+    .wedding-date {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(20px, 3vw, 32px);
+      color: #FFFFFF;
+      margin: 20px 0 0;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+      letter-spacing: 2px;
+    }
+    
     .subtitle {
       font-size: clamp(15px, 2.4vw, 22px);
-      color: #555555; 
-      margin: 6px 0 0;
+      color: #FFFFFF; 
+      margin: 10px 0 0;
+      opacity: 0.9;
     }
 
     /* PULSANTE HERO ORO/BIANCO */
     .rsvp-hero-btn {
       display: inline-block;
-      margin-top: 32px;
-      padding: 16px 36px;
+      margin-top: 40px;
+      padding: 18px 40px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #FFD700 0%, #FFF8E1 50%, #FFD700 100%);
+      background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 50%, #D4AF37 100%);
       color: #222;
       font-family: 'Marcellus', serif;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
       text-decoration: none;
-      border: 2px solid #D4AF37;
+      border: 2px solid #B8941F;
       box-shadow: 
-        0 8px 30px rgba(212, 175, 55, 0.3),
+        0 8px 30px rgba(212, 175, 55, 0.4),
         inset 0 2px 4px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 215, 0, 0.3);
+        0 0 20px rgba(212, 175, 55, 0.4);
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
 
     .rsvp-hero-btn:hover {
       transform: translateY(-3px);
       box-shadow: 
-        0 12px 40px rgba(212, 175, 55, 0.4),
+        0 12px 40px rgba(212, 175, 55, 0.6),
         inset 0 2px 6px rgba(255, 255, 255, 0.9),
-        0 0 30px rgba(255, 215, 0, 0.5);
-      background: linear-gradient(135deg, #FFDF00 0%, #FFF9C4 50%, #FFDF00 100%);
+        0 0 30px rgba(212, 175, 55, 0.6);
+      background: linear-gradient(135deg, #E6BF40 0%, #F5E8B0 50%, #E6BF40 100%);
     }
 
     .rsvp-hero-btn:active {
@@ -114,9 +146,13 @@
     /* Responsive per mobile */
     @media (max-width: 768px) {
       .rsvp-hero-btn {
-        padding: 14px 28px;
-        font-size: 16px;
-        margin-top: 24px;
+        padding: 16px 32px;
+        font-size: 18px;
+        margin-top: 30px;
+      }
+      
+      .hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('immagine1.jpg') center/cover no-repeat;
       }
     }
 
@@ -223,6 +259,7 @@
   <header class="hero">
     <div class="hero-content">
       <h1 class="couple-name">Elpidio&nbsp;&amp;&nbsp;Cecilia</h1>
+      <p class="wedding-date">10/07/2026</p>
       <p class="subtitle">Sito in costruzione — foto e dettagli in arrivo</p>
       
       <!-- PULSANTE CONFERMA PRESENZA ORO/BIANCO -->

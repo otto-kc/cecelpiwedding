@@ -12,6 +12,7 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -27,6 +28,7 @@
       --map-btn-hover: #3367D6;
       --waze-btn: #33CCFF;
       --apple-btn: #000000;
+      --gold-color: #D4AF37;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
@@ -48,12 +50,13 @@
     .logo-badge {
       width: 56px; height: 56px; border-radius: 18px;
       display: grid; place-items: center;
-      font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700;
-      background: var(--pearl-white);
+      font-family: 'Dancing Script', cursive; font-size: 28px; font-weight: 700;
+      background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
       color: #222222;
-      border: 2px solid #222222;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+      border: 2px solid #D4AF37;
+      box-shadow: 0 8px 18px rgba(212, 175, 55, 0.20);
       user-select: none;
+      font-style: italic;
     }
     .navlinks { display: flex; gap: clamp(10px, 3vw, 22px); align-items: center; }
     .navlinks a {
@@ -96,6 +99,14 @@
       color: #666;
       margin-bottom: 40px;
       font-size: 18px;
+    }
+    .welcome-message {
+      text-align: center;
+      color: var(--gold-color);
+      font-size: 20px;
+      font-style: italic;
+      margin: 0 0 40px;
+      font-family: 'Marcellus', serif;
     }
     .info-grid {
       display: grid;
@@ -337,6 +348,7 @@
   <main class="container">
     <div class="main-card">
       <h1>Cerimonia & Ricevimento</h1>
+      <p class="welcome-message">siamo felici di condividere con voi le emozioni del nostro giorno più bello</p>
       <p class="subtitle">Tutti i dettagli per la nostra giornata speciale</p>
       
       <!-- CERIMONIA -->
