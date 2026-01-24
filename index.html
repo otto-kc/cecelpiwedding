@@ -10,8 +10,8 @@
   <meta name="bingbot" content="noindex, nofollow" />
   <meta name="slurp" content="noindex, nofollow" />
 
-  <!-- Fonts - Great Vibes per corsivo elegante -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <!-- Fonts - Fleur De Leah per i nomi -->
+  <link href="https://fonts.googleapis.com/css2?family=Fleur+De+Leah&family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
   
   <!-- CSS Comune con cursore personalizzato -->
   <link rel="stylesheet" href="style.css">
@@ -63,15 +63,15 @@
     }
     
     .couple-name {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(62px, 13vw, 150px);
+      font-family: 'Fleur De Leah', cursive;
+      font-size: clamp(72px, 15vw, 180px);
       font-weight: 400;
       margin: 0;
       color: #D4AF37;
       white-space: nowrap;
       text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
-      letter-spacing: 1px;
-      line-height: 1;
+      letter-spacing: 2px;
+      line-height: 0.9;
       font-style: normal;
     }
     
@@ -167,9 +167,9 @@
       }
       
       .couple-name {
-        font-size: clamp(52px, 11vw, 110px);
+        font-size: clamp(62px, 13vw, 140px);
         white-space: normal;
-        line-height: 1;
+        line-height: 0.9;
       }
       
       .wedding-date {
@@ -374,7 +374,7 @@
       startPompousFireworks();
     });
 
-    // FUNZIONE FUOCHI D'ARTIFICIO POMPOSI
+    // FUNZIONE FUOCHI D'ARTIFICIO POMPOSI (SENZA SUONI)
     function startPompousFireworks() {
       const overlay = document.getElementById('fireworks-overlay');
       const colors = [
@@ -385,29 +385,6 @@
       
       // Colori dorati per il matrimonio
       const goldColors = ['#FFD700', '#FFDF00', '#FFEC8B', '#FFFACD', '#D4AF37', '#F4E4A6'];
-      
-      // Suoni di fuochi d'artificio (usando l'API Audio)
-      const playFireworkSound = (volume = 0.2) => {
-        try {
-          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-          const oscillator = audioContext.createOscillator();
-          const gainNode = audioContext.createGain();
-          
-          oscillator.connect(gainNode);
-          gainNode.connect(audioContext.destination);
-          
-          oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-          oscillator.frequency.exponentialRampToValueAtTime(150, audioContext.currentTime + 0.4);
-          
-          gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
-          gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.4);
-          
-          oscillator.start(audioContext.currentTime);
-          oscillator.stop(audioContext.currentTime + 0.4);
-        } catch (e) {
-          // Ignora errori audio
-        }
-      };
       
       // Crea 12 fuochi d'artificio principali
       let fireworksCount = 0;
@@ -438,9 +415,6 @@
           flash.style.marginLeft = '-40px';
           flash.style.marginTop = '-40px';
         }, 10);
-        
-        // Suono leggero
-        playFireworkSound(0.15);
         
         // Rimuovi il flash dopo l'animazione
         setTimeout(() => {

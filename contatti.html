@@ -14,6 +14,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
+  <!-- FontAwesome per icone -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     :root {
       --pearl-white: #FAF9F6;
@@ -24,6 +27,11 @@
       --btn-bg: rgba(255,255,255,0.95);
       --btn-border: rgba(0,0,0,0.20);
       --btn-hover: rgba(0,0,0,0.05);
+      --gold-color: #D4AF37;
+      --whatsapp-color: #25D366;
+      --phone-color: #34A853;
+      --sms-color: #4285F4;
+      --email-color: #EA4335;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
@@ -86,37 +94,150 @@
       color: #666;
       margin-bottom: 40px;
       font-size: 18px;
+      line-height: 1.6;
+      font-style: italic;
     }
+    
+    /* PULSANTE RSVP */
+    .rsvp-button-container {
+      text-align: center;
+      margin: 30px 0;
+    }
+    .rsvp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
+      color: #222;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 18px;
+      border: 2px solid #D4AF37;
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+      transition: all 0.3s ease;
+    }
+    .rsvp-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
+    }
+    
+    /* CONTATTI */
     .contact-info {
       display: grid;
       gap: 25px;
       margin-bottom: 40px;
     }
     .contact-item {
-      padding: 20px;
+      padding: 25px;
       background: rgba(255,255,255,0.7);
       border-radius: 16px;
       border: 1px solid rgba(0,0,0,0.08);
     }
     .contact-item h3 {
       font-family: 'Marcellus', serif;
-      font-size: 20px;
-      margin: 0 0 10px;
+      font-size: 24px;
+      margin: 0 0 20px;
       color: #222;
+      text-align: center;
     }
     .contact-item p {
       color: #444;
-      margin: 0 0 5px;
+      margin: 0 0 15px;
       line-height: 1.6;
+      text-align: center;
     }
-    .contact-item a {
+    
+    /* GRIGLIA CONTATTI */
+    .contact-grid {
+      display: grid;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .person-contact {
+      background: rgba(255,255,255,0.9);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    
+    .person-name {
+      font-family: 'Marcellus', serif;
+      font-size: 20px;
       color: #222;
-      text-decoration: underline;
-      transition: color 0.2s ease;
+      margin: 0 0 15px;
+      text-align: center;
     }
-    .contact-item a:hover {
-      color: #555;
+    
+    /* PULSANTI CONTATTO */
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 15px;
     }
+    
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 50px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .contact-btn.phone {
+      background: var(--phone-color);
+      color: white;
+    }
+    
+    .contact-btn.sms {
+      background: var(--sms-color);
+      color: white;
+    }
+    
+    .contact-btn.whatsapp {
+      background: var(--whatsapp-color);
+      color: white;
+    }
+    
+    .contact-btn.email {
+      background: var(--email-color);
+      color: white;
+    }
+    
+    .contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+    
+    .contact-btn i {
+      font-size: 16px;
+    }
+    
+    .contact-note {
+      text-align: center;
+      margin-top: 10px;
+      color: #666;
+      font-size: 14px;
+      font-style: italic;
+    }
+    
+    /* DIVISORE */
+    .divider {
+      height: 1px;
+      background: rgba(0,0,0,0.1);
+      margin: 30px 0;
+    }
+    
     .back-btn {
       display: block;
       width: fit-content;
@@ -144,6 +265,18 @@
       opacity: 0.6;
       color: #666;
     }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      .contact-buttons {
+        flex-direction: column;
+      }
+      
+      .contact-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -166,28 +299,106 @@
   <main class="container">
     <div class="contact-card">
       <h1>Contatti</h1>
-      <p class="contact-subtitle">Per informazioni sul matrimonio</p>
+      <p class="contact-subtitle">Per qualsiasi informazione su cerimonia, ricevimento o spostamenti, dubbi, domande, richieste varie scriveteci pure.</p>
       
+      <!-- PULSANTE RSVP -->
+      <div class="rsvp-button-container">
+        <a href="rsvp.html" class="rsvp-btn">
+          <i class="fas fa-check-circle"></i>
+          Conferma la tua presenza
+        </a>
+      </div>
+
       <div class="contact-info">
+        
+        <!-- CONTATTI SPOSI -->
         <div class="contact-item">
-          <h3>Email</h3>
-          <p>Per qualsiasi informazione riguardante il matrimonio:</p>
-          <p><a href="mailto:elpidiocecilia@example.com">elpidiocecilia@example.com</a></p>
+          <h3>Contatti degli sposi</h3>
+          
+          <div class="contact-grid">
+            <!-- ELPIDIO -->
+            <div class="person-contact">
+              <h4 class="person-name">Elpidio</h4>
+              <div class="contact-buttons">
+                <a href="tel:33333333" class="contact-btn phone">
+                  <i class="fas fa-phone-alt"></i>
+                  Chiama
+                </a>
+                <a href="sms:33333333" class="contact-btn sms">
+                  <i class="fas fa-sms"></i>
+                  SMS
+                </a>
+                <a href="https://wa.me/3933333333?text=Ciao%20Elpidio,%20ti%20scrivo%20per%20il%20matrimonio!" class="contact-btn whatsapp">
+                  <i class="fab fa-whatsapp"></i>
+                  WhatsApp
+                </a>
+              </div>
+              <p class="contact-note">Cellulare: 33333333</p>
+            </div>
+            
+            <!-- CECILIA -->
+            <div class="person-contact">
+              <h4 class="person-name">Cecilia</h4>
+              <div class="contact-buttons">
+                <a href="tel:3333333" class="contact-btn phone">
+                  <i class="fas fa-phone-alt"></i>
+                  Chiama
+                </a>
+                <a href="sms:3333333" class="contact-btn sms">
+                  <i class="fas fa-sms"></i>
+                  SMS
+                </a>
+                <a href="https://wa.me/393333333?text=Ciao%20Cecilia,%20ti%20scrivo%20per%20il%20matrimonio!" class="contact-btn whatsapp">
+                  <i class="fab fa-whatsapp"></i>
+                  WhatsApp
+                </a>
+              </div>
+              <p class="contact-note">Cellulare: 3333333</p>
+            </div>
+            
+            <!-- EMAIL -->
+            <div class="person-contact">
+              <h4 class="person-name">Email</h4>
+              <div class="contact-buttons">
+                <a href="mailto:abcdefg@gmail.com?subject=Matrimonio%20Elpidio%20%26%20Cecilia&body=Ciao%20Elpidio%20e%20Cecilia,%20" class="contact-btn email">
+                  <i class="fas fa-envelope"></i>
+                  Invia Email
+                </a>
+              </div>
+              <p class="contact-note">abcdefg@gmail.com</p>
+            </div>
+          </div>
         </div>
-
+        
+        <!-- DIVISORE -->
+        <div class="divider"></div>
+        
+        <!-- REFERENTE EVENTO -->
         <div class="contact-item">
-          <h3>RSVP</h3>
-          <p>Per confermare la tua presenza, utilizza il modulo RSVP disponibile nella <a href="index.html">pagina principale</a>.</p>
-        </div>
-
-        <div class="contact-item">
-          <h3>Condividi le tue foto</h3>
-          <p>Dopo il matrimonio, potrai caricare le tue foto nell'album condiviso. Trovi il link nella sezione "Gallery" sotto il pulsante "Carica qui foto & video".</p>
-        </div>
-
-        <div class="contact-item">
-          <h3>Lista nozze</h3>
-          <p>Per informazioni sulla lista nozze, consulta la sezione dedicata nella <a href="index.html">pagina principale</a>.</p>
+          <h3>Referente per il giorno dell'evento</h3>
+          <p>Per qualsiasi eventuali necessità operative il giorno del matrimonio, vi invitiamo a contattare il referente:</p>
+          
+          <div class="contact-grid">
+            <!-- ELISA -->
+            <div class="person-contact">
+              <h4 class="person-name">Elisa</h4>
+              <div class="contact-buttons">
+                <a href="tel:5245621" class="contact-btn phone">
+                  <i class="fas fa-phone-alt"></i>
+                  Chiama
+                </a>
+                <a href="sms:5245621" class="contact-btn sms">
+                  <i class="fas fa-sms"></i>
+                  SMS
+                </a>
+                <a href="https://wa.me/395245621?text=Ciao%20Elisa,%20ti%20scrivo%20per%20il%20matrimonio%20di%20Elpidio%20e%20Cecilia!" class="contact-btn whatsapp">
+                  <i class="fab fa-whatsapp"></i>
+                  WhatsApp
+                </a>
+              </div>
+              <p class="contact-note">Cellulare: 5245621</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -198,7 +409,30 @@
   <footer>© <span id="year"></span> Elpidio &amp; Cecilia</footer>
 
   <script>
+    // Anno corrente
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Rileva se è un dispositivo mobile
+    function isMobileDevice() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+    
+    // Quando la pagina carica
+    document.addEventListener('DOMContentLoaded', function() {
+      // Su mobile, potremmo voler aggiungere ulteriori ottimizzazioni
+      if (isMobileDevice()) {
+        console.log('Dispositivo mobile rilevato - contatti ottimizzati');
+      }
+      
+      // Aggiungi event listener per i pulsanti WhatsApp per tracciare i click
+      const whatsappButtons = document.querySelectorAll('.contact-btn.whatsapp');
+      whatsappButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          console.log('WhatsApp button clicked:', this.href);
+          // Il link si aprirà normalmente
+        });
+      });
+    });
   </script>
 </body>
 </html>
