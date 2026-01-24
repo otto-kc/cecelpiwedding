@@ -94,12 +94,6 @@
       padding-bottom: 10px;
       text-align: center;
     }
-    .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 40px;
-      font-size: 18px;
-    }
     .welcome-message {
       text-align: center;
       color: var(--gold-color);
@@ -108,63 +102,44 @@
       margin: 0 0 40px;
       font-family: 'Marcellus', serif;
     }
-    .info-grid {
-      display: grid;
-      gap: 25px;
-      margin-bottom: 40px;
-    }
-    .info-item {
-      padding: 20px;
-      background: rgba(255,255,255,0.7);
-      border-radius: 16px;
-      border: 1px solid rgba(0,0,0,0.08);
-    }
-    .info-item h3 {
-      font-family: 'Marcellus', serif;
-      font-size: 20px;
-      margin: 0 0 10px;
-      color: #222;
-      text-align: center;
-    }
-    .info-item p {
-      color: #444;
-      margin: 0 0 5px;
-      line-height: 1.6;
-      text-align: center;
-    }
-    .info-item strong {
-      color: #111;
-    }
-    .timeline {
-      margin-top: 30px;
-    }
-    .timeline-item {
-      display: flex;
-      margin-bottom: 15px;
-      align-items: flex-start;
-    }
-    .timeline-time {
-      min-width: 80px;
-      font-weight: 700;
-      color: #222;
-    }
-    .timeline-desc {
-      flex: 1;
-      color: #444;
-    }
     
-    /* MAP SECTION */
-    .maps-grid {
+    /* TWO COLUMN LAYOUT */
+    .two-columns {
       display: grid;
       grid-template-columns: 1fr;
       gap: 30px;
       margin-bottom: 40px;
     }
-    @media (min-width: 900px) {
-      .maps-grid {
+    @media (min-width: 768px) {
+      .two-columns {
         grid-template-columns: 1fr 1fr;
       }
     }
+    
+    .info-column {
+      padding: 20px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .info-column h3 {
+      font-family: 'Marcellus', serif;
+      font-size: 22px;
+      margin: 0 0 15px;
+      color: #222;
+      text-align: center;
+    }
+    .info-column p {
+      color: #444;
+      margin: 0 0 10px;
+      line-height: 1.6;
+      text-align: center;
+    }
+    .info-column strong {
+      color: #111;
+    }
+    
+    /* MAP SECTION */
     .map-item {
       background: rgba(255,255,255,0.7);
       border-radius: 16px;
@@ -179,22 +154,8 @@
     .map-header h3 {
       font-family: 'Marcellus', serif;
       font-size: 22px;
-      margin: 0 0 10px;
+      margin: 0;
       color: #222;
-    }
-    .map-header p {
-      color: #444;
-      margin: 0 0 5px;
-      line-height: 1.6;
-      text-align: center;
-    }
-    .address {
-      font-family: monospace;
-      background: rgba(0,0,0,0.03);
-      padding: 10px;
-      border-radius: 8px;
-      margin: 10px 0;
-      font-size: 15px;
       text-align: center;
     }
     .map-container {
@@ -254,24 +215,6 @@
     }
     .nav-btn-icon {
       font-size: 16px;
-    }
-    .info-note {
-      padding: 20px;
-      background: rgba(255,255,255,0.7);
-      border-radius: 16px;
-      border: 1px solid rgba(0,0,0,0.08);
-      margin-bottom: 30px;
-    }
-    .info-note h3 {
-      font-family: 'Marcellus', serif;
-      font-size: 20px;
-      margin: 0 0 10px;
-      color: #222;
-    }
-    .info-note p {
-      color: #444;
-      margin: 0 0 10px;
-      line-height: 1.6;
     }
     
     /* TABS per mobile map apps */
@@ -355,15 +298,23 @@
       <h1>Cerimonia & Ricevimento</h1>
       <p class="welcome-message">siamo felici di condividere con voi le emozioni del nostro giorno più bello</p>
       
-      <!-- CERIMONIA -->
-      <h2 class="section-title">Cerimonia</h2>
-      <div class="info-grid">
-        <div class="info-item">
-          <h3>Informazioni Cerimonia</h3>
+      <!-- CERIMONIA E RICEVIMENTO AFFIANCATI -->
+      <div class="two-columns">
+        <!-- CERIMONIA -->
+        <div class="info-column">
+          <h3>Cerimonia</h3>
           <p><strong>Data:</strong> 10 Luglio 2026</p>
           <p><strong>Ora:</strong> 10:30</p>
           <p><strong>Chiesa/Basilica:</strong> Chiesa di San Sisto</p>
           <p><strong>Indirizzo:</strong> Via S. Sisto, 9, 29121 Piacenza PC</p>
+        </div>
+
+        <!-- RICEVIMENTO -->
+        <div class="info-column">
+          <h3>Ricevimento</h3>
+          <p><strong>Nome:</strong> Villa Zaccaria</p>
+          <p><strong>Parcheggio:</strong> interno villa</p>
+          <p><strong>Indirizzo:</strong> Via Maggiore, 50 - 26020 Bordolano (CR)</p>
         </div>
       </div>
 
@@ -371,11 +322,6 @@
       <div class="map-item">
         <div class="map-header">
           <h3>📍 Chiesa di San Sisto</h3>
-          <p><strong>Orario cerimonia:</strong> 10:30</p>
-          <div class="address" id="chiesa-address">
-            Via S. Sisto, 9, 29121 Piacenza PC
-          </div>
-          <p><small>Basilica di San Sisto, Piacenza</small></p>
         </div>
         <div class="map-container">
           <iframe 
@@ -419,25 +365,10 @@
         </div>
       </div>
 
-      <!-- RICEVIMENTO -->
-      <h2 class="section-title">Ricevimento</h2>
-      <div class="info-grid">
-        <div class="info-item">
-          <h3>Informazioni Ricevimento</h3>
-          <p><strong>Nome:</strong> Villa Zaccaria</p>
-          <p><strong>Parcheggio:</strong> interno villa</p>
-          <p><strong>Indirizzo:</strong> Via Maggiore, 50 - 26020 Bordolano (CR)</p>
-        </div>
-      </div>
-
       <!-- MAPPA VILLA -->
       <div class="map-item">
         <div class="map-header">
           <h3>🏰 Villa Zaccaria</h3>
-          <div class="address" id="villa-address">
-            Via Maggiore, 50 - 26020 Bordolano (CR)
-          </div>
-          <p><small>Location ricevimento a Bordolano</small></p>
         </div>
         <div class="map-container">
           <iframe 
