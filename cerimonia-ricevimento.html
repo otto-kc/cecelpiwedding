@@ -125,10 +125,23 @@
     .info-column h3 {
       font-family: 'Marcellus', serif;
       font-size: 22px;
-      margin: 0 0 15px;
+      margin: 0 0 20px;
       color: #222;
       text-align: center;
     }
+    
+    .info-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .info-item {
+      text-align: center;
+    }
+    
     .info-column p {
       color: #444;
       margin: 0 0 10px;
@@ -140,12 +153,24 @@
     }
     
     /* MAP SECTION */
+    .maps-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    @media (min-width: 768px) {
+      .maps-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
     .map-item {
       background: rgba(255,255,255,0.7);
       border-radius: 16px;
       border: 1px solid rgba(0,0,0,0.08);
       overflow: hidden;
-      margin-bottom: 40px;
     }
     .map-header {
       padding: 20px;
@@ -303,111 +328,120 @@
         <!-- CERIMONIA -->
         <div class="info-column">
           <h3>Cerimonia</h3>
-          <p><strong>Data:</strong> 10 Luglio 2026</p>
-          <p><strong>Ora:</strong> 10:30</p>
-          <p><strong>Chiesa/Basilica:</strong> Chiesa di San Sisto</p>
-          <p><strong>Indirizzo:</strong> Via S. Sisto, 9, 29121 Piacenza PC</p>
+          <div class="info-row">
+            <div class="info-item">
+              <p><strong>Data:</strong><br>10 Luglio 2026</p>
+            </div>
+            <div class="info-item">
+              <p><strong>Ora:</strong><br>10:30</p>
+            </div>
+          </div>
+          <p><strong>Chiesa/Basilica:</strong><br>Chiesa di San Sisto</p>
+          <p><strong>Indirizzo:</strong><br>Via S. Sisto, 9, 29121 Piacenza PC</p>
         </div>
 
         <!-- RICEVIMENTO -->
         <div class="info-column">
           <h3>Ricevimento</h3>
-          <p><strong>Nome:</strong> Villa Zaccaria</p>
-          <p><strong>Parcheggio:</strong> interno villa</p>
-          <p><strong>Indirizzo:</strong> Via Maggiore, 50 - 26020 Bordolano (CR)</p>
+          <p><strong>Nome:</strong><br>Villa Zaccaria</p>
+          <p><strong>Parcheggio:</strong><br>interno villa</p>
+          <p><strong>Indirizzo:</strong><br>Via Maggiore, 50 - 26020 Bordolano (CR)</p>
         </div>
       </div>
 
-      <!-- MAPPA CHIESA -->
-      <div class="map-item">
-        <div class="map-header">
-          <h3>📍 Chiesa di San Sisto</h3>
-        </div>
-        <div class="map-container">
-          <iframe 
-            class="map-iframe"
-            id="chiesa-map"
-            title="Mappa della chiesa di San Sisto"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Via+S.+Sisto,+9,+29121+Piacenza+PC&zoom=15">
-          </iframe>
-        </div>
-        <div class="map-actions">
-          <a href="#" class="nav-btn google" id="chiesa-google">
-            <span class="nav-btn-icon">🗺️</span> Google Maps
-          </a>
-          <a href="#" class="nav-btn waze" id="chiesa-waze">
-            <span class="nav-btn-icon">🚗</span> Waze
-          </a>
-          <a href="#" class="nav-btn apple" id="chiesa-apple">
-            <span class="nav-btn-icon">🍎</span> Apple Maps
-          </a>
-          <a href="#" class="nav-btn secondary" id="chiesa-copy">
-            <span class="nav-btn-icon">📋</span> Copia
-          </a>
-        </div>
-        <!-- Mobile apps selector (hidden by default) -->
-        <div class="map-apps-tabs" id="chiesa-apps-tabs">
-          <h4>Scegli l'app di navigazione:</h4>
-          <div class="app-buttons">
-            <a href="#" class="nav-btn google" data-address="Via S. Sisto, 9, 29121 Piacenza PC" data-app="google">
+      <!-- MAPPE AFFIANCATE -->
+      <div class="maps-container">
+        <!-- MAPPA CHIESA -->
+        <div class="map-item">
+          <div class="map-header">
+            <h3>📍 Chiesa di San Sisto</h3>
+          </div>
+          <div class="map-container">
+            <iframe 
+              class="map-iframe"
+              id="chiesa-map"
+              title="Mappa della chiesa di San Sisto"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Via+S.+Sisto,+9,+29121+Piacenza+PC&zoom=15">
+            </iframe>
+          </div>
+          <div class="map-actions">
+            <a href="#" class="nav-btn google" id="chiesa-google">
               <span class="nav-btn-icon">🗺️</span> Google Maps
             </a>
-            <a href="#" class="nav-btn waze" data-address="Via S. Sisto, 9, 29121 Piacenza PC" data-app="waze">
+            <a href="#" class="nav-btn waze" id="chiesa-waze">
               <span class="nav-btn-icon">🚗</span> Waze
             </a>
-            <a href="#" class="nav-btn apple" data-address="Via S. Sisto, 9, 29121 Piacenza PC" data-app="apple">
+            <a href="#" class="nav-btn apple" id="chiesa-apple">
               <span class="nav-btn-icon">🍎</span> Apple Maps
+            </a>
+            <a href="#" class="nav-btn secondary" id="chiesa-copy">
+              <span class="nav-btn-icon">📋</span> Copia
             </a>
           </div>
+          <!-- Mobile apps selector (hidden by default) -->
+          <div class="map-apps-tabs" id="chiesa-apps-tabs">
+            <h4>Scegli l'app di navigazione:</h4>
+            <div class="app-buttons">
+              <a href="#" class="nav-btn google" data-address="Via S. Sisto, 9, 29121 Piacenza PC" data-app="google">
+                <span class="nav-btn-icon">🗺️</span> Google Maps
+              </a>
+              <a href="#" class="nav-btn waze" data-address="Via S. Sisto, 9, 29121 Piacenza PC" data-app="waze">
+                <span class="nav-btn-icon">🚗</span> Waze
+              </a>
+              <a href="#" class="nav-btn apple" data-address="Via S. Sisto, 9, 29121 Piacenza PC" data-app="apple">
+                <span class="nav-btn-icon">🍎</span> Apple Maps
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- MAPPA VILLA -->
-      <div class="map-item">
-        <div class="map-header">
-          <h3>🏰 Villa Zaccaria</h3>
-        </div>
-        <div class="map-container">
-          <iframe 
-            class="map-iframe"
-            id="villa-map"
-            title="Mappa della location del ricevimento"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Via+Maggiore+50+Bordolano+CR&zoom=15">
-          </iframe>
-        </div>
-        <div class="map-actions">
-          <a href="#" class="nav-btn google" id="villa-google">
-            <span class="nav-btn-icon">🗺️</span> Google Maps
-          </a>
-          <a href="#" class="nav-btn waze" id="villa-waze">
-            <span class="nav-btn-icon">🚗</span> Waze
-          </a>
-          <a href="#" class="nav-btn apple" id="villa-apple">
-            <span class="nav-btn-icon">🍎</span> Apple Maps
-          </a>
-          <a href="#" class="nav-btn secondary" id="villa-copy">
-            <span class="nav-btn-icon">📋</span> Copia
-          </a>
-        </div>
-        <!-- Mobile apps selector (hidden by default) -->
-        <div class="map-apps-tabs" id="villa-apps-tabs">
-          <h4>Scegli l'app di navigazione:</h4>
-          <div class="app-buttons">
-            <a href="#" class="nav-btn google" data-address="Via Maggiore, 50 - 26020 Bordolano (CR)" data-app="google">
+        <!-- MAPPA VILLA -->
+        <div class="map-item">
+          <div class="map-header">
+            <h3>🏰 Villa Zaccaria</h3>
+          </div>
+          <div class="map-container">
+            <iframe 
+              class="map-iframe"
+              id="villa-map"
+              title="Mappa della location del ricevimento"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Via+Maggiore+50+Bordolano+CR&zoom=15">
+            </iframe>
+          </div>
+          <div class="map-actions">
+            <a href="#" class="nav-btn google" id="villa-google">
               <span class="nav-btn-icon">🗺️</span> Google Maps
             </a>
-            <a href="#" class="nav-btn waze" data-address="Via Maggiore, 50 - 26020 Bordolano (CR)" data-app="waze">
+            <a href="#" class="nav-btn waze" id="villa-waze">
               <span class="nav-btn-icon">🚗</span> Waze
             </a>
-            <a href="#" class="nav-btn apple" data-address="Via Maggiore, 50 - 26020 Bordolano (CR)" data-app="apple">
+            <a href="#" class="nav-btn apple" id="villa-apple">
               <span class="nav-btn-icon">🍎</span> Apple Maps
             </a>
+            <a href="#" class="nav-btn secondary" id="villa-copy">
+              <span class="nav-btn-icon">📋</span> Copia
+            </a>
+          </div>
+          <!-- Mobile apps selector (hidden by default) -->
+          <div class="map-apps-tabs" id="villa-apps-tabs">
+            <h4>Scegli l'app di navigazione:</h4>
+            <div class="app-buttons">
+              <a href="#" class="nav-btn google" data-address="Via Maggiore, 50 - 26020 Bordolano (CR)" data-app="google">
+                <span class="nav-btn-icon">🗺️</span> Google Maps
+              </a>
+              <a href="#" class="nav-btn waze" data-address="Via Maggiore, 50 - 26020 Bordolano (CR)" data-app="waze">
+                <span class="nav-btn-icon">🚗</span> Waze
+              </a>
+              <a href="#" class="nav-btn apple" data-address="Via Maggiore, 50 - 26020 Bordolano (CR)" data-app="apple">
+                <span class="nav-btn-icon">🍎</span> Apple Maps
+              </a>
+            </div>
           </div>
         </div>
       </div>
