@@ -391,7 +391,7 @@
               // MODIFICA: background-size cambiato da 'cover' a '90%' per ridurre lo zoom del 10%
               heroBg.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${result}')`;
               heroBg.style.backgroundPosition = 'calc(50% - 30px) calc(50% + 20px)'; // 30px a sinistra, 20px in basso
-              heroBg.style.backgroundSize = '90%'; // MODIFICATO: riduce lo zoom del 10% rispetto a 'cover'
+              heroBg.style.backgroundSize = 'cover'; // MODIFICATO: riduce lo zoom del 10% rispetto a 'cover'
               heroBg.style.backgroundRepeat = 'no-repeat';
               console.log(`✅ Immagine di sfondo trovata: ${result}`);
               return;
