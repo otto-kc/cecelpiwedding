@@ -1,3 +1,5 @@
+[file name]: upload.html
+[file content begin]
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -13,6 +15,7 @@
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 
   <!-- Cloudinary Upload Widget -->
   <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
@@ -45,57 +48,6 @@
       place-items: center;
       padding: 20px;
     }
-    
-    /* NAVBAR */
-    .nav {
-      position: fixed; 
-      top: 0; 
-      left: 0; 
-      right: 0; 
-      z-index: 1000;
-      display: flex; 
-      align-items: center; 
-      justify-content: space-between;
-      padding: 12px clamp(14px, 4vw, 28px);
-      background: var(--pearl-white);
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    }
-    
-    .logo-badge {
-      width: 56px; 
-      height: 56px; 
-      border-radius: 18px;
-      display: grid; 
-      place-items: center;
-      font-family: 'Dancing Script', cursive; 
-      font-size: 28px; 
-      font-weight: 700;
-      background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
-      color: #222222;
-      border: 2px solid #D4AF37;
-      box-shadow: 0 8px 18px rgba(212, 175, 55, 0.20);
-      user-select: none;
-      font-style: italic;
-    }
-    
-    .navlinks { 
-      display: flex; 
-      gap: clamp(10px, 3vw, 22px); 
-      align-items: center; 
-    }
-    
-    .navlinks a {
-      color: var(--nav-text); 
-      text-decoration: none; 
-      font-weight: 700;
-      padding: 8px 10px; 
-      border-radius: 10px; 
-      transition: background .2s ease, transform .1s;
-    }
-    
-    .navlinks a:hover { background: rgba(0,0,0,0.08); }
-    .navlinks a:active { transform: translateY(1px); }
     
     /* MAIN CONTENT */
     .card {
@@ -189,10 +141,19 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- NAVBAR CON HAMBURGER MENU -->
   <nav class="nav">
     <div class="logo-badge" aria-label="Logo E e C">E&amp;C</div>
-    <div class="navlinks">
+    
+    <!-- Hamburger menu button (mobile only) -->
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <!-- Navigation links -->
+    <div class="navlinks" id="navlinks">
       <a href="index.html">Home</a>
       <a href="cerimonia-ricevimento.html">Cerimonia & Ricevimento</a>
       <a href="lista-nozze.html">Lista Nozze</a>
@@ -212,20 +173,59 @@
     <a class="link" href="gallery.html">← Torna alla Gallery</a>
 
     <p class="muted">
-      Puoi selezionare più file (max 50 MB ciascuno). Formati: JPG/PNG/HEIC/WEBP/MP4/MOV.
+      Puoi selezionare più file (max 50 MB ciascuno). Formati: JPG/PNG/HEIC/WEBP/MP4/MOV/GIF/BMP/TIFF.
     </p>
   </main>
 
   <footer>© <span id="year"></span> Elpidio &amp; Cecilia</footer>
 
+  <!-- BACK TO TOP BUTTON -->
+  <button class="back-to-top" id="backToTop" aria-label="Torna all'inizio" title="Torna su">▲</button>
+
   <script>
     // Anno corrente nel footer
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Menu hamburger mobile
+    const hamburger = document.getElementById('hamburger');
+    const navlinks = document.getElementById('navlinks');
     
+    if (hamburger && navlinks) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navlinks.classList.toggle('active');
+        
+        document.querySelectorAll('.navlinks a').forEach(link => {
+          link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navlinks.classList.remove('active');
+          });
+        });
+      });
+      
+      document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navlinks.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navlinks.classList.remove('active');
+        }
+      });
+    }
+
+    // Back to top
+    const backBtn = document.getElementById('backToTop');
+    const toggleBackBtn = () => {
+      if (!backBtn) return;
+      if (window.scrollY > 300) backBtn.classList.add('show');
+      else backBtn.classList.remove('show');
+    };
+    toggleBackBtn();
+    window.addEventListener('scroll', toggleBackBtn);
+    if (backBtn) backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
     // Configura i TUOI dati Cloudinary
-    const cloudName    = 'dmzv9mzpr';     // ← il tuo cloud name
-    const uploadPreset = 'wedding-ec';    // ← il tuo preset UNSIGNED
-    const targetFolder = 'wedding-ec';    // ← cartella di destinazione
+    const cloudName    = 'dmzv9mzpr';
+    const uploadPreset = 'wedding-ec';
+    const targetFolder = 'wedding-ec';
 
     function ensureWidgetLoaded(){
       if (typeof window.cloudinary === 'undefined'){
@@ -241,12 +241,12 @@
 
       window.cloudinary.openUploadWidget({
         cloudName: cloudName,
-        uploadPreset: uploadPreset,        // deve essere UNSIGNED + Enabled
-        folder: targetFolder,              // cartella dove salvare le foto
+        uploadPreset: uploadPreset,
+        folder: targetFolder,
         sources: ['local','camera'],
         multiple: true,
-        maxFileSize: 50 * 1024 * 1024,     // 50MB per file
-        clientAllowedFormats: ['jpg','jpeg','png','heic','webp','mp4','mov'],
+        maxFileSize: 50 * 1024 * 1024,
+        clientAllowedFormats: ['jpg','jpeg','png','heic','webp','mp4','mov','gif','bmp','tiff','JPG','JPEG','PNG','HEIC','WEBP','MP4','MOV','GIF','BMP','TIFF'],
         showAdvancedOptions: false,
         showPoweredBy: false,
         cropping: false,
@@ -258,12 +258,10 @@
           return;
         }
 
-        // Per ogni file caricato con successo
         if (result && result.event === 'success') {
           console.log('✅ Upload:', result.info.original_filename, result.info.secure_url);
         }
 
-        // Quando la coda è terminata (tutti i file processati)
         if (result && result.event === 'queues-end') {
           alert('Grazie! Le tue foto e video sono stati caricati ✅');
         }
@@ -272,3 +270,4 @@
   </script>
 </body>
 </html>
+[file content end]

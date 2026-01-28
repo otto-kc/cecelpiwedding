@@ -1,3 +1,5 @@
+[file name]: rsvp.html
+[file content begin]
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -13,6 +15,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 
   <style>
     :root {
@@ -36,58 +39,6 @@
       font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
       background: var(--pearl-white);
       background-attachment: fixed;
-    }
-
-    /* NAVBAR */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px clamp(14px, 4vw, 28px);
-      background: var(--pearl-white);
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-      gap: 14px;
-    }
-    .logo-badge {
-      width: 56px; height: 56px; border-radius: 18px;
-      display: grid; place-items: center;
-      font-family: 'Dancing Script', cursive; font-size: 28px; font-weight: 700;
-      background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
-      color: #222222;
-      border: 2px solid #D4AF37;
-      box-shadow: 0 8px 18px rgba(212, 175, 55, 0.20);
-      user-select: none;
-      flex: 0 0 auto;
-      font-style: italic;
-    }
-    .navlinks {
-      display: flex; gap: clamp(8px, 2vw, 18px); align-items: center;
-      flex: 1 1 auto;
-      justify-content: flex-end;
-      min-width: 0;
-    }
-    .navlinks a {
-      color: var(--nav-text);
-      text-decoration: none;
-      font-weight: 700;
-      padding: 8px 10px;
-      border-radius: 10px;
-      transition: background .2s ease, transform .1s;
-      white-space: nowrap;
-    }
-    .navlinks a:hover { background: rgba(0,0,0,0.08); }
-    .navlinks a:active { transform: translateY(1px); }
-
-    /* Mobile: nav scrollabile (piu' usabile su telefono) */
-    @media (max-width: 860px) {
-      .navlinks {
-        overflow-x: auto;
-        justify-content: flex-start;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding-bottom: 2px;
-      }
-      .navlinks::-webkit-scrollbar { display: none; }
     }
 
     /* MAIN CONTENT */
@@ -152,7 +103,7 @@
       border-radius: 12px;
       border: 1px solid rgba(0,0,0,0.15);
       font-family: inherit;
-      font-size: 16px; /* evita zoom su iOS */
+      font-size: 16px;
       line-height: 1.2;
       transition: border 0.2s ease;
       background: #fff;
@@ -190,7 +141,7 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.05);
       transition: all 0.2s ease;
       margin-top: 26px;
-      min-height: 52px; /* tap target */
+      min-height: 52px;
     }
     .submit-btn:hover:not(:disabled) {
       transform: translateY(-2px);
@@ -259,10 +210,19 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- NAVBAR CON HAMBURGER MENU -->
   <nav class="nav">
     <div class="logo-badge" aria-label="Logo E e C">E&amp;C</div>
-    <div class="navlinks">
+    
+    <!-- Hamburger menu button (mobile only) -->
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <!-- Navigation links -->
+    <div class="navlinks" id="navlinks">
       <a href="index.html">Home</a>
       <a href="cerimonia-ricevimento.html">Cerimonia & Ricevimento</a>
       <a href="lista-nozze.html">Lista Nozze</a>
@@ -371,7 +331,10 @@
 
   <footer>© <span id="year"></span> Elpidio &amp; Cecilia</footer>
 
-  <!-- IFRAME nascosto per invio Google Forms (evita CORS e non porta via dalla pagina) -->
+  <!-- BACK TO TOP BUTTON -->
+  <button class="back-to-top" id="backToTop" aria-label="Torna all'inizio" title="Torna su">▲</button>
+
+  <!-- IFRAME nascosto per invio Google Forms -->
   <iframe id="gf-iframe" name="gf-iframe" class="sr-only" title="Invio RSVP" aria-hidden="true"></iframe>
 
   <!-- FORM nascosto: qui mettiamo gli entry.* del Google Form -->
@@ -389,6 +352,42 @@
   <script>
     // Anno corrente nel footer
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Menu hamburger mobile
+    const hamburger = document.getElementById('hamburger');
+    const navlinks = document.getElementById('navlinks');
+    
+    if (hamburger && navlinks) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navlinks.classList.toggle('active');
+        
+        document.querySelectorAll('.navlinks a').forEach(link => {
+          link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navlinks.classList.remove('active');
+          });
+        });
+      });
+      
+      document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navlinks.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navlinks.classList.remove('active');
+        }
+      });
+    }
+
+    // Back to top
+    const backBtn = document.getElementById('backToTop');
+    const toggleBackBtn = () => {
+      if (!backBtn) return;
+      if (window.scrollY > 300) backBtn.classList.add('show');
+      else backBtn.classList.remove('show');
+    };
+    toggleBackBtn();
+    window.addEventListener('scroll', toggleBackBtn);
+    if (backBtn) backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
     const form = document.getElementById('rsvp-form');
     const submitBtn = document.getElementById('submit-btn');
@@ -448,7 +447,6 @@
       successMessage.classList.add('show');
       successMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-      // nascondi dopo un po'
       setTimeout(() => successMessage.classList.remove('show'), 8000);
     }
 
@@ -473,7 +471,6 @@
       // honeypot anti-spam
       const honeypot = document.getElementById('website');
       if (honeypot && honeypot.value) {
-        // bot: ignora
         return;
       }
 
@@ -514,7 +511,7 @@
       // Submit reale su Google Forms
       gfForm.submit();
 
-      // Fallback: se l'iframe non scatta (raro), mostriamo comunque conferma dopo 2.5s
+      // Fallback
       setTimeout(() => {
         if (!pendingSubmit) return;
         pendingSubmit = false;
@@ -531,7 +528,6 @@
       const formData = {};
       inputs.forEach(input => {
         if (!input.name) return;
-        // non salvare honeypot
         if (input.name === 'website') return;
         formData[input.name] = input.value;
       });
@@ -558,3 +554,4 @@
   </script>
 </body>
 </html>
+[file content end]
