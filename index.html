@@ -388,10 +388,10 @@
             const result = await testImage(src);
             if (result) {
               // TROVATA! Usa questa immagine con opacità
-              // MODIFICA: background-size cambiato da 'cover' a '90%' per ridurre lo zoom del 10%
+              // MODIFICATO: calc per spostamento preciso - sinistra e in basso
               heroBg.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${result}')`;
               heroBg.style.backgroundPosition = 'calc(50% - 30px) calc(50% + 20px)'; // 30px a sinistra, 20px in basso
-              heroBg.style.backgroundSize = 'cover'; // MODIFICATO: riduce lo zoom del 10% rispetto a 'cover'
+              heroBg.style.backgroundSize = 'cover';
               heroBg.style.backgroundRepeat = 'no-repeat';
               console.log(`✅ Immagine di sfondo trovata: ${result}`);
               return;
