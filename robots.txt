@@ -1,5 +1,2 @@
-[file name]: robots.txt
-[file content begin]
 User-agent: *
 Disallow: /
-[file content end]
