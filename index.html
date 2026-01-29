@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>Elpidio & Cecilia — Wedding</title>
+  <meta name="description" content="Sito del matrimonio di Elpidio & Cecilia" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <meta name="bingbot" content="noindex, nofollow" />
+  <meta name="slurp" content="noindex, nofollow" />
+
+  <!-- Fonts - Imperial Script per logo e nomi -->
+  <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  
+  <!-- CSS Comune -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* SOLO GLI STILI UNICI DELLA HOMEPAGE */
+    
+    /* HERO CON IMMAGINE DI SFONDO */
+    .hero { 
+      height: 100vh; 
+      display: grid; 
+      place-items: center; 
+      padding: 0 20px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    /* Contenitore per l'immagine di sfondo */
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #FAF0DC 0%, #F5E8C9 100%);
+      z-index: 1;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+    
+    .hero-content {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      padding: 30px;
+      max-width: 90%;
+      width: 100%;
+    }
+    
+    /* MODIFICATO: Font Imperial Script e margine superiore aumentato */
+    .couple-name {
+      font-family: 'Imperial Script', cursive;
+      font-size: clamp(64px, 12vw, 160px);
+      font-weight: 400;
+      margin: 30px 0 0 0; /* MODIFICATO: ridotto margine superiore per spostare più in alto */
+      color: #FF7F50;
+      white-space: nowrap;
+      text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
+      letter-spacing: 1px;
+      line-height: 0.9;
+      font-style: normal;
+    }
+    
+    .wedding-date {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(24px, 4vw, 36px);
+      color: #FF7F50;
+      margin: 20px 0 0;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      letter-spacing: 3px;
+      font-weight: 500;
+    }
+    
+    /* PULSANTE HERO ORO/BIANCO */
+    .rsvp-hero-btn {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 18px 40px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 50%, #D4AF37 100%);
+      color: #222;
+      font-family: 'Marcellus', serif;
+      font-size: 20px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 2px solid #B8941F;
+      box-shadow: 
+        0 8px 30px rgba(212, 175, 55, 0.5),
+        inset 0 2px 4px rgba(255, 255, 255, 0.8),
+        0 0 25px rgba(212, 175, 55, 0.5);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      letter-spacing: 1px;
+    }
+
+    .rsvp-hero-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 12px 40px rgba(212, 175, 55, 0.7),
+        inset 0 2px 6px rgba(255, 255, 255, 0.9),
+        0 0 35px rgba(212, 175, 55, 0.7);
+      background: linear-gradient(135deg, #E6BF40 0%, #F5E8B0 50%, #E6BF40 100%);
+    }
+
+    .rsvp-hero-btn:active {
+      transform: translateY(-1px);
+    }
+
+    /* Effetto brillante */
+    .rsvp-hero-btn .shine {
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        transparent 100%
+      );
+      transform: rotate(30deg);
+      transition: all 0.5s ease;
+    }
+
+    .rsvp-hero-btn:hover .shine {
+      left: 100%;
+    }
+
+    /* Animazione pulsazione leggera */
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    .rsvp-hero-btn {
+      animation: gentlePulse 4s infinite ease-in-out;
+    }
+
+    /* MESSAGGIO DI BENVENUTO */
+    .welcome-message {
+      color: #FF7F50;
+      font-family: 'Marcellus', serif;
+      font-size: clamp(18px, 2.5vw, 22px);
+      max-width: 700px;
+      margin: 40px auto 0;
+      line-height: 1.6;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      font-style: italic;
+      padding: 0 20px;
+    }
+
+    /* Responsive per mobile migliorato */
+    @media (max-width: 768px) {
+      .rsvp-hero-btn {
+        padding: 16px 32px;
+        font-size: 18px;
+        margin-top: 30px;
+      }
+      
+      .hero-content {
+        padding: 20px 15px;
+        margin: 0 10px;
+      }
+      
+      .couple-name {
+        font-size: clamp(56px, 11vw, 140px);
+        white-space: normal;
+        line-height: 0.9;
+        margin: 20px 0 0 0; /* MODIFICATO per mobile */
+        word-break: break-word;
+      }
+      
+      .wedding-date {
+        font-size: clamp(20px, 3.5vw, 28px);
+        margin: 15px 0 0;
+      }
+      
+      .welcome-message {
+        font-size: clamp(16px, 2.2vw, 20px);
+        margin: 30px auto 0;
+        padding: 0 15px;
+      }
+      
+      .hero {
+        padding-top: 20px;
+      }
+    }
+
+    /* STILI PER FUOCHI D'ARTIFICIO POMPOSI */
+    #fireworks-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.85);
+    }
+
+    .firework-particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      filter: blur(1px);
+      will-change: transform, opacity;
+    }
+
+    /* Animazioni per i fuochi */
+    @keyframes fireworkLaunch {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 1;
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(calc(var(--launch-y) - 50px)) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fireworkExplosion {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      70% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--explode-x), var(--explode-y)) scale(0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fireworkFlash {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    .firework-flash {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+      opacity: 0;
+    }
+  </style>
+</head>
+<body id="top">
+
+  <!-- FUOCHI D'ARTIFICIO OVERLAY -->
+  <div id="fireworks-overlay"></div>
+
+  <!-- NAVBAR CON HAMBURGER MENU -->
+  <nav class="nav">
+    <div class="logo-badge" aria-label="Logo E e C">E&amp;C</div>
+    
+    <!-- Hamburger menu button (mobile only) -->
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <!-- Navigation links -->
+    <div class="navlinks" id="navlinks">
+      <a href="index.html">Home</a>
+      <a href="cerimonia-ricevimento.html">Cerimonia & Ricevimento</a>
+      <a href="lista-nozze.html">Lista Nozze</a>
+      <a href="rsvp.html">RSVP</a>
+      <a href="storia.html">La nostra storia</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contatti.html">Contatti</a>
+    </div>
+  </nav>
+
+  <!-- HERO - NO SCROLL -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1 class="couple-name">Elpidio&nbsp;&amp;&nbsp;Cecilia</h1>
+      <p class="wedding-date">10/07/2026</p>
+      
+      <!-- PULSANTE CONFERMA PRESENZA ORO/BIANCO -->
+      <a href="rsvp.html" class="rsvp-hero-btn" id="heroRsvpBtn">
+        <span>Conferma la tua presenza</span>
+        <div class="shine"></div>
+      </a>
+      
+      <!-- MESSAGGIO DI BENVENUTO -->
+      <div class="welcome-message">
+        Siamo felicissimi di darvi il benvenuto sul nostro sito. In attesa del grande giorno, abbiamo creato questo sito, dove potete trovare tutte le informazioni utili per il giorno del matrimonio e qualche particolare della nostra storia. A presto, un abbraccio!
+      </div>
+    </div>
+  </header>
+
+  <footer>© <span id="year"></span> Elpidio &amp; Cecilia</footer>
+
+  <!-- BACK TO TOP BUTTON -->
+  <button class="back-to-top" id="backToTop" aria-label="Torna all'inizio" title="Torna su">▲</button>
+
+  <script>
+    // Anno corrente
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Menu hamburger mobile
+    const hamburger = document.getElementById('hamburger');
+    const navlinks = document.getElementById('navlinks');
+    
+    if (hamburger && navlinks) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navlinks.classList.toggle('active');
+        
+        // Chiudi il menu quando si clicca su un link
+        document.querySelectorAll('.navlinks a').forEach(link => {
+          link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navlinks.classList.remove('active');
+          });
+        });
+      });
+      
+      // Chiudi il menu se si clicca fuori
+      document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navlinks.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navlinks.classList.remove('active');
+        }
+      });
+    }
+
+    // Back to top
+    const backBtn = document.getElementById('backToTop');
+    const toggleBackBtn = () => {
+      if (!backBtn) return;
+      if (window.scrollY > 300) backBtn.classList.add('show');
+      else backBtn.classList.remove('show');
+    };
+    toggleBackBtn();
+    window.addEventListener('scroll', toggleBackBtn);
+    if (backBtn) backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Gestione immagine di sfondo con fallback per diverse estensioni
+    document.addEventListener('DOMContentLoaded', function() {
+      const imageFormats = [
+        'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 
+        'webp', 'WEBP', 'heic', 'HEIC', 'gif', 'GIF',
+        'bmp', 'BMP', 'tiff', 'TIFF'
+      ];
+      
+      const baseName = 'immagine1';
+      const heroBg = document.querySelector('.hero-bg');
+      
+      // Funzione per testare se un'immagine esiste
+      function testImage(src) {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve(src);
+          img.onerror = () => resolve(null);
+          img.src = src;
+        });
+      }
+      
+      // Testa tutte le estensioni in ordine
+      async function findImage() {
+        for (const format of imageFormats) {
+          const src = `${baseName}.${format}`;
+          try {
+            const result = await testImage(src);
+            if (result) {
+              // TROVATA! Usa questa immagine con opacità
+              // MODIFICATO: calc per spostamento preciso - sinistra e in basso
+              heroBg.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${result}')`;
+              heroBg.style.backgroundPosition = 'calc(50% - 0px) calc(50% + 0px)'; // 30px a sinistra, 20px in basso
+              heroBg.style.backgroundSize = 'cover';
+              heroBg.style.backgroundRepeat = 'no-repeat';
+              console.log(`✅ Immagine di sfondo trovata: ${result}`);
+              return;
+            }
+          } catch (e) {
+            console.log(`❌ Immagine non trovata: ${src}`);
+          }
+        }
+        // Se nessuna immagine viene trovata, mantieni il colore di fallback chiaro
+        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando colore di fallback chiaro.');
+      }
+      
+      // Esegui la ricerca dell'immagine
+      findImage();
+      
+      // Avvia l'effetto fuochi d'artificio pomposo
+      startPompousFireworks();
+    });
+
+    // FUNZIONE FUOCHI D'ARTIFICIO POMPOSI (SENZA SUONI)
+    function startPompousFireworks() {
+      const overlay = document.getElementById('fireworks-overlay');
+      const colors = [
+        '#FFD700', '#FF4500', '#00FFFF', '#FF1493', '#32CD32', 
+        '#FF69B4', '#1E90FF', '#FF00FF', '#00FF00', '#FFFF00',
+        '#FF8C00', '#FF1493', '#00CED1', '#8A2BE2', '#DC143C'
+      ];
+      
+      // Colori dorati per il matrimonio
+      const goldColors = ['#FFD700', '#FFDF00', '#FFEC8B', '#FFFACD', '#D4AF37', '#F4E4A6'];
+      
+      // Crea 12 fuochi d'artificio principali
+      let fireworksCount = 0;
+      const maxFireworks = 12;
+      
+      const createPompousFirework = (isGold = false) => {
+        if (fireworksCount >= maxFireworks) return;
+        fireworksCount++;
+        
+        // Posizione casuale su tutta la pagina
+        const centerX = Math.random() * window.innerWidth;
+        const centerY = Math.random() * (window.innerHeight * 0.7);
+        
+        // Flash iniziale leggero
+        const flash = document.createElement('div');
+        flash.className = 'firework-flash';
+        flash.style.left = `${centerX}px`;
+        flash.style.top = `${centerY}px`;
+        flash.style.width = '0px';
+        flash.style.height = '0px';
+        flash.style.animation = 'fireworkFlash 150ms ease-out';
+        overlay.appendChild(flash);
+        
+        // Anima il flash
+        setTimeout(() => {
+          flash.style.width = '80px';
+          flash.style.height = '80px';
+          flash.style.marginLeft = '-40px';
+          flash.style.marginTop = '-40px';
+        }, 10);
+        
+        // Rimuovi il flash dopo l'animazione
+        setTimeout(() => {
+          flash.remove();
+        }, 150);
+        
+        // Colore principale per questo fuoco d'artificio
+        const colorPalette = isGold ? goldColors : colors;
+        const mainColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+        const secondaryColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+        
+        // Crea molte particelle (60-90 per ogni fuoco)
+        const particleCount = 60 + Math.floor(Math.random() * 30);
+        const particleTypes = Math.floor(Math.random() * 2) + 2; // 2-3 tipi diversi di particelle
+        
+        for (let type = 0; type < particleTypes; type++) {
+          const typeColor = type === 0 ? mainColor : 
+                           type === 1 ? secondaryColor : 
+                           colorPalette[Math.floor(Math.random() * colorPalette.length)];
+          
+          for (let i = 0; i < particleCount / particleTypes; i++) {
+            setTimeout(() => {
+              const particle = document.createElement('div');
+              particle.className = 'firework-particle';
+              particle.style.background = typeColor;
+              particle.style.boxShadow = `0 0 12px ${typeColor}, 0 0 25px ${typeColor}`;
+              
+              // Dimensioni variabili
+              const size = 3 + Math.random() * 6;
+              particle.style.width = `${size}px`;
+              particle.style.height = `${size}px`;
+              
+              // Posizione iniziale al centro dell'esplosione
+              particle.style.left = `${centerX}px`;
+              particle.style.top = `${centerY}px`;
+              
+              // Angolo casuale per dispersione
+              const angle = Math.random() * Math.PI * 2;
+              const distance = 60 + Math.random() * 200;
+              
+              // Calcola posizione finale
+              const endX = Math.cos(angle) * distance;
+              const endY = Math.sin(angle) * distance;
+              
+              // Imposta variabili CSS per l'animazione
+              particle.style.setProperty('--explode-x', `${endX}px`);
+              particle.style.setProperty('--explode-y', `${endY}px`);
+              
+              // Animazione
+              const duration = 700 + Math.random() * 800;
+              const delay = Math.random() * 80;
+              
+              particle.style.animation = `
+                fireworkExplosion ${duration}ms cubic-bezier(0.1, 0.8, 0.3, 1) ${delay}ms forwards
+              `;
+              
+              overlay.appendChild(particle);
+              
+              // Rimuovi la particella dopo l'animazione
+              setTimeout(() => {
+                if (particle.parentNode) {
+                  particle.remove();
+                }
+              }, duration + delay);
+              
+            }, type * 40); // Delay tra i tipi di particelle
+          }
+        }
+        
+        // Crea particelle aggiuntive (scie)
+        setTimeout(() => {
+          createTrails(centerX, centerY, mainColor);
+        }, 200);
+      };
+      
+      // Funzione per creare scie eleganti
+      function createTrails(x, y, color) {
+        const trailCount = 3 + Math.floor(Math.random() * 5);
+        
+        for (let i = 0; i < trailCount; i++) {
+          const trail = document.createElement('div');
+          trail.className = 'firework-particle';
+          trail.style.background = color;
+          trail.style.boxShadow = `0 0 8px ${color}, 0 0 15px ${color}`;
+          
+          const size = 2 + Math.random() * 4;
+          trail.style.width = `${size}px`;
+          trail.style.height = `${size}px`;
+          
+          trail.style.left = `${x}px`;
+          trail.style.top = `${y}px`;
+          
+          // Direzione casuale per le scie
+          const angle = Math.random() * Math.PI * 2;
+          const distance = 50 + Math.random() * 150;
+          const endX = Math.cos(angle) * distance;
+          const endY = Math.sin(angle) * distance;
+          
+          trail.style.setProperty('--explode-x', `${endX}px`);
+          trail.style.setProperty('--explode-y', `${endY}px`);
+          
+          const duration = 1000 + Math.random() * 600;
+          const delay = Math.random() * 150;
+          
+          trail.style.animation = `
+            fireworkExplosion ${duration}ms ease-out ${delay}ms forwards
+          `;
+          
+          overlay.appendChild(trail);
+          
+          setTimeout(() => {
+            if (trail.parentNode) {
+              trail.remove();
+            }
+          }, duration + delay);
+        }
+      }
+      
+      // Avvia i fuochi d'artificio in sequenza
+      let fireworkInterval = setInterval(() => {
+        if (fireworksCount < maxFireworks) {
+          // Alterna tra fuochi colorati e dorati
+          const isGold = Math.random() > 0.6;
+          createPompousFirework(isGold);
+          
+          // A volte crea due fuochi contemporaneamente per un effetto più intenso
+          if (Math.random() > 0.7 && fireworksCount < maxFireworks - 1) {
+            setTimeout(() => createPompousFirework(!isGold), 150);
+          }
+        }
+      }, 250);
+      
+      // Intensifica gli ultimi 3 secondi
+      setTimeout(() => {
+        // Fuochi più frequenti negli ultimi secondi
+        clearInterval(fireworkInterval);
+        
+        let rapidCount = 0;
+        const maxRapid = 8;
+        
+        const rapidInterval = setInterval(() => {
+          if (rapidCount < maxRapid) {
+            createPompousFirework(true); // Solo dorati per il finale
+            rapidCount++;
+            
+            // Doppio esplosione per alcuni
+            if (rapidCount % 3 === 0) {
+              setTimeout(() => createPompousFirework(false), 100);
+            }
+          } else {
+            clearInterval(rapidInterval);
+          }
+        }, 180);
+        
+        // Ferma l'intervallo rapido dopo 2 secondi
+        setTimeout(() => {
+          clearInterval(rapidInterval);
+        }, 2000);
+        
+      }, 1000);
+      
+      // Rimuovi l'overlay dopo 3 secondi (dopo che tutti gli effetti sono finiti)
+      setTimeout(() => {
+        // Dissolvenza dell'overlay
+        overlay.style.transition = 'opacity 0.8s ease';
+        overlay.style.opacity = '0';
+        
+        setTimeout(() => {
+          if (overlay.parentNode) {
+            overlay.remove();
+          }
+        }, 800);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>La nostra storia — Elpidio & Cecilia</title>
+  <meta name="description" content="La storia di Elpidio e Cecilia" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <meta name="bingbot" content="noindex, nofollow" />
+  <meta name="slurp" content="noindex, nofollow" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --pearl-white: #FAF9F6;
+      --nav-text: #222222;
+      --panel-bg: rgba(255,255,255,0.95);
+      --panel-border: rgba(0,0,0,0.12);
+      --shadow: 0 18px 50px rgba(0,0,0,0.08);
+      --btn-bg: rgba(255,255,255,0.95);
+      --btn-border: rgba(0,0,0,0.20);
+      --btn-hover: rgba(0,0,0,0.05);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      color: #222;
+      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      background: var(--pearl-white);
+      background-attachment: fixed;
+    }
+
+    /* MAIN CONTENT */
+    .container {
+      max-width: min(900px, 92vw);
+      margin: 100px auto 40px;
+      padding: 0 20px;
+    }
+    .story-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      padding: clamp(30px, 5vw, 50px);
+      box-shadow: var(--shadow);
+    }
+    .story-card h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 48px);
+      margin: 0 0 20px;
+      color: #111111;
+    }
+    .story-section {
+      margin-bottom: 30px;
+    }
+    .story-section h2 {
+      font-family: 'Marcellus', serif;
+      font-size: 24px;
+      color: #222;
+      margin: 0 0 10px;
+    }
+    .story-section p {
+      line-height: 1.7;
+      color: #444;
+      margin: 0 0 15px;
+    }
+    .photo-container {
+      width: 100%;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #888;
+      font-style: italic;
+      margin: 20px 0;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+      min-height: 200px;
+      max-height: 500px;
+    }
+    .story-img {
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: contain;
+      display: none;
+      border-radius: 12px;
+    }
+    .photo-placeholder-text {
+      padding: 20px;
+      text-align: center;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 24px;
+      border-radius: 999px;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: #222;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+    }
+    .back-btn:hover {
+      transform: translateY(-2px);
+      background: var(--btn-hover);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    }
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 12px;
+      opacity: 0.6;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR CON HAMBURGER MENU -->
+  <nav class="nav">
+    <div class="logo-badge" aria-label="Logo E e C">E&amp;C</div>
+    
+    <!-- Hamburger menu button (mobile only) -->
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <!-- Navigation links -->
+    <div class="navlinks" id="navlinks">
+      <a href="index.html">Home</a>
+      <a href="cerimonia-ricevimento.html">Cerimonia & Ricevimento</a>
+      <a href="lista-nozze.html">Lista Nozze</a>
+      <a href="rsvp.html">RSVP</a>
+      <a href="storia.html">La nostra storia</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contatti.html">Contatti</a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+    <div class="story-card">
+      <h1>La nostra storia</h1>
+      
+      <div class="story-section">
+        <h2>Il primo incontro</h2>
+        <p>La nostra storia ha radici lontane, che affondano nei banchi di scuola. Ci siamo conosciuti alle elementari, nel 1995, due bambini che dividevano la stessa aula. Abbiamo proseguito insieme anche alle scuole medie, condividendo le prime amicizie e le avventure dell'adolescenza. Poi la vita, come spesso accade, ci ha portato su strade diverse per le superiori e l'università. Ma il destino, si sa, sa essere paziente e ha saputo attendere il momento giusto per riunirci.</p>
+        <div class="photo-container" id="photo-container-1">
+          <img class="story-img" id="story-img-1" alt="I nostri primi anni di scuola">
+          <div class="photo-placeholder-text" id="placeholder-1">I nostri primi anni di scuola</div>
+        </div>
+      </div>
+
+      <div class="story-section">
+        <h2>La crescita insieme</h2>
+        <p>Dopo anni, due rimpatriate con i compagni delle elementari – una nel 2018 e l'altra nel 2020 – hanno riacceso una scintilla. Alla fine del 2020, abbiamo iniziato a frequentarci e da lì è nato un amore profondo e consapevole. Il nostro legame è stato messo alla prova e temprato nella complicità: a marzo 2021, quando Cecilia ha rischiato di rompersi una spalla, Elpidio è stato il suo sostegno più fermo. Poi, a fine anno, è toccato a Elpidio affrontare un'operazione, e Cecilia non ha mai lasciato il suo fianco. In quelle difficoltà abbiamo scoperto non solo la forza dell'altro, ma anche la bellezza di prenderci cura l'uno dell'altra. Le nostre estati, da giugno ad agosto, sono diventate lunghi e indimenticabili viaggi in cui costruire ricordi solo nostri.</p>
+        <div class="photo-container" id="photo-container-2">
+          <img class="story-img" id="story-img-2" alt="Il nostro amore quotidiano">
+          <div class="photo-placeholder-text" id="placeholder-2">Il nostro amore quotidiano</div>
+        </div>
+      </div>
+
+      <div class="story-section">
+        <h2>La proposta</h2>
+        <p>E così siamo arrivati a Luglio 2025, sull'isola di Zante. Il cielo si tingeva d'arancio e oro al tramonto, e noi eravamo su una barca, in un momento di pura serenità durante un aperitivo. In quel silenzio carico di emozione, all'improvviso, Elpidio si è inginocchiato. Con il cuore che batteva all'impazzata e lo sguardo pieno di promesse, ha chiesto a Cecilia di passare il resto della vita insieme. La risposta, tra lacrime di gioia e un abbraccio che non finiva mai, non poteva che essere un "Sì" totale, urlato al vento del mare greco.</p>
+        <div class="photo-container" id="photo-container-3">
+          <img class="story-img" id="story-img-3" alt="Il momento magico della proposta">
+          <div class="photo-placeholder-text" id="placeholder-3">Il momento magico della proposta</div>
+        </div>
+      </div>
+
+      <div class="story-section">
+        <h2>Verso il grande giorno</h2>
+        <p>Da quel "sì" è iniziato il viaggio più bello: prepararci a diventare marito e moglie. Ogni dettaglio dell'organizzazione è intriso della nostra storia, delle risate, delle sfide superate e della certezza che essere insieme è la nostra casa. Con il cuore colmo di gratitudine, non vediamo l'ora di celebrare questo passo con tutte le persone care che hanno segnato, in modi diversi, il cammino che ci ha portati fin qui.</p>
+        <div class="photo-container" id="photo-container-4">
+          <img class="story-img" id="story-img-4" alt="Verso il nostro futuro">
+          <div class="photo-placeholder-text" id="placeholder-4">Verso il nostro futuro</div>
+        </div>
+      </div>
+
+      <a href="index.html" class="back-btn">← Torna alla Home</a>
+    </div>
+  </main>
+
+  <footer>© <span id="year"></span> Elpidio &amp; Cecilia</footer>
+
+  <!-- BACK TO TOP BUTTON -->
+  <button class="back-to-top" id="backToTop" aria-label="Torna all'inizio" title="Torna su">▲</button>
+
+  <script>
+    // Anno corrente
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Menu hamburger mobile
+    const hamburger = document.getElementById('hamburger');
+    const navlinks = document.getElementById('navlinks');
+    
+    if (hamburger && navlinks) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navlinks.classList.toggle('active');
+        
+        document.querySelectorAll('.navlinks a').forEach(link => {
+          link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navlinks.classList.remove('active');
+          });
+        });
+      });
+      
+      document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navlinks.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navlinks.classList.remove('active');
+        }
+      });
+    }
+
+    // Back to top
+    const backBtn = document.getElementById('backToTop');
+    const toggleBackBtn = () => {
+      if (!backBtn) return;
+      if (window.scrollY > 300) backBtn.classList.add('show');
+      else backBtn.classList.remove('show');
+    };
+    toggleBackBtn();
+    window.addEventListener('scroll', toggleBackBtn);
+    if (backBtn) backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Funzione per caricare immagini con diversi formati
+    function loadImageWithFallback(baseName, imgElement, placeholderElement) {
+      const imageFormats = [
+        'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 
+        'webp', 'WEBP', 'heic', 'HEIC', 'gif', 'GIF',
+        'bmp', 'BMP', 'tiff', 'TIFF'
+      ];
+      
+      // Funzione per testare se un'immagine esiste
+      function testImage(src) {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            console.log(`✅ Immagine trovata: ${src}`);
+            resolve(src);
+          };
+          img.onerror = () => {
+            console.log(`❌ Immagine non trovata: ${src}`);
+            resolve(null);
+          };
+          img.src = src;
+        });
+      }
+      
+      // Testa tutte le estensioni in ordine
+      async function findImage() {
+        for (const format of imageFormats) {
+          const src = `${baseName}.${format}`;
+          try {
+            const result = await testImage(src);
+            if (result) {
+              // TROVATA! Mostra l'immagine
+              imgElement.src = result;
+              imgElement.style.display = 'block';
+              
+              // Nascondi il testo del placeholder
+              if (placeholderElement) {
+                placeholderElement.style.display = 'none';
+              }
+              
+              // Adatta il contenitore all'immagine
+              const container = imgElement.parentElement;
+              if (container) {
+                container.style.background = 'none';
+                container.style.minHeight = 'auto';
+              }
+              
+              return true;
+            }
+          } catch (e) {
+            console.log(`Errore nel caricamento: ${src}`, e);
+          }
+        }
+        
+        // Se nessuna immagine viene trovata, mantieni il placeholder
+        console.warn(`⚠️ Nessuna immagine trovata per: ${baseName}`);
+        return false;
+      }
+      
+      // Esegui la ricerca dell'immagine
+      findImage();
+    }
+
+    // Carica le immagini per ogni sezione quando il DOM è pronto
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mappa dei nomi base delle immagini per ogni sezione
+      const imageBaseNames = [
+        'immaginestoria1',
+        'immaginestoria2', 
+        'immaginestoria3',
+        'immaginestoria4'
+      ];
+      
+      // Per ogni sezione, cerca l'immagine
+      for (let i = 0; i < 4; i++) {
+        const imgElement = document.getElementById(`story-img-${i+1}`);
+        const placeholderElement = document.getElementById(`placeholder-${i+1}`);
+        if (imgElement) {
+          loadImageWithFallback(imageBaseNames[i], imgElement, placeholderElement);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

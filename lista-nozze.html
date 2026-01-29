@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>Lista nozze — Elpidio & Cecilia</title>
+  <meta name="description" content="Lista nozze di Elpidio e Cecilia" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <meta name="bingbot" content="noindex, nofollow" />
+  <meta name="slurp" content="noindex, nofollow" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --pearl-white: #FAF9F6;
+      --nav-text: #222222;
+      --panel-bg: rgba(255,255,255,0.95);
+      --panel-border: rgba(0,0,0,0.12);
+      --shadow: 0 18px 50px rgba(0,0,0,0.08);
+      --btn-bg: rgba(255,255,255,0.95);
+      --btn-border: rgba(0,0,0,0.20);
+      --btn-hover: rgba(0,0,0,0.05);
+      --gold-color: #D4AF37;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      color: #222;
+      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      background: var(--pearl-white);
+      background-attachment: fixed;
+    }
+
+    /* MAIN CONTENT */
+    .container {
+      max-width: min(800px, 92vw);
+      margin: 100px auto 40px;
+      padding: 0 20px;
+    }
+    .lista-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      padding: clamp(30px, 5vw, 50px);
+      box-shadow: var(--shadow);
+    }
+    .lista-card h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 48px);
+      margin: 0 0 10px;
+      color: #111111;
+      text-align: center;
+    }
+    .lista-subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 40px;
+      font-size: 18px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+    .info-item {
+      padding: 25px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+    .info-item h3 {
+      font-family: 'Marcellus', serif;
+      font-size: 22px;
+      margin: 0 0 15px;
+      color: #222;
+      text-align: center;
+    }
+    .info-item p {
+      color: #444;
+      margin: 0 0 15px;
+      line-height: 1.7;
+      text-align: center;
+    }
+    .iban-box {
+      background: rgba(212, 175, 55, 0.1);
+      padding: 20px;
+      border-radius: 12px;
+      border: 2px solid var(--gold-color);
+      margin: 25px 0;
+      text-align: center;
+    }
+    .iban-number {
+      font-family: monospace;
+      font-size: 18px;
+      font-weight: bold;
+      color: #222;
+      margin: 10px 0;
+      letter-spacing: 1px;
+    }
+    .iban-details {
+      color: #666;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    .back-btn {
+      display: block;
+      width: fit-content;
+      margin: 30px auto 0;
+      padding: 12px 24px;
+      border-radius: 999px;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: #222;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .back-btn:hover {
+      transform: translateY(-2px);
+      background: var(--btn-hover);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    }
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 12px;
+      opacity: 0.6;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR CON HAMBURGER MENU -->
+  <nav class="nav">
+    <div class="logo-badge" aria-label="Logo E e C">E&amp;C</div>
+    
+    <!-- Hamburger menu button (mobile only) -->
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <!-- Navigation links -->
+    <div class="navlinks" id="navlinks">
+      <a href="index.html">Home</a>
+      <a href="cerimonia-ricevimento.html">Cerimonia & Ricevimento</a>
+      <a href="lista-nozze.html">Lista Nozze</a>
+      <a href="rsvp.html">RSVP</a>
+      <a href="storia.html">La nostra storia</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contatti.html">Contatti</a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+    <div class="lista-card">
+      <h1>Lista nozze</h1>
+      <p class="lista-subtitle">il regalo più bello è la vostra presenza, ma se volete potete contribuire con un piccolo dono alla nostra luna di miele</p>
+      
+      <div class="info-item">
+        <div class="iban-box">
+          <h3>IBAN</h3>
+          <div class="iban-number">ITXXXXXX</div>
+          <div class="iban-details">Intestato a Capasso Elpidio, Pizzagalli Cecilia</div>
+        </div>
+      </div>
+
+      <a href="index.html" class="back-btn">← Torna alla Home</a>
+    </div>
+  </main>
+
+  <footer>© <span id="year"></span> Elpidio &amp; Cecilia</footer>
+
+  <!-- BACK TO TOP BUTTON -->
+  <button class="back-to-top" id="backToTop" aria-label="Torna all'inizio" title="Torna su">▲</button>
+
+  <script>
+    // Anno corrente
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Menu hamburger mobile
+    const hamburger = document.getElementById('hamburger');
+    const navlinks = document.getElementById('navlinks');
+    
+    if (hamburger && navlinks) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navlinks.classList.toggle('active');
+        
+        document.querySelectorAll('.navlinks a').forEach(link => {
+          link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navlinks.classList.remove('active');
+          });
+        });
+      });
+      
+      document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navlinks.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navlinks.classList.remove('active');
+        }
+      });
+    }
+
+    // Back to top
+    const backBtn = document.getElementById('backToTop');
+    const toggleBackBtn = () => {
+      if (!backBtn) return;
+      if (window.scrollY > 300) backBtn.classList.add('show');
+      else backBtn.classList.remove('show');
+    };
+    toggleBackBtn();
+    window.addEventListener('scroll', toggleBackBtn);
+    if (backBtn) backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

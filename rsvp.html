@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>RSVP — Elpidio & Cecilia</title>
+  <meta name="description" content="Conferma presenza al matrimonio di Elpidio e Cecilia" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <meta name="bingbot" content="noindex, nofollow" />
+  <meta name="slurp" content="noindex, nofollow" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --pearl-white: #FAF9F6;
+      --nav-text: #222222;
+      --panel-bg: rgba(255,255,255,0.95);
+      --panel-border: rgba(0,0,0,0.12);
+      --shadow: 0 18px 50px rgba(0,0,0,0.08);
+      --btn-bg: rgba(255,255,255,0.95);
+      --btn-border: rgba(0,0,0,0.20);
+      --btn-hover: rgba(0,0,0,0.05);
+      --success-color: #2e7d32;
+      --success-bg: rgba(46, 125, 50, 0.1);
+      --gold-color: #D4AF37;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      color: #222;
+      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      background: var(--pearl-white);
+      background-attachment: fixed;
+    }
+
+    /* MAIN CONTENT */
+    .container {
+      max-width: min(800px, 92vw);
+      margin: 100px auto 40px;
+      padding: 0 20px;
+    }
+    .rsvp-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      padding: clamp(26px, 5vw, 50px);
+      box-shadow: var(--shadow);
+    }
+    .rsvp-card h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(34px, 5vw, 48px);
+      margin: 0 0 10px;
+      color: #111111;
+      text-align: center;
+    }
+    .rsvp-subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 34px;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    .form-container {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 650px) {
+      .container { padding: 0 14px; }
+      .form-row { grid-template-columns: 1fr; gap: 14px; }
+    }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #222;
+    }
+    .form-group.required label::after {
+      content: " *";
+      color: #d32f2f;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.15);
+      font-family: inherit;
+      font-size: 16px;
+      line-height: 1.2;
+      transition: border 0.2s ease;
+      background: #fff;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #222;
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .help {
+      color: #666;
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 16px 24px;
+      border-radius: 999px;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: #222;
+      font-weight: 700;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+      margin-top: 26px;
+      min-height: 52px;
+    }
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background: var(--btn-hover);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .back-btn {
+      display: block;
+      width: fit-content;
+      margin: 22px auto 0;
+      padding: 12px 24px;
+      border-radius: 999px;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: #222;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .back-btn:hover {
+      transform: translateY(-2px);
+      background: var(--btn-hover);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    }
+
+    .success-message {
+      background: var(--success-bg);
+      border: 1px solid var(--success-color);
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 18px;
+      text-align: center;
+      display: none;
+    }
+    .success-message.show { display: block; animation: fadeIn 0.35s ease; }
+    .success-message h3 { color: var(--success-color); margin-top: 0; }
+
+    .error-message {
+      color: #d32f2f;
+      font-size: 14px;
+      margin-top: 6px;
+      display: none;
+    }
+    .error-message.show { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 12px;
+      opacity: 0.6;
+      color: #666;
+    }
+
+    /* form invisibile/iframe */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR CON HAMBURGER MENU -->
+  <nav class="nav">
+    <div class="logo-badge" aria-label="Logo E e C">E&amp;C</div>
+    
+    <!-- Hamburger menu button (mobile only) -->
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <!-- Navigation links -->
+    <div class="navlinks" id="navlinks">
+      <a href="index.html">Home</a>
+      <a href="cerimonia-ricevimento.html">Cerimonia & Ricevimento</a>
+      <a href="lista-nozze.html">Lista Nozze</a>
+      <a href="rsvp.html" aria-current="page">RSVP</a>
+      <a href="storia.html">La nostra storia</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contatti.html">Contatti</a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+    <div class="rsvp-card">
+      <h1>RSVP</h1>
+      <p class="rsvp-subtitle">Conferma la tua presenza al nostro matrimonio</p>
+
+      <div class="form-container">
+        <!-- FORM VISIBILE (SITO) -->
+        <form id="rsvp-form" novalidate>
+          <div class="form-row">
+            <div class="form-group required">
+              <label for="nome">Nome</label>
+              <input type="text" id="nome" name="nome" required placeholder="Il tuo nome" autocomplete="given-name" enterkeyhint="next">
+              <div class="error-message" id="nome-error">Il nome è obbligatorio</div>
+            </div>
+            <div class="form-group required">
+              <label for="cognome">Cognome</label>
+              <input type="text" id="cognome" name="cognome" required placeholder="Il tuo cognome" autocomplete="family-name" enterkeyhint="next">
+              <div class="error-message" id="cognome-error">Il cognome è obbligatorio</div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email (opzionale)</label>
+              <input type="email" id="email" name="email" placeholder="nome@esempio.com" autocomplete="email" inputmode="email" enterkeyhint="next">
+              <div class="error-message" id="email-error">Email non valida</div>
+            </div>
+            <div class="form-group">
+              <label for="telefono">Telefono (opzionale)</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="+39 123 456 7890" autocomplete="tel" inputmode="tel" enterkeyhint="next">
+            </div>
+          </div>
+
+          <div class="form-group required">
+            <label for="persone">Numero di persone</label>
+            <select id="persone" name="persone" required>
+              <option value="" disabled selected>Seleziona il numero</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+            <div class="error-message" id="persone-error">Seleziona il numero di persone</div>
+          </div>
+
+          <div class="form-group required">
+            <label for="partecipazione">Parteciperai a</label>
+            <select id="partecipazione" name="partecipazione" required>
+              <option value="" disabled selected>Seleziona un'opzione</option>
+              <option value="Cerimonia e Ricevimento">Cerimonia e Ricevimento</option>
+              <option value="Solo ricevimento">Solo ricevimento</option>
+              <option value="Solo cerimonia">Solo cerimonia</option>
+            </select>
+            <div class="error-message" id="partecipazione-error">Seleziona la partecipazione</div>
+          </div>
+
+          <div class="form-group">
+            <label for="note">Note speciali (allergie/intolleranze)</label>
+            <textarea id="note" name="note" placeholder="Intolleranze alimentari, preferenze dietetiche, bambini piccoli, ecc." autocomplete="off"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="messaggio">Messaggio per gli sposi 😁</label>
+            <textarea id="messaggio" name="messaggio" placeholder="Scrivici qualcosa di speciale..." autocomplete="off"></textarea>
+          </div>
+
+          <!-- Anti-spam semplice (campo nascosto) -->
+          <div class="sr-only" aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button type="submit" class="submit-btn" id="submit-btn">
+            <span id="btn-text">Invia Conferma</span>
+            <span id="btn-loading" style="display:none;">Invio in corso...</span>
+          </button>
+        </form>
+
+        <!-- MESSAGGIO SUCCESSO -->
+        <div class="success-message" id="success-message" role="status" aria-live="polite">
+          <h3>Conferma inviata con successo</h3>
+          <p>Grazie <strong><span id="success-name"></span></strong> per aver confermato la tua presenza.</p>
+        </div>
+
+        <a href="index.html" class="back-btn">← Torna alla Home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>© <span id="year"></span> Elpidio &amp; Cecilia</footer>
+
+  <!-- BACK TO TOP BUTTON -->
+  <button class="back-to-top" id="backToTop" aria-label="Torna all'inizio" title="Torna su">▲</button>
+
+  <!-- IFRAME nascosto per invio Google Forms -->
+  <iframe id="gf-iframe" name="gf-iframe" class="sr-only" title="Invio RSVP" aria-hidden="true"></iframe>
+
+  <!-- FORM nascosto: qui mettiamo gli entry.* del Google Form -->
+  <form id="gf-form" class="sr-only" method="POST" target="gf-iframe" action="https://docs.google.com/forms/d/e/1FAIpQLSetEMlIdiONOtjCuF9BZ8EZt8KKcsU4afwggASHNcQRDoukCg/formResponse">
+    <input type="text" name="entry.738591272" id="gf_nome">
+    <input type="text" name="entry.1275687098" id="gf_cognome">
+    <input type="text" name="entry.959844416" id="gf_email">
+    <input type="text" name="entry.281060993" id="gf_telefono">
+    <input type="text" name="entry.1192058120" id="gf_persone">
+    <input type="text" name="entry.579231647" id="gf_partecipazione">
+    <textarea name="entry.605281712" id="gf_note"></textarea>
+    <textarea name="entry.1427081091" id="gf_messaggio"></textarea>
+  </form>
+
+  <script>
+    // Anno corrente nel footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Menu hamburger mobile
+    const hamburger = document.getElementById('hamburger');
+    const navlinks = document.getElementById('navlinks');
+    
+    if (hamburger && navlinks) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navlinks.classList.toggle('active');
+        
+        document.querySelectorAll('.navlinks a').forEach(link => {
+          link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navlinks.classList.remove('active');
+          });
+        });
+      });
+      
+      document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navlinks.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navlinks.classList.remove('active');
+        }
+      });
+    }
+
+    // Back to top
+    const backBtn = document.getElementById('backToTop');
+    const toggleBackBtn = () => {
+      if (!backBtn) return;
+      if (window.scrollY > 300) backBtn.classList.add('show');
+      else backBtn.classList.remove('show');
+    };
+    toggleBackBtn();
+    window.addEventListener('scroll', toggleBackBtn);
+    if (backBtn) backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    const form = document.getElementById('rsvp-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+    const btnLoading = document.getElementById('btn-loading');
+    const successMessage = document.getElementById('success-message');
+    const successName = document.getElementById('success-name');
+
+    const gfForm = document.getElementById('gf-form');
+    const gfIframe = document.getElementById('gf-iframe');
+
+    let pendingSubmit = false;
+
+    // Validazione in tempo reale
+    const inputs = form.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => validateField(input));
+      input.addEventListener('input', () => clearError(input));
+      input.addEventListener('change', () => clearError(input));
+    });
+
+    function validateField(field) {
+      const errorElement = document.getElementById(`${field.id}-error`);
+      if (!errorElement) return true;
+
+      if (field.hasAttribute('required') && !String(field.value || '').trim()) {
+        errorElement.classList.add('show');
+        return false;
+      }
+
+      if (field.type === 'email' && field.value && !isValidEmail(field.value)) {
+        errorElement.classList.add('show');
+        return false;
+      }
+
+      errorElement.classList.remove('show');
+      return true;
+    }
+
+    function clearError(field) {
+      const errorElement = document.getElementById(`${field.id}-error`);
+      if (errorElement) errorElement.classList.remove('show');
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function setLoading(isLoading) {
+      submitBtn.disabled = isLoading;
+      btnText.style.display = isLoading ? 'none' : 'inline';
+      btnLoading.style.display = isLoading ? 'inline' : 'none';
+    }
+
+    function showSuccess(nome) {
+      successName.textContent = nome || '';
+      successMessage.classList.add('show');
+      successMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      setTimeout(() => successMessage.classList.remove('show'), 8000);
+    }
+
+    // Quando l'iframe carica dopo il POST, consideriamo la submission completata
+    gfIframe.addEventListener('load', () => {
+      if (!pendingSubmit) return;
+      pendingSubmit = false;
+      setLoading(false);
+
+      const nome = document.getElementById('nome').value.trim();
+      showSuccess(nome);
+
+      // Reset form e bozza
+      form.reset();
+      localStorage.removeItem('rsvpDraft');
+    });
+
+    // Invio del form
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // honeypot anti-spam
+      const honeypot = document.getElementById('website');
+      if (honeypot && honeypot.value) {
+        return;
+      }
+
+      // Validazione finale
+      let isValid = true;
+      const requiredFields = form.querySelectorAll('[required]');
+      requiredFields.forEach(field => {
+        if (!validateField(field)) isValid = false;
+      });
+
+      // Email: valida solo se presente
+      const emailField = document.getElementById('email');
+      if (emailField && emailField.value && !isValidEmail(emailField.value)) {
+        const err = document.getElementById('email-error');
+        if (err) err.classList.add('show');
+        isValid = false;
+      }
+
+      if (!isValid) {
+        alert('Per favore, compila tutti i campi obbligatori (*)');
+        return;
+      }
+
+      // Popola il form nascosto (Google Forms)
+      document.getElementById('gf_nome').value = document.getElementById('nome').value.trim();
+      document.getElementById('gf_cognome').value = document.getElementById('cognome').value.trim();
+      document.getElementById('gf_email').value = (document.getElementById('email').value || '').trim();
+      document.getElementById('gf_telefono').value = (document.getElementById('telefono').value || '').trim();
+      document.getElementById('gf_persone').value = document.getElementById('persone').value;
+      document.getElementById('gf_partecipazione').value = document.getElementById('partecipazione').value;
+      document.getElementById('gf_note').value = (document.getElementById('note').value || '').trim();
+      document.getElementById('gf_messaggio').value = (document.getElementById('messaggio').value || '').trim();
+
+      // Invio
+      pendingSubmit = true;
+      setLoading(true);
+
+      // Submit reale su Google Forms
+      gfForm.submit();
+
+      // Fallback
+      setTimeout(() => {
+        if (!pendingSubmit) return;
+        pendingSubmit = false;
+        setLoading(false);
+        const nome = document.getElementById('nome').value.trim();
+        showSuccess(nome);
+        form.reset();
+        localStorage.removeItem('rsvpDraft');
+      }, 2500);
+    });
+
+    // Salva bozza in localStorage
+    form.addEventListener('input', function() {
+      const formData = {};
+      inputs.forEach(input => {
+        if (!input.name) return;
+        if (input.name === 'website') return;
+        formData[input.name] = input.value;
+      });
+      localStorage.setItem('rsvpDraft', JSON.stringify(formData));
+    });
+
+    // Ripristina bozza al caricamento
+    window.addEventListener('load', function() {
+      const draft = localStorage.getItem('rsvpDraft');
+      if (!draft) return;
+      try {
+        const formData = JSON.parse(draft);
+        inputs.forEach(input => {
+          if (!input.name) return;
+          if (input.name === 'website') return;
+          if (Object.prototype.hasOwnProperty.call(formData, input.name)) {
+            input.value = formData[input.name];
+          }
+        });
+      } catch (e) {
+        // ignore
+      }
+    });
+  </script>
+</body>
+</html>
