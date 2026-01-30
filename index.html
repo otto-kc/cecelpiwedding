@@ -29,15 +29,48 @@
       position: relative;
     }
     
-    /* Contenitore per l'immagine di sfondo */
+    /* Contenitore per l'immagine di sfondo con TRAMA */
     .hero-bg {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #FAF0DC 0%, #F5E8C9 100%);
+      /* TRAMA DI SFONDO - Verrà sostituita con quella scelta */
+      background-color: #FAF5E9;
+      background-image: 
+        radial-gradient(circle at 20% 50%, transparent 0%, transparent 49%, rgba(212, 175, 55, 0.08) 50%, transparent 51%),
+        radial-gradient(circle at 80% 50%, transparent 0%, transparent 49%, rgba(212, 175, 55, 0.08) 50%, transparent 51%);
+      background-size: 120px 80px;
+      background-position: 0 0, 60px 40px;
       z-index: 1;
+    }
+    
+    /* Contenitore per l'immagine con cornice avorio */
+    .hero-image-frame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 600px;
+      aspect-ratio: 3/4;
+      padding: 20px;
+      background: #FFFFF0; /* Avorio chiaro */
+      box-shadow: 
+        0 0 0 3px #F5F5DC,
+        0 0 0 6px #FFFFF0,
+        0 10px 40px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+    
+    .hero-image-inner {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
     }
     
     .hero::before {
@@ -65,7 +98,7 @@
       font-family: 'Imperial Script', cursive;
       font-size: clamp(64px, 12vw, 160px);
       font-weight: 400;
-      margin: 30px 0 0 0; /* MODIFICATO: ridotto margine superiore per spostare più in alto */
+      margin: 30px 0 0 0;
       color: #FF7F50;
       white-space: nowrap;
       text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
@@ -166,6 +199,12 @@
 
     /* Responsive per mobile migliorato */
     @media (max-width: 768px) {
+      .hero-image-frame {
+        width: 85%;
+        max-width: 400px;
+        padding: 15px;
+      }
+      
       .rsvp-hero-btn {
         padding: 16px 32px;
         font-size: 18px;
@@ -181,7 +220,7 @@
         font-size: clamp(56px, 11vw, 140px);
         white-space: normal;
         line-height: 0.9;
-        margin: 20px 0 0 0; /* MODIFICATO per mobile */
+        margin: 20px 0 0 0;
         word-break: break-word;
       }
       
@@ -259,116 +298,53 @@
     .firework-flash {
       position: absolute;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
-      opacity: 0;
+      background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 215, 0, 0.8) 30%, transparent 70%);
+      pointer-events: none;
+      z-index: 10000;
+      transition: all 0.15s ease-out;
     }
   </style>
 </head>
-<body id="top">
-
-  <!-- FUOCHI D'ARTIFICIO OVERLAY -->
+<body>
+  <!-- Overlay per fuochi d'artificio -->
   <div id="fireworks-overlay"></div>
 
-  <!-- NAVBAR CON HAMBURGER MENU -->
-  <nav class="nav">
-    <div class="logo-badge" aria-label="Logo E e C">E&amp;C</div>
-    
-    <!-- Hamburger menu button (mobile only) -->
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    
-    <!-- Navigation links -->
-    <div class="navlinks" id="navlinks">
-      <a href="index.html">Home</a>
-      <a href="cerimonia-ricevimento.html">Cerimonia & Ricevimento</a>
-      <a href="lista-nozze.html">Lista Nozze</a>
-      <a href="rsvp.html">RSVP</a>
-      <a href="storia.html">La nostra storia</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contatti.html">Contatti</a>
-    </div>
-  </nav>
-
-  <!-- HERO - NO SCROLL -->
-  <header class="hero">
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <!-- Sfondo con trama -->
     <div class="hero-bg"></div>
-    <div class="hero-content">
-      <h1 class="couple-name">Elpidio&nbsp;&amp;&nbsp;Cecilia</h1>
-      <p class="wedding-date">10/07/2026</p>
-      
-      <!-- PULSANTE CONFERMA PRESENZA ORO/BIANCO -->
-      <a href="rsvp.html" class="rsvp-hero-btn" id="heroRsvpBtn">
-        <span>Conferma la tua presenza</span>
-        <div class="shine"></div>
-      </a>
-      
-      <!-- MESSAGGIO DI BENVENUTO -->
-      <div class="welcome-message">
-        Siamo felicissimi di darvi il benvenuto sul nostro sito. In attesa del grande giorno, abbiamo creato questo sito, dove potete trovare tutte le informazioni utili per il giorno del matrimonio e qualche particolare della nostra storia. A presto, un abbraccio!
-      </div>
+    
+    <!-- Cornice con immagine -->
+    <div class="hero-image-frame">
+      <div class="hero-image-inner" id="hero-image-inner"></div>
     </div>
-  </header>
-
-  <footer>© <span id="year"></span> Elpidio &amp; Cecilia</footer>
-
-  <!-- BACK TO TOP BUTTON -->
-  <button class="back-to-top" id="backToTop" aria-label="Torna all'inizio" title="Torna su">▲</button>
+    
+    <!-- Contenuto Hero -->
+    <div class="hero-content">
+      <h1 class="couple-name">Elpidio & Cecilia</h1>
+      <p class="wedding-date">27 SETTEMBRE 2025</p>
+      
+      <p class="welcome-message">
+        Con gioia vi invitiamo a condividere questo giorno speciale con noi
+      </p>
+      
+      <a href="rsvp.html" class="rsvp-hero-btn">
+        <span class="shine"></span>
+        CONFERMA PRESENZA
+      </a>
+    </div>
+  </section>
 
   <script>
-    // Anno corrente
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Menu hamburger mobile
-    const hamburger = document.getElementById('hamburger');
-    const navlinks = document.getElementById('navlinks');
-    
-    if (hamburger && navlinks) {
-      hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navlinks.classList.toggle('active');
-        
-        // Chiudi il menu quando si clicca su un link
-        document.querySelectorAll('.navlinks a').forEach(link => {
-          link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navlinks.classList.remove('active');
-          });
-        });
-      });
-      
-      // Chiudi il menu se si clicca fuori
-      document.addEventListener('click', (e) => {
-        if (!hamburger.contains(e.target) && !navlinks.contains(e.target)) {
-          hamburger.classList.remove('active');
-          navlinks.classList.remove('active');
-        }
-      });
-    }
-
-    // Back to top
-    const backBtn = document.getElementById('backToTop');
-    const toggleBackBtn = () => {
-      if (!backBtn) return;
-      if (window.scrollY > 300) backBtn.classList.add('show');
-      else backBtn.classList.remove('show');
-    };
-    toggleBackBtn();
-    window.addEventListener('scroll', toggleBackBtn);
-    if (backBtn) backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    // Gestione immagine di sfondo con fallback per diverse estensioni
     document.addEventListener('DOMContentLoaded', function() {
-      const imageFormats = [
-        'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 
-        'webp', 'WEBP', 'heic', 'HEIC', 'gif', 'GIF',
-        'bmp', 'BMP', 'tiff', 'TIFF'
-      ];
-      
-      const baseName = 'immagine1';
       const heroBg = document.querySelector('.hero-bg');
+      const heroImageInner = document.getElementById('hero-image-inner');
+      
+      // Nome base dell'immagine (senza estensione)
+      const baseName = 'hero';
+      
+      // Estensioni da testare in ordine di priorità
+      const imageFormats = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
       
       // Funzione per testare se un'immagine esiste
       function testImage(src) {
@@ -387,21 +363,17 @@
           try {
             const result = await testImage(src);
             if (result) {
-              // TROVATA! Usa questa immagine con opacità
-              // MODIFICATO: calc per spostamento preciso - sinistra e in basso
-              heroBg.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${result}')`;
-              heroBg.style.backgroundPosition = 'calc(50% - 0px) calc(50% + 0px)'; // 30px a sinistra, 20px in basso
-              heroBg.style.backgroundSize = 'cover';
-              heroBg.style.backgroundRepeat = 'no-repeat';
-              console.log(`✅ Immagine di sfondo trovata: ${result}`);
+              // TROVATA! Usa questa immagine nella cornice
+              heroImageInner.style.backgroundImage = `url('${result}')`;
+              console.log(`✅ Immagine trovata e caricata nella cornice: ${result}`);
               return;
             }
           } catch (e) {
             console.log(`❌ Immagine non trovata: ${src}`);
           }
         }
-        // Se nessuna immagine viene trovata, mantieni il colore di fallback chiaro
-        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando colore di fallback chiaro.');
+        // Se nessuna immagine viene trovata, mostra un messaggio
+        console.warn('⚠️ Nessuna immagine di sfondo trovata. Assicurati di avere un file hero.jpg/png/webp nella cartella.');
       }
       
       // Esegui la ricerca dell'immagine
