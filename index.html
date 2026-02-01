@@ -15,6 +15,8 @@
   
   <!-- CSS Comune -->
   <link rel="stylesheet" href="style.css">
+  <!-- NUOVO: Tema marmo avorio -->
+  <link rel="stylesheet" href="theme.css">
 
   <style>
     /* SOLO GLI STILI UNICI DELLA HOMEPAGE */
@@ -36,7 +38,6 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #FAF0DC 0%, #F5E8C9 100%);
       z-index: 1;
     }
     
@@ -47,7 +48,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.1);
       z-index: 1;
     }
     
@@ -65,10 +66,12 @@
       font-family: 'Imperial Script', cursive;
       font-size: clamp(64px, 12vw, 160px);
       font-weight: 400;
-      margin: 30px 0 0 0; /* MODIFICATO: ridotto margine superiore per spostare più in alto */
-      color: #FF7F50;
+      margin: 30px 0 0 0;
+      color: #D4AF37;
       white-space: nowrap;
-      text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
+      text-shadow: 
+        3px 3px 15px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(212, 175, 55, 0.3);
       letter-spacing: 1px;
       line-height: 0.9;
       font-style: normal;
@@ -77,9 +80,9 @@
     .wedding-date {
       font-family: 'Marcellus', serif;
       font-size: clamp(24px, 4vw, 36px);
-      color: #FF7F50;
+      color: #D4AF37;
       margin: 20px 0 0;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
       letter-spacing: 3px;
       font-weight: 500;
     }
@@ -90,7 +93,6 @@
       margin-top: 40px;
       padding: 18px 40px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 50%, #D4AF37 100%);
       color: #222;
       font-family: 'Marcellus', serif;
       font-size: 20px;
@@ -113,7 +115,6 @@
         0 12px 40px rgba(212, 175, 55, 0.7),
         inset 0 2px 6px rgba(255, 255, 255, 0.9),
         0 0 35px rgba(212, 175, 55, 0.7);
-      background: linear-gradient(135deg, #E6BF40 0%, #F5E8B0 50%, #E6BF40 100%);
     }
 
     .rsvp-hero-btn:active {
@@ -153,13 +154,13 @@
 
     /* MESSAGGIO DI BENVENUTO */
     .welcome-message {
-      color: #FF7F50;
+      color: #D4AF37;
       font-family: 'Marcellus', serif;
       font-size: clamp(18px, 2.5vw, 22px);
       max-width: 700px;
       margin: 40px auto 0;
       line-height: 1.6;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
       font-style: italic;
       padding: 0 20px;
     }
@@ -181,7 +182,7 @@
         font-size: clamp(56px, 11vw, 140px);
         white-space: normal;
         line-height: 0.9;
-        margin: 20px 0 0 0; /* MODIFICATO per mobile */
+        margin: 20px 0 0 0;
         word-break: break-word;
       }
       
@@ -201,7 +202,7 @@
       }
     }
 
-    /* STILI PER FUOCHI D'ARTIFICIO POMPOSI */
+    /* STILI PER ANIMAZIONE COMBINATA FUOCHI + FONTANE */
     #fireworks-overlay {
       position: fixed;
       top: 0;
@@ -211,7 +212,6 @@
       pointer-events: none;
       z-index: 9999;
       overflow: hidden;
-      background: rgba(0, 0, 0, 0.85);
     }
 
     .firework-particle {
@@ -222,7 +222,14 @@
       will-change: transform, opacity;
     }
 
-    /* Animazioni per i fuochi */
+    .fountain-particle {
+      position: absolute;
+      border-radius: 50%;
+      will-change: transform, opacity;
+      bottom: 0;
+    }
+
+    /* Animazioni per i fuochi (2 secondi) */
     @keyframes fireworkLaunch {
       0% {
         transform: translateY(100vh) scale(0);
@@ -254,6 +261,35 @@
     @keyframes fireworkFlash {
       0%, 100% { opacity: 0; }
       50% { opacity: 1; }
+    }
+
+    /* Animazioni per le fontane (1 secondo) */
+    @keyframes fountainRise {
+      0% {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(calc(-100vh - 50px)) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fountainSpread {
+      0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(calc(var(--fountain-y) - 100px)) translateX(var(--fountain-x)) scale(0);
+        opacity: 0;
+      }
     }
 
     .firework-flash {
@@ -388,9 +424,8 @@
             const result = await testImage(src);
             if (result) {
               // TROVATA! Usa questa immagine con opacità
-              // MODIFICATO: calc per spostamento preciso - sinistra e in basso
-              heroBg.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${result}')`;
-              heroBg.style.backgroundPosition = 'calc(50% - 0px) calc(50% + 0px)'; // 30px a sinistra, 20px in basso
+              heroBg.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('${result}')`;
+              heroBg.style.backgroundPosition = 'calc(50% - 0px) calc(50% + 0px)';
               heroBg.style.backgroundSize = 'cover';
               heroBg.style.backgroundRepeat = 'no-repeat';
               console.log(`✅ Immagine di sfondo trovata: ${result}`);
@@ -400,19 +435,19 @@
             console.log(`❌ Immagine non trovata: ${src}`);
           }
         }
-        // Se nessuna immagine viene trovata, mantieni il colore di fallback chiaro
-        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando colore di fallback chiaro.');
+        // Se nessuna immagine viene trovata, mantieni lo sfondo marmo
+        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando sfondo marmo.');
       }
       
       // Esegui la ricerca dell'immagine
       findImage();
       
-      // Avvia l'effetto fuochi d'artificio pomposo
-      startPompousFireworks();
+      // Avvia l'animazione combinata fuochi + fontane
+      startCombinedAnimation();
     });
 
-    // FUNZIONE FUOCHI D'ARTIFICIO POMPOSI (SENZA SUONI)
-    function startPompousFireworks() {
+    // ANIMAZIONE COMBINATA: FUOCHI (2s) + FONTANE (1s)
+    function startCombinedAnimation() {
       const overlay = document.getElementById('fireworks-overlay');
       const colors = [
         '#FFD700', '#FF4500', '#00FFFF', '#FF1493', '#32CD32', 
@@ -423,208 +458,213 @@
       // Colori dorati per il matrimonio
       const goldColors = ['#FFD700', '#FFDF00', '#FFEC8B', '#FFFACD', '#D4AF37', '#F4E4A6'];
       
-      // Crea 12 fuochi d'artificio principali
+      // FASE 1: FUOCHI D'ARTIFICIO (2 secondi)
       let fireworksCount = 0;
-      const maxFireworks = 12;
+      const maxFireworks = 8; // Ridotto per 2 secondi
       
-      const createPompousFirework = (isGold = false) => {
+      const createFirework = (isGold = false) => {
         if (fireworksCount >= maxFireworks) return;
         fireworksCount++;
         
-        // Posizione casuale su tutta la pagina
+        // Posizione casuale
         const centerX = Math.random() * window.innerWidth;
-        const centerY = Math.random() * (window.innerHeight * 0.7);
+        const centerY = 100 + Math.random() * (window.innerHeight * 0.5);
         
-        // Flash iniziale leggero
+        // Flash iniziale
         const flash = document.createElement('div');
         flash.className = 'firework-flash';
         flash.style.left = `${centerX}px`;
         flash.style.top = `${centerY}px`;
         flash.style.width = '0px';
         flash.style.height = '0px';
-        flash.style.animation = 'fireworkFlash 150ms ease-out';
+        flash.style.animation = 'fireworkFlash 100ms ease-out';
         overlay.appendChild(flash);
         
-        // Anima il flash
         setTimeout(() => {
-          flash.style.width = '80px';
-          flash.style.height = '80px';
-          flash.style.marginLeft = '-40px';
-          flash.style.marginTop = '-40px';
+          flash.style.width = '60px';
+          flash.style.height = '60px';
+          flash.style.marginLeft = '-30px';
+          flash.style.marginTop = '-30px';
         }, 10);
         
-        // Rimuovi il flash dopo l'animazione
         setTimeout(() => {
           flash.remove();
-        }, 150);
+        }, 100);
         
-        // Colore principale per questo fuoco d'artificio
+        // Colori
         const colorPalette = isGold ? goldColors : colors;
         const mainColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-        const secondaryColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
         
-        // Crea molte particelle (60-90 per ogni fuoco)
-        const particleCount = 60 + Math.floor(Math.random() * 30);
-        const particleTypes = Math.floor(Math.random() * 2) + 2; // 2-3 tipi diversi di particelle
+        // Particelle
+        const particleCount = 40 + Math.floor(Math.random() * 20);
         
-        for (let type = 0; type < particleTypes; type++) {
-          const typeColor = type === 0 ? mainColor : 
-                           type === 1 ? secondaryColor : 
-                           colorPalette[Math.floor(Math.random() * colorPalette.length)];
-          
-          for (let i = 0; i < particleCount / particleTypes; i++) {
+        for (let i = 0; i < particleCount; i++) {
+          setTimeout(() => {
+            const particle = document.createElement('div');
+            particle.className = 'firework-particle';
+            particle.style.background = mainColor;
+            particle.style.boxShadow = `0 0 10px ${mainColor}, 0 0 20px ${mainColor}`;
+            
+            const size = 2 + Math.random() * 5;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            particle.style.left = `${centerX}px`;
+            particle.style.top = `${centerY}px`;
+            
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 40 + Math.random() * 150;
+            const endX = Math.cos(angle) * distance;
+            const endY = Math.sin(angle) * distance;
+            
+            particle.style.setProperty('--explode-x', `${endX}px`);
+            particle.style.setProperty('--explode-y', `${endY}px`);
+            
+            const duration = 600 + Math.random() * 600;
+            const delay = Math.random() * 50;
+            
+            particle.style.animation = `
+              fireworkExplosion ${duration}ms cubic-bezier(0.1, 0.8, 0.3, 1) ${delay}ms forwards
+            `;
+            
+            overlay.appendChild(particle);
+            
             setTimeout(() => {
-              const particle = document.createElement('div');
-              particle.className = 'firework-particle';
-              particle.style.background = typeColor;
-              particle.style.boxShadow = `0 0 12px ${typeColor}, 0 0 25px ${typeColor}`;
-              
-              // Dimensioni variabili
-              const size = 3 + Math.random() * 6;
-              particle.style.width = `${size}px`;
-              particle.style.height = `${size}px`;
-              
-              // Posizione iniziale al centro dell'esplosione
-              particle.style.left = `${centerX}px`;
-              particle.style.top = `${centerY}px`;
-              
-              // Angolo casuale per dispersione
-              const angle = Math.random() * Math.PI * 2;
-              const distance = 60 + Math.random() * 200;
-              
-              // Calcola posizione finale
-              const endX = Math.cos(angle) * distance;
-              const endY = Math.sin(angle) * distance;
-              
-              // Imposta variabili CSS per l'animazione
-              particle.style.setProperty('--explode-x', `${endX}px`);
-              particle.style.setProperty('--explode-y', `${endY}px`);
-              
-              // Animazione
-              const duration = 700 + Math.random() * 800;
-              const delay = Math.random() * 80;
-              
-              particle.style.animation = `
-                fireworkExplosion ${duration}ms cubic-bezier(0.1, 0.8, 0.3, 1) ${delay}ms forwards
-              `;
-              
-              overlay.appendChild(particle);
-              
-              // Rimuovi la particella dopo l'animazione
-              setTimeout(() => {
-                if (particle.parentNode) {
-                  particle.remove();
-                }
-              }, duration + delay);
-              
-            }, type * 40); // Delay tra i tipi di particelle
-          }
+              if (particle.parentNode) {
+                particle.remove();
+              }
+            }, duration + delay);
+            
+          }, i * 10);
         }
-        
-        // Crea particelle aggiuntive (scie)
-        setTimeout(() => {
-          createTrails(centerX, centerY, mainColor);
-        }, 200);
       };
       
-      // Funzione per creare scie eleganti
-      function createTrails(x, y, color) {
-        const trailCount = 3 + Math.floor(Math.random() * 5);
-        
-        for (let i = 0; i < trailCount; i++) {
-          const trail = document.createElement('div');
-          trail.className = 'firework-particle';
-          trail.style.background = color;
-          trail.style.boxShadow = `0 0 8px ${color}, 0 0 15px ${color}`;
-          
-          const size = 2 + Math.random() * 4;
-          trail.style.width = `${size}px`;
-          trail.style.height = `${size}px`;
-          
-          trail.style.left = `${x}px`;
-          trail.style.top = `${y}px`;
-          
-          // Direzione casuale per le scie
-          const angle = Math.random() * Math.PI * 2;
-          const distance = 50 + Math.random() * 150;
-          const endX = Math.cos(angle) * distance;
-          const endY = Math.sin(angle) * distance;
-          
-          trail.style.setProperty('--explode-x', `${endX}px`);
-          trail.style.setProperty('--explode-y', `${endY}px`);
-          
-          const duration = 1000 + Math.random() * 600;
-          const delay = Math.random() * 150;
-          
-          trail.style.animation = `
-            fireworkExplosion ${duration}ms ease-out ${delay}ms forwards
-          `;
-          
-          overlay.appendChild(trail);
-          
-          setTimeout(() => {
-            if (trail.parentNode) {
-              trail.remove();
-            }
-          }, duration + delay);
-        }
-      }
-      
-      // Avvia i fuochi d'artificio in sequenza
+      // Lancio fuochi rapidi per 2 secondi
       let fireworkInterval = setInterval(() => {
         if (fireworksCount < maxFireworks) {
-          // Alterna tra fuochi colorati e dorati
-          const isGold = Math.random() > 0.6;
-          createPompousFirework(isGold);
+          const isGold = Math.random() > 0.5;
+          createFirework(isGold);
           
-          // A volte crea due fuochi contemporaneamente per un effetto più intenso
+          // A volte due fuochi insieme
           if (Math.random() > 0.7 && fireworksCount < maxFireworks - 1) {
-            setTimeout(() => createPompousFirework(!isGold), 150);
+            setTimeout(() => createFirework(!isGold), 100);
           }
         }
       }, 250);
       
-      // Intensifica gli ultimi 3 secondi
+      // FASE 2: FONTANE (dopo 2 secondi, durano 1 secondo)
       setTimeout(() => {
-        // Fuochi più frequenti negli ultimi secondi
+        // Ferma i fuochi
         clearInterval(fireworkInterval);
         
-        let rapidCount = 0;
-        const maxRapid = 8;
+        // Crea fontane
+        createFountains();
         
-        const rapidInterval = setInterval(() => {
-          if (rapidCount < maxRapid) {
-            createPompousFirework(true); // Solo dorati per il finale
-            rapidCount++;
-            
-            // Doppio esplosione per alcuni
-            if (rapidCount % 3 === 0) {
-              setTimeout(() => createPompousFirework(false), 100);
+        // Rimuovi overlay dopo 3 secondi totali (2+1)
+        setTimeout(() => {
+          overlay.style.transition = 'opacity 0.5s ease';
+          overlay.style.opacity = '0';
+          
+          setTimeout(() => {
+            if (overlay.parentNode) {
+              overlay.remove();
             }
-          } else {
-            clearInterval(rapidInterval);
-          }
-        }, 180);
-        
-        // Ferma l'intervallo rapido dopo 2 secondi
-        setTimeout(() => {
-          clearInterval(rapidInterval);
-        }, 2000);
-        
-      }, 1000);
+          }, 500);
+        }, 1000); // Fontane durano 1 secondo
+      }, 2000); // Fuochi durano 2 secondi
+    }
+    
+    // FUNZIONE PER CREARE FONTANE
+    function createFountains() {
+      const overlay = document.getElementById('fireworks-overlay');
+      const goldColors = ['#FFD700', '#FFDF00', '#FFEC8B', '#FFFACD', '#D4AF37', '#F4E4A6'];
       
-      // Rimuovi l'overlay dopo 3 secondi (dopo che tutti gli effetti sono finiti)
-      setTimeout(() => {
-        // Dissolvenza dell'overlay
-        overlay.style.transition = 'opacity 0.8s ease';
-        overlay.style.opacity = '0';
+      // Crea 5-8 fontane
+      const fountainCount = 5 + Math.floor(Math.random() * 4);
+      
+      for (let f = 0; f < fountainCount; f++) {
+        // Posizione della fontana sul bordo inferiore
+        const fountainX = (window.innerWidth / (fountainCount + 1)) * (f + 1);
         
-        setTimeout(() => {
-          if (overlay.parentNode) {
-            overlay.remove();
-          }
-        }, 800);
-      }, 3000);
+        // Colore della fontana
+        const fountainColor = goldColors[Math.floor(Math.random() * goldColors.length)];
+        
+        // Crea getti della fontana
+        const jetCount = 15 + Math.floor(Math.random() * 20);
+        
+        for (let j = 0; j < jetCount; j++) {
+          const jet = document.createElement('div');
+          jet.className = 'fountain-particle';
+          jet.style.background = fountainColor;
+          jet.style.boxShadow = `0 0 15px ${fountainColor}, 0 0 30px ${fountainColor}`;
+          
+          const size = 3 + Math.random() * 8;
+          jet.style.width = `${size}px`;
+          jet.style.height = `${size}px`;
+          
+          // Posizione iniziale in basso
+          jet.style.left = `${fountainX + (Math.random() * 60 - 30)}px`;
+          jet.style.bottom = '0';
+          
+          // Animazione che sale verso l'alto
+          const riseDuration = 800 + Math.random() * 400;
+          const riseDelay = Math.random() * 200;
+          const riseHeight = window.innerHeight + 100;
+          
+          jet.style.animation = `
+            fountainRise ${riseDuration}ms cubic-bezier(0.1, 0.7, 0.4, 1) ${riseDelay}ms forwards
+          `;
+          
+          // Aggiungi particelle che si espandono lateralmente
+          setTimeout(() => {
+            const spreadCount = 5 + Math.floor(Math.random() * 10);
+            
+            for (let s = 0; s < spreadCount; s++) {
+              const spreadParticle = document.createElement('div');
+              spreadParticle.className = 'firework-particle';
+              spreadParticle.style.background = fountainColor;
+              spreadParticle.style.boxShadow = `0 0 8px ${fountainColor}`;
+              
+              const spreadSize = 1 + Math.random() * 4;
+              spreadParticle.style.width = `${spreadSize}px`;
+              spreadParticle.style.height = `${spreadSize}px`;
+              
+              spreadParticle.style.left = `${fountainX}px`;
+              spreadParticle.style.bottom = `${Math.random() * 100}%`;
+              
+              const spreadX = (Math.random() * 200 - 100);
+              const spreadY = (Math.random() * -50 - 20);
+              
+              spreadParticle.style.setProperty('--fountain-x', `${spreadX}px`);
+              spreadParticle.style.setProperty('--fountain-y', `${spreadY}px`);
+              
+              const spreadDuration = 400 + Math.random() * 300;
+              const spreadDelay = Math.random() * 100;
+              
+              spreadParticle.style.animation = `
+                fountainSpread ${spreadDuration}ms ease-out ${spreadDelay}ms forwards
+              `;
+              
+              overlay.appendChild(spreadParticle);
+              
+              setTimeout(() => {
+                if (spreadParticle.parentNode) {
+                  spreadParticle.remove();
+                }
+              }, spreadDuration + spreadDelay);
+            }
+          }, riseDelay + 300);
+          
+          overlay.appendChild(jet);
+          
+          // Rimuovi il getto dopo l'animazione
+          setTimeout(() => {
+            if (jet.parentNode) {
+              jet.remove();
+            }
+          }, riseDuration + riseDelay);
+        }
+      }
     }
   </script>
 </body>
