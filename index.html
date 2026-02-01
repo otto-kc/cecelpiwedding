@@ -29,7 +29,7 @@
       position: relative;
     }
     
-    /* Contenitore per l'immagine di sfondo - MODIFICATO PER MIGLIORE ADATTAMENTO */
+    /* Contenitore per l'immagine di sfondo con cornice avorio */
     .hero-bg {
       position: absolute;
       top: 0;
@@ -38,27 +38,51 @@
       height: 100%;
       background: linear-gradient(135deg, #FAF0DC 0%, #F5E8C9 100%);
       z-index: 1;
-      /* Proprietà aggiunte per adattamento migliore */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      /* Cornice avorio */
+      border: 20px solid #FFF8F0;
+      box-sizing: border-box;
+      /* Per assicurarsi che la cornice sia visibile su tutti i lati */
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+    }
+    
+    /* Contenitore per l'immagine che si adatta alla schermata */
+    .hero-image-container {
+      position: absolute;
+      top: 20px; /* Uguale al bordo */
+      left: 20px; /* Uguale al bordo */
+      right: 20px; /* Uguale al bordo */
+      bottom: 20px; /* Uguale al bordo */
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    
+    /* Immagine che si adatta completamente mantenendo proporzioni */
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Mostra tutta l'immagine senza tagli */
+      object-position: center;
+      display: none; /* Nascosta di default, verrà mostrata via JS */
     }
     
     .hero::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.2); /* Overlay scuro per migliorare la leggibilità del testo */
-      z-index: 1;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      background: rgba(0, 0, 0, 0.3); /* Overlay scuro per migliorare la leggibilità del testo */
+      z-index: 3;
+      pointer-events: none;
     }
     
     .hero-content {
       text-align: center;
       position: relative;
-      z-index: 2;
+      z-index: 4;
       padding: 30px;
       max-width: 90%;
       width: 100%;
@@ -170,6 +194,24 @@
 
     /* Responsive per mobile migliorato */
     @media (max-width: 768px) {
+      .hero-bg {
+        border: 15px solid #FFF8F0;
+      }
+      
+      .hero-image-container {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+      }
+      
+      .hero::before {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+      }
+      
       .rsvp-hero-btn {
         padding: 16px 32px;
         font-size: 18px;
@@ -202,6 +244,27 @@
       
       .hero {
         padding-top: 20px;
+      }
+    }
+
+    /* Mobile molto piccolo */
+    @media (max-width: 480px) {
+      .hero-bg {
+        border: 10px solid #FFF8F0;
+      }
+      
+      .hero-image-container {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+      }
+      
+      .hero::before {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
       }
     }
 
@@ -299,6 +362,12 @@
   <!-- HERO - NO SCROLL -->
   <header class="hero">
     <div class="hero-bg"></div>
+    
+    <!-- Contenitore per l'immagine con cornice -->
+    <div class="hero-image-container">
+      <img class="hero-image" id="hero-image" alt="Elpidio e Cecilia">
+    </div>
+    
     <div class="hero-content">
       <h1 class="couple-name">Elpidio&nbsp;&amp;&nbsp;Cecilia</h1>
       <p class="wedding-date">10/07/2026</p>
@@ -372,14 +441,20 @@
       ];
       
       const baseName = 'immagine1';
-      const heroBg = document.querySelector('.hero-bg');
+      const heroImage = document.getElementById('hero-image');
       
       // Funzione per testare se un'immagine esiste
       function testImage(src) {
         return new Promise((resolve) => {
           const img = new Image();
-          img.onload = () => resolve(src);
-          img.onerror = () => resolve(null);
+          img.onload = () => {
+            console.log(`✅ Immagine trovata: ${src}`);
+            resolve(src);
+          };
+          img.onerror = () => {
+            console.log(`❌ Immagine non trovata: ${src}`);
+            resolve(null);
+          };
           img.src = src;
         });
       }
@@ -391,18 +466,26 @@
           try {
             const result = await testImage(src);
             if (result) {
-              // TROVATA! Usa questa immagine con opacità
-              // MODIFICATO: centrata e senza offset
-              heroBg.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${result}')`;
-              console.log(`✅ Immagine di sfondo trovata: ${result}`);
+              // TROVATA! Usa questa immagine
+              heroImage.src = result;
+              heroImage.style.display = 'block';
+              console.log(`✅ Immagine di sfondo caricata: ${result}`);
+              
+              // Nascondi il background color del contenitore padre
+              const heroBg = document.querySelector('.hero-bg');
+              heroBg.style.background = 'none';
+              heroBg.style.backgroundColor = '#FFF8F0'; // Colore della cornice
+              
               return;
             }
           } catch (e) {
-            console.log(`❌ Immagine non trovata: ${src}`);
+            console.log(`Errore nel caricamento: ${src}`, e);
           }
         }
-        // Se nessuna immagine viene trovata, mantieni il colore di fallback chiaro
-        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando colore di fallback chiaro.');
+        // Se nessuna immagine viene trovata, mantieni il colore di fallback
+        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando colore di fallback.');
+        const heroBg = document.querySelector('.hero-bg');
+        heroBg.style.background = 'linear-gradient(135deg, #FAF0DC 0%, #F5E8C9 100%)';
       }
       
       // Esegui la ricerca dell'immagine
