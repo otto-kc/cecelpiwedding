@@ -29,7 +29,7 @@
       position: relative;
     }
     
-    /* Contenitore per l'immagine di sfondo */
+    /* Contenitore per l'immagine di sfondo - MODIFICATO PER MIGLIORE ADATTAMENTO */
     .hero-bg {
       position: absolute;
       top: 0;
@@ -38,6 +38,10 @@
       height: 100%;
       background: linear-gradient(135deg, #FAF0DC 0%, #F5E8C9 100%);
       z-index: 1;
+      /* Proprietà aggiunte per adattamento migliore */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
     
     .hero::before {
@@ -47,7 +51,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.2); /* Overlay scuro per migliorare la leggibilità del testo */
       z-index: 1;
     }
     
@@ -65,7 +69,7 @@
       font-family: 'Imperial Script', cursive;
       font-size: clamp(64px, 12vw, 160px);
       font-weight: 400;
-      margin: 30px 0 0 0; /* MODIFICATO: ridotto margine superiore per spostare più in alto */
+      margin: 30px 0 0 0;
       color: #FF7F50;
       white-space: nowrap;
       text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
@@ -181,7 +185,7 @@
         font-size: clamp(56px, 11vw, 140px);
         white-space: normal;
         line-height: 0.9;
-        margin: 20px 0 0 0; /* MODIFICATO per mobile */
+        margin: 20px 0 0 0;
         word-break: break-word;
       }
       
@@ -388,11 +392,8 @@
             const result = await testImage(src);
             if (result) {
               // TROVATA! Usa questa immagine con opacità
-              // MODIFICATO: calc per spostamento preciso - sinistra e in basso
+              // MODIFICATO: centrata e senza offset
               heroBg.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${result}')`;
-              heroBg.style.backgroundPosition = 'calc(50% - 0px) calc(50% + 0px)'; // 30px a sinistra, 20px in basso
-              heroBg.style.backgroundSize = 'cover';
-              heroBg.style.backgroundRepeat = 'no-repeat';
               console.log(`✅ Immagine di sfondo trovata: ${result}`);
               return;
             }
