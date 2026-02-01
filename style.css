@@ -1,12 +1,12 @@
 :root {
-  --pearl-white: #FFF8F0;
+  --pearl-white: #FAF9F6;
   --nav-text: #222222;
-  --panel-bg: rgba(255, 248, 240, 0.95);
-  --panel-border: rgba(0,0,0,0.08);
-  --shadow: 0 18px 50px rgba(0,0,0,0.05);
-  --btn-bg: rgba(255, 248, 240, 0.95);
-  --btn-border: rgba(0,0,0,0.12);
-  --btn-hover: rgba(0,0,0,0.03);
+  --panel-bg: rgba(255, 255, 255, 0.92);
+  --panel-border: rgba(0, 0, 0, 0.08);
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.05);
+  --btn-bg: rgba(255, 255, 255, 0.95);
+  --btn-border: rgba(0, 0, 0, 0.12);
+  --btn-hover: rgba(0, 0, 0, 0.05);
   --gold-color: #D4AF37;
   --transition: all 0.3s ease;
 }
@@ -26,8 +26,6 @@ html, body {
 body {
   color: #222;
   font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, Inter, Arial, sans-serif;
-  background: #FFF8F0;
-  background-attachment: fixed;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -46,11 +44,11 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 12px clamp(14px, 4vw, 28px);
-  background: #FFF8F0;
   border-bottom: 1px solid rgba(0,0,0,0.05);
   box-shadow: 0 4px 15px rgba(0,0,0,0.03);
   height: 70px;
   overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
 /* LOGO MODIFICATO: Font Imperial Script, colore oro, sfondo avorio */
@@ -63,15 +61,15 @@ body {
   font-family: 'Imperial Script', cursive;
   font-size: 28px;
   font-weight: 400;
-  background: #FFF8F0; /* Sfondo avorio */
-  color: #D4AF37; /* Colore oro */
-  border: 2px solid #D4AF37; /* Bordo oro */
+  color: #D4AF37;
+  border: 2px solid #D4AF37;
   box-shadow: 0 8px 18px rgba(212, 175, 55, 0.25);
   user-select: none;
   flex-shrink: 0;
   font-style: normal;
   letter-spacing: 0.5px;
-  padding-top: 4px; /* Per centrare meglio il testo */
+  padding-top: 4px;
+  backdrop-filter: blur(5px);
 }
 
 /* HAMBURGER MENU - VISIBILE SOLO SU MOBILE */
@@ -80,7 +78,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   width: 30px;
-  height: 24px; /* Aumentata altezza per evitare taglio */
+  height: 24px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -98,7 +96,6 @@ body {
   transform-origin: center;
 }
 
-/* CORRETTO: animazione hamburger → X senza tagli */
 .hamburger.active span:nth-child(1) {
   transform: rotate(45deg) translate(6px, 6px);
 }
@@ -152,7 +149,6 @@ body {
     top: 70px;
     left: 0;
     right: 0;
-    background: #FFF8F0;
     flex-direction: column;
     align-items: center;
     padding: 20px;
@@ -165,6 +161,7 @@ body {
     z-index: 999;
     max-height: calc(100vh - 70px);
     overflow-y: auto;
+    backdrop-filter: blur(15px);
   }
   
   .navlinks.active {
@@ -179,28 +176,25 @@ body {
     padding: 12px 16px;
     font-size: 16px;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(0,0,0,0.05);
+    backdrop-filter: blur(5px);
   }
   
   .navlinks a:hover {
     background: rgba(0,0,0,0.05);
   }
   
-  /* Ottimizzazioni per mobile */
   .container {
     padding: 0 15px !important;
     max-width: 100% !important;
   }
   
-  /* Migliora tap target */
   a, button {
     min-height: 44px;
     min-width: 44px;
   }
 }
 
-/* Evita effetti hover su touch device */
 @media (hover: none) and (pointer: coarse) {
   .navlinks a:hover {
     background: transparent;
@@ -211,12 +205,10 @@ body {
   }
 }
 
-/* Utility */
 .muted { 
   color: #666; 
 }
 
-/* Footer */
 footer {
   text-align: center;
   padding: 30px 20px;
@@ -224,14 +216,13 @@ footer {
   opacity: 0.6;
   color: #666;
   background: transparent;
+  backdrop-filter: blur(5px);
 }
 
-/* Cursori */
 a, button { 
   cursor: pointer; 
 }
 
-/* Back to top button */
 .back-to-top {
   position: fixed;
   right: 20px;
@@ -239,7 +230,6 @@ a, button {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
@@ -253,6 +243,7 @@ a, button {
   transition: var(--transition);
   z-index: 999;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
 }
 
 .back-to-top.show {
@@ -262,6 +253,5 @@ a, button {
 }
 
 .back-to-top:hover {
-  background: rgba(255, 255, 255, 1);
   transform: translateY(-2px);
 }
