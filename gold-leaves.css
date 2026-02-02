@@ -1,142 +1,35 @@
-:root {
-  --gold-color: #D4AF37;
-  --gold-light: #F4E4A6;
-  --gold-dark: #B8941F;
-  --pearl-white: #FAF9F6;
-}
-
-/* Trama foglie d'oro - background per tutto il sito */
+/* TESSERA FOGLIE D'ORO per tutto lo sfondo - ELPIDIO & CECILIA */
 body {
-  background: var(--pearl-white);
+  background-color: #FAF9F6;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23D4AF37' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: 250px;
+  background-repeat: repeat;
   position: relative;
-  overflow-x: hidden;
+  min-height: 100vh;
 }
 
-/* Pattern foglie d'oro come overlay */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23D4AF37' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
-  background-size: 300px;
-  opacity: 0.4;
-  z-index: -1;
-  pointer-events: none;
+/* Migliora la leggibilità del testo sulle carte */
+.main-card, .contact-card, .gallery-card, 
+.lista-card, .rsvp-card, .story-card, .card {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
 }
 
-/* Effetto dorato su elementi principali */
-.main-card, .contact-card, .gallery-card, .lista-card, .rsvp-card, .story-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.main-card::after, .contact-card::after, .gallery-card::after, 
-.lista-card::after, .rsvp-card::after, .story-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, 
-    transparent, 
-    var(--gold-color), 
-    var(--gold-light), 
-    var(--gold-color), 
-    transparent
-  );
-  border-radius: 3px 3px 0 0;
-}
-
-/* Effetti dorati sui pulsanti */
-.rsvp-hero-btn, .nav-btn.google, .nav-btn.waze, .nav-btn.apple,
-.contact-btn.phone, .contact-btn.whatsapp, .contact-btn.email,
-.upload-btn, .submit-btn {
-  position: relative;
-  overflow: hidden;
-}
-
-.rsvp-hero-btn::after, .nav-btn.google::after, .nav-btn.waze::after, 
-.nav-btn.apple::after, .contact-btn.phone::after, .contact-btn.whatsapp::after,
-.contact-btn.email::after, .upload-btn::after, .submit-btn::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    to right,
-    transparent 20%,
-    rgba(255, 255, 255, 0.3) 50%,
-    transparent 80%
-  );
-  transform: rotate(30deg);
-  transition: all 0.6s ease;
-  opacity: 0;
-}
-
-.rsvp-hero-btn:hover::after, .nav-btn.google:hover::after, 
-.nav-btn.waze:hover::after, .nav-btn.apple:hover::after,
-.contact-btn.phone:hover::after, .contact-btn.whatsapp:hover::after,
-.contact-btn.email:hover::after, .upload-btn:hover::after,
-.submit-btn:hover::after {
-  opacity: 1;
-  left: 100%;
-}
-
-/* Decorazioni foglie d'oro negli angoli */
-.nav::before, footer::before {
-  content: '❖';
-  position: absolute;
-  color: var(--gold-color);
-  font-size: 16px;
-  opacity: 0.5;
-}
-
-.nav::before {
-  top: 10px;
-  left: 10px;
-}
-
-footer::before {
-  bottom: 10px;
-  right: 10px;
-}
-
-/* Animazione leggera per il pattern */
-@keyframes goldShimmer {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.5; }
-}
-
-body::before {
-  animation: goldShimmer 8s ease-in-out infinite;
-}
-
-/* Responsive */
+/* Per mobile: trama più piccola e meno intensa */
 @media (max-width: 768px) {
-  body::before {
-    background-size: 200px;
-    opacity: 0.3;
+  body {
+    background-size: 150px;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23D4AF37' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+  
+  .main-card, .contact-card, .gallery-card, 
+  .lista-card, .rsvp-card, .story-card, .card {
+    background-color: rgba(255, 255, 255, 0.98);
   }
 }
 
-/* Effetto speciale per la home */
-.index-gold-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+/* Assicura che il background funzioni anche su pagine corte */
+html {
   height: 100%;
-  background: radial-gradient(
-    circle at 20% 80%,
-    rgba(212, 175, 55, 0.1) 0%,
-    transparent 50%
-  );
-  z-index: 1;
-  pointer-events: none;
 }
