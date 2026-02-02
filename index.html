@@ -15,8 +15,6 @@
   
   <!-- CSS Comune -->
   <link rel="stylesheet" href="style.css">
-  <!-- Trama foglie d'oro -->
-  <link rel="stylesheet" href="texture.css">
 
   <style>
     /* SOLO GLI STILI UNICI DELLA HOMEPAGE */
@@ -49,7 +47,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.15);
+      background: rgba(0, 0, 0, 0.2);
       z-index: 1;
     }
     
@@ -67,7 +65,7 @@
       font-family: 'Imperial Script', cursive;
       font-size: clamp(64px, 12vw, 160px);
       font-weight: 400;
-      margin: 30px 0 0 0;
+      margin: 30px 0 0 0; /* MODIFICATO: ridotto margine superiore per spostare più in alto */
       color: #FF7F50;
       white-space: nowrap;
       text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
@@ -183,7 +181,7 @@
         font-size: clamp(56px, 11vw, 140px);
         white-space: normal;
         line-height: 0.9;
-        margin: 20px 0 0 0;
+        margin: 20px 0 0 0; /* MODIFICATO per mobile */
         word-break: break-word;
       }
       
@@ -203,7 +201,7 @@
       }
     }
 
-    /* STILI PER FUOCHI D'ARTIFICIO (2 secondi) */
+    /* STILI PER FUOCHI D'ARTIFICIO POMPOSI */
     #fireworks-overlay {
       position: fixed;
       top: 0;
@@ -222,16 +220,6 @@
       opacity: 0;
       filter: blur(1px);
       will-change: transform, opacity;
-    }
-
-    /* STILI PER FONTANE (1 secondo) */
-    .fountain-particle {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0;
-      filter: blur(1px);
-      will-change: transform, opacity;
-      bottom: 0;
     }
 
     /* Animazioni per i fuochi */
@@ -259,23 +247,6 @@
       }
       100% {
         transform: translate(var(--explode-x), var(--explode-y)) scale(0);
-        opacity: 0;
-      }
-    }
-
-    @keyframes fountainRise {
-      0% {
-        transform: translateY(100vh) scale(0.5);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(calc(-100vh - 50px)) scale(1.2);
         opacity: 0;
       }
     }
@@ -417,12 +388,11 @@
             const result = await testImage(src);
             if (result) {
               // TROVATA! Usa questa immagine con opacità
-              // MODIFICATO: Mostra l'immagine completa senza tagli
-              heroBg.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('${result}')`;
-              heroBg.style.backgroundPosition = 'center center';
-              heroBg.style.backgroundSize = 'contain';
+              // MODIFICATO: calc per spostamento preciso - sinistra e in basso
+              heroBg.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('${result}')`;
+              heroBg.style.backgroundPosition = 'calc(50% - 0px) calc(50% + 0px)'; // 30px a sinistra, 20px in basso
+              heroBg.style.backgroundSize = 'cover';
               heroBg.style.backgroundRepeat = 'no-repeat';
-              heroBg.style.backgroundColor = '#FAF0DC';
               console.log(`✅ Immagine di sfondo trovata: ${result}`);
               return;
             }
@@ -437,12 +407,12 @@
       // Esegui la ricerca dell'immagine
       findImage();
       
-      // Avvia l'effetto animazioni (2 sec fuochi + 1 sec fontane)
-      startAnimations();
+      // Avvia l'effetto fuochi d'artificio pomposo
+      startPompousFireworks();
     });
 
-    // FUNZIONE ANIMAZIONI COMPLETE (2 sec fuochi + 1 sec fontane)
-    function startAnimations() {
+    // FUNZIONE FUOCHI D'ARTIFICIO POMPOSI (SENZA SUONI)
+    function startPompousFireworks() {
       const overlay = document.getElementById('fireworks-overlay');
       const colors = [
         '#FFD700', '#FF4500', '#00FFFF', '#FF1493', '#32CD32', 
@@ -453,9 +423,9 @@
       // Colori dorati per il matrimonio
       const goldColors = ['#FFD700', '#FFDF00', '#FFEC8B', '#FFFACD', '#D4AF37', '#F4E4A6'];
       
-      // FASE 1: FUOCHI D'ARTIFICIO (2 secondi)
+      // Crea 12 fuochi d'artificio principali
       let fireworksCount = 0;
-      const maxFireworks = 8;
+      const maxFireworks = 12;
       
       const createPompousFirework = (isGold = false) => {
         if (fireworksCount >= maxFireworks) return;
@@ -493,9 +463,9 @@
         const mainColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
         const secondaryColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
         
-        // Crea particelle (40-60 per ogni fuoco)
-        const particleCount = 40 + Math.floor(Math.random() * 20);
-        const particleTypes = Math.floor(Math.random() * 2) + 2;
+        // Crea molte particelle (60-90 per ogni fuoco)
+        const particleCount = 60 + Math.floor(Math.random() * 30);
+        const particleTypes = Math.floor(Math.random() * 2) + 2; // 2-3 tipi diversi di particelle
         
         for (let type = 0; type < particleTypes; type++) {
           const typeColor = type === 0 ? mainColor : 
@@ -530,9 +500,9 @@
               particle.style.setProperty('--explode-x', `${endX}px`);
               particle.style.setProperty('--explode-y', `${endY}px`);
               
-              // Animazione più breve per 2 secondi totali
-              const duration = 600 + Math.random() * 400;
-              const delay = Math.random() * 60;
+              // Animazione
+              const duration = 700 + Math.random() * 800;
+              const delay = Math.random() * 80;
               
               particle.style.animation = `
                 fireworkExplosion ${duration}ms cubic-bezier(0.1, 0.8, 0.3, 1) ${delay}ms forwards
@@ -547,19 +517,19 @@
                 }
               }, duration + delay);
               
-            }, type * 30);
+            }, type * 40); // Delay tra i tipi di particelle
           }
         }
         
         // Crea particelle aggiuntive (scie)
         setTimeout(() => {
           createTrails(centerX, centerY, mainColor);
-        }, 150);
+        }, 200);
       };
       
       // Funzione per creare scie eleganti
       function createTrails(x, y, color) {
-        const trailCount = 2 + Math.floor(Math.random() * 4);
+        const trailCount = 3 + Math.floor(Math.random() * 5);
         
         for (let i = 0; i < trailCount; i++) {
           const trail = document.createElement('div');
@@ -583,8 +553,8 @@
           trail.style.setProperty('--explode-x', `${endX}px`);
           trail.style.setProperty('--explode-y', `${endY}px`);
           
-          const duration = 800 + Math.random() * 400;
-          const delay = Math.random() * 100;
+          const duration = 1000 + Math.random() * 600;
+          const delay = Math.random() * 150;
           
           trail.style.animation = `
             fireworkExplosion ${duration}ms ease-out ${delay}ms forwards
@@ -600,96 +570,61 @@
         }
       }
       
-      // Avvia i fuochi d'artificio in sequenza per 2 secondi
+      // Avvia i fuochi d'artificio in sequenza
       let fireworkInterval = setInterval(() => {
         if (fireworksCount < maxFireworks) {
+          // Alterna tra fuochi colorati e dorati
           const isGold = Math.random() > 0.6;
           createPompousFirework(isGold);
           
+          // A volte crea due fuochi contemporaneamente per un effetto più intenso
           if (Math.random() > 0.7 && fireworksCount < maxFireworks - 1) {
-            setTimeout(() => createPompousFirework(!isGold), 100);
+            setTimeout(() => createPompousFirework(!isGold), 150);
           }
         }
       }, 250);
       
-      // FASE 2: FONTANE (dopo 2 secondi, durano 1 secondo)
+      // Intensifica gli ultimi 3 secondi
       setTimeout(() => {
-        // Ferma i fuochi d'artificio
+        // Fuochi più frequenti negli ultimi secondi
         clearInterval(fireworkInterval);
         
-        // Crea le fontane (dal basso verso l'alto)
-        createFountains();
+        let rapidCount = 0;
+        const maxRapid = 8;
         
-        // Rimuovi l'overlay dopo 1 secondo (totale 3 secondi)
-        setTimeout(() => {
-          // Dissolvenza dell'overlay
-          overlay.style.transition = 'opacity 0.5s ease';
-          overlay.style.opacity = '0';
-          
-          setTimeout(() => {
-            if (overlay.parentNode) {
-              overlay.remove();
+        const rapidInterval = setInterval(() => {
+          if (rapidCount < maxRapid) {
+            createPompousFirework(true); // Solo dorati per il finale
+            rapidCount++;
+            
+            // Doppio esplosione per alcuni
+            if (rapidCount % 3 === 0) {
+              setTimeout(() => createPompousFirework(false), 100);
             }
-          }, 500);
-        }, 1000);
+          } else {
+            clearInterval(rapidInterval);
+          }
+        }, 180);
         
-      }, 2000);
-    }
-    
-    // FUNZIONE PER CREARE FONTANE
-    function createFountains() {
-      const overlay = document.getElementById('fireworks-overlay');
-      const fountainColors = ['#FFD700', '#FFEC8B', '#FFFACD', '#F4E4A6'];
+        // Ferma l'intervallo rapido dopo 2 secondi
+        setTimeout(() => {
+          clearInterval(rapidInterval);
+        }, 2000);
+        
+      }, 1000);
       
-      // Crea 5 fontane posizionate in basso
-      const fountainCount = 5;
-      
-      for (let i = 0; i < fountainCount; i++) {
-        const baseX = (i + 1) * (window.innerWidth / (fountainCount + 1));
+      // Rimuovi l'overlay dopo 3 secondi (dopo che tutti gli effetti sono finiti)
+      setTimeout(() => {
+        // Dissolvenza dell'overlay
+        overlay.style.transition = 'opacity 0.8s ease';
+        overlay.style.opacity = '0';
         
-        // Crea 20-30 particelle per ogni fontana
-        const particleCount = 20 + Math.floor(Math.random() * 10);
-        
-        for (let j = 0; j < particleCount; j++) {
-          setTimeout(() => {
-            const particle = document.createElement('div');
-            particle.className = 'fountain-particle';
-            
-            // Colore dorato per le fontane
-            const color = fountainColors[Math.floor(Math.random() * fountainColors.length)];
-            particle.style.background = color;
-            particle.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
-            
-            // Dimensioni variabili
-            const size = 3 + Math.random() * 5;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            
-            // Posizione iniziale in basso con leggera dispersione orizzontale
-            const offsetX = (Math.random() - 0.5) * 100;
-            particle.style.left = `${baseX + offsetX}px`;
-            particle.style.bottom = '0px';
-            
-            // Animazione della fontana (dal basso verso l'alto)
-            const duration = 800 + Math.random() * 400;
-            const delay = Math.random() * 200;
-            
-            particle.style.animation = `
-              fountainRise ${duration}ms cubic-bezier(0.2, 0.8, 0.8, 0.2) ${delay}ms forwards
-            `;
-            
-            overlay.appendChild(particle);
-            
-            // Rimuovi la particella dopo l'animazione
-            setTimeout(() => {
-              if (particle.parentNode) {
-                particle.remove();
-              }
-            }, duration + delay);
-            
-          }, j * 30);
-        }
-      }
+        setTimeout(() => {
+          if (overlay.parentNode) {
+            overlay.remove();
+          }
+        }, 800);
+      }, 3000);
     }
   </script>
 </body>
