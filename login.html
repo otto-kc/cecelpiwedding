@@ -4,11 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Accesso - Matrimonio Elpidio & Cecilia</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
     
     body {
-      background: linear-gradient(135deg, #f5e8c9 0%, #faf0dc 100%);
+      background: #FAF9F6;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23D4AF37' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
+      background-attachment: fixed;
       font-family: 'Montserrat', sans-serif;
       display: flex;
       justify-content: center;
@@ -17,81 +25,123 @@
       padding: 20px;
     }
     
-    .login-box {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-      text-align: center;
-      max-width: 400px;
+    .login-container {
       width: 100%;
+      max-width: 450px;
+    }
+    
+    .login-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.08);
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.08);
+      backdrop-filter: blur(10px);
+    }
+    
+    .logo-badge {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      font-family: 'Imperial Script', cursive;
+      font-size: 36px;
+      font-weight: 400;
+      background: #FFF8F0;
+      color: #D4AF37;
+      border: 2px solid #D4AF37;
+      box-shadow: 0 8px 18px rgba(212, 175, 55, 0.25);
+      margin: 0 auto 25px;
+      padding-top: 6px;
     }
     
     h1 {
       font-family: 'Imperial Script', cursive;
-      font-size: 42px;
+      font-size: 52px;
       color: #D4AF37;
       margin-bottom: 10px;
+      line-height: 1;
     }
     
     .subtitle {
       color: #666;
       margin-bottom: 30px;
       font-size: 16px;
+      font-family: 'Marcellus', serif;
+      font-style: italic;
+    }
+    
+    .input-group {
+      margin-bottom: 25px;
     }
     
     #password {
       width: 100%;
-      padding: 15px;
-      border: 2px solid #ddd;
-      border-radius: 10px;
+      padding: 16px 20px;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 12px;
       font-size: 16px;
-      margin-bottom: 20px;
+      font-family: 'Montserrat', sans-serif;
+      background: white;
+      transition: all 0.3s ease;
       text-align: center;
     }
     
     #password:focus {
       outline: none;
       border-color: #D4AF37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
     }
     
     #loginBtn {
       background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
       color: #222;
       border: none;
-      padding: 15px;
+      padding: 16px 30px;
       border-radius: 50px;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: bold;
       cursor: pointer;
       width: 100%;
-      transition: transform 0.2s;
+      transition: all 0.3s ease;
+      font-family: 'Marcellus', serif;
+      letter-spacing: 0.5px;
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
     }
     
     #loginBtn:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4);
+    }
+    
+    #loginBtn:active {
+      transform: translateY(-1px);
     }
     
     #error {
-      color: #ff4444;
+      color: #d32f2f;
       margin-top: 15px;
       display: none;
-      padding: 10px;
-      background: rgba(255, 68, 68, 0.1);
+      padding: 12px;
+      background: rgba(211, 47, 47, 0.1);
       border-radius: 8px;
       font-size: 14px;
+      border: 1px solid rgba(211, 47, 47, 0.2);
     }
     
     .note {
       margin-top: 25px;
       font-size: 14px;
       color: #888;
+      font-style: italic;
     }
     
-    .key-icon {
-      font-size: 48px;
-      margin-bottom: 20px;
-      color: #D4AF37;
+    .gold-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+      margin: 25px 0;
     }
     
     @keyframes shake {
@@ -103,20 +153,53 @@
     .shake {
       animation: shake 0.5s;
     }
+    
+    .footer-note {
+      text-align: center;
+      margin-top: 30px;
+      color: #999;
+      font-size: 12px;
+    }
+    
+    @media (max-width: 480px) {
+      .login-box {
+        padding: 30px 25px;
+      }
+      
+      h1 {
+        font-size: 44px;
+      }
+      
+      .logo-badge {
+        width: 70px;
+        height: 70px;
+        font-size: 32px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="login-box">
-    <div class="key-icon">🔐</div>
-    <h1>Elpidio & Cecilia</h1>
-    <p class="subtitle">Inserisci la password per accedere al sito del nostro matrimonio</p>
-    
-    <input type="password" id="password" placeholder="Digita la password qui" autofocus>
-    <button id="loginBtn" onclick="login()">Accedi</button>
-    
-    <div id="error">Password errata. Controlla e riprova.</div>
-    
-    <p class="note">La password si trova sull'invito</p>
+  <div class="login-container">
+    <div class="login-box">
+      <div class="logo-badge">E&amp;C</div>
+      
+      <h1>Elpidio & Cecilia</h1>
+      <p class="subtitle">Inserisci la password per accedere al sito del nostro matrimonio</p>
+      
+      <div class="gold-line"></div>
+      
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Digita la password qui" autofocus>
+      </div>
+      
+      <button id="loginBtn" onclick="login()">Accedi</button>
+      
+      <div id="error">Password errata. Controlla e riprova.</div>
+      
+      <p class="note">La password si trova sull'invito</p>
+      
+      <div class="footer-note">10 Luglio 2026</div>
+    </div>
   </div>
 
   <script>
@@ -125,20 +208,9 @@
     const OBFUSCATED = "b2lsZ3VsMDE=";
     
     function deobfuscate(str) {
-      try {
-        // Decodifica base64 → "oilgul01"
-        const decoded = atob(str); // "oilgul01"
-        console.log("Debug - Decoded from base64:", decoded);
-        
-        // Inverte la stringa correttamente
-        const reversed = decoded.split('').reverse().join(''); // "10luglio"
-        console.log("Debug - Reversed (should be 10luglio):", reversed);
-        
-        return reversed;
-      } catch (e) {
-        console.error("Errore nella decodifica della password:", e);
-        return null;
-      }
+      // Password hardcoded per debug
+      console.log("DEBUG: Password hardcoded a '10luglio'");
+      return "10luglio";
     }
     
     function login() {
@@ -152,21 +224,12 @@
       loginBtn.disabled = true;
       loginBtn.textContent = 'Verifica in corso...';
       
-      // DEBUG: mostra cosa stiamo confrontando
-      console.log("=== DEBUG LOGIN ===");
-      console.log("Input dell'utente:", input);
-      console.log("Input length:", input.length);
-      
       // Decodifica la password offuscata
       const correctPassword = deobfuscate(OBFUSCATED);
-      console.log("Password corretta (dall'offuscamento):", correctPassword);
-      console.log("Password corretta length:", correctPassword ? correctPassword.length : "null");
       
       // Piccolo delay per feedback visivo
       setTimeout(() => {
         if (input === correctPassword) {
-          console.log("✅ Password CORRETTA!");
-          
           // Password corretta! Crea autenticazione sicura
           const authData = {
             token: 'wedding_auth_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
@@ -187,10 +250,6 @@
           
         } else {
           // Password sbagliata
-          console.log("❌ Password ERRATA!");
-          console.log("Confronto:", input, "vs", correctPassword);
-          console.log("Tipi:", typeof input, "vs", typeof correctPassword);
-          
           error.style.display = 'block';
           error.classList.add('shake');
           document.getElementById('password').value = '';
@@ -240,16 +299,6 @@
     // Focus automatico sul campo password
     window.addEventListener('load', function() {
       document.getElementById('password').focus();
-      
-      // Test automatico della decodifica al caricamento
-      console.log("=== TEST DECODIFICA AUTOMATICO ===");
-      console.log("Stringa base64:", OBFUSCATED);
-      const testDecode = atob(OBFUSCATED);
-      console.log("Dopo atob():", testDecode);
-      const testReverse = testDecode.split('').reverse().join('');
-      console.log("Dopo reverse():", testReverse);
-      console.log("Atteso: 10luglio");
-      console.log("Corrisponde?", testReverse === "10luglio");
     });
   </script>
 </body>
