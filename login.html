@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accesso Matrimonio - Elpidio & Cecilia</title>
+  <style>
+    :root {
+      --gold-color: #D4AF37;
+      --pearl-white: #FAF9F6;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f5e8c9 0%, #faf0dc 100%);
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      margin: 0;
+    }
+    
+    .login-container {
+      background: var(--pearl-white);
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 450px;
+      width: 100%;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    
+    .logo {
+      font-family: 'Imperial Script', cursive;
+      font-size: 48px;
+      color: var(--gold-color);
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+    
+    h1 {
+      font-family: 'Marcellus', serif;
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+    
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    
+    .password-input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: 1px;
+      font-family: 'Montserrat', sans-serif;
+      transition: all 0.3s ease;
+    }
+    
+    .password-input:focus {
+      outline: none;
+      border-color: var(--gold-color);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    }
+    
+    .submit-btn {
+      background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
+      color: #222;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      font-family: 'Marcellus', serif;
+      letter-spacing: 1px;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+    }
+    
+    .error-message {
+      color: #ff4444;
+      margin-top: 15px;
+      display: none;
+      font-size: 14px;
+      padding: 10px;
+      background: rgba(255, 68, 68, 0.1);
+      border-radius: 8px;
+    }
+    
+    .info-note {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #888;
+      line-height: 1.5;
+    }
+    
+    .key-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: var(--gold-color);
+    }
+    
+    /* Responsive */
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 30px 20px;
+      }
+      
+      .logo {
+        font-size: 40px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="key-icon">🔐</div>
+    <div class="logo">Elpidio & Cecilia</div>
+    <h1>Area Riservata del Matrimonio</h1>
+    <p class="subtitle">Inserisci la password fornita per accedere al sito del nostro matrimonio</p>
+    
+    <input type="password" id="password" class="password-input" 
+           placeholder="Digita la password qui" 
+           autocomplete="current-password"
+           autofocus
+           aria-label="Password di accesso">
+    
+    <button onclick="checkPassword()" class="submit-btn" id="submitBtn">
+      Accedi al Sito del Matrimonio
+    </button>
+    
+    <div id="error" class="error-message" role="alert">
+      Password errata. Controlla e riprova.
+    </div>
+    
+    <p class="info-note">
+      La password è stata fornita sull'invito.<br>
+      Per problemi, contattare gli sposi.
+    </p>
+  </div>
+
+  <script>
+    // === CONFIGURA QUI LA TUA PASSWORD ===
+    // Modifica questa variabile con la password che vuoi usare
+    const CORRECT_PASSWORD = "10luglio2026"; // SOSTITUISCI con la tua password
+    
+    // Funzione per controllare la password
+    function checkPassword() {
+      const input = document.getElementById('password').value.trim();
+      const error = document.getElementById('error');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      // Pulizia messaggio errore
+      error.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Verifica in corso...';
+      
+      // Piccolo delay per feedback visivo
+      setTimeout(() => {
+        if (input === CORRECT_PASSWORD) {
+          // Password corretta - crea sessione sicura
+          const authData = {
+            token: btoa(Date.now() + ':' + CORRECT_PASSWORD).replace(/=/g, ''),
+            expires: Date.now() + (7 * 24 * 60 * 60 * 1000) // 7 giorni
+          };
+          
+          localStorage.setItem('weddingAuth', JSON.stringify(authData));
+          sessionStorage.setItem('weddingSession', 'authenticated');
+          
+          // Reindirizza al sito principale
+          window.location.href = "index.html";
+          
+        } else {
+          // Password errata
+          error.style.display = 'block';
+          document.getElementById('password').value = '';
+          document.getElementById('password').focus();
+          submitBtn.textContent = 'Accedi al Sito del Matrimonio';
+          submitBtn.disabled = false;
+          
+          // Animazione shake per errore
+          error.style.animation = 'none';
+          setTimeout(() => {
+            error.style.animation = 'shake 0.5s';
+          }, 10);
+        }
+      }, 300);
+    }
+    
+    // Permette l'invio con tasto Enter
+    document.getElementById('password').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        checkPassword();
+      }
+    });
+    
+    // Controllo se già autenticato
+    function checkExistingAuth() {
+      const authData = localStorage.getItem('weddingAuth');
+      if (authData) {
+        try {
+          const data = JSON.parse(authData);
+          if (data.expires > Date.now()) {
+            // Sessione valida, reindirizza
+            window.location.href = "index.html";
+          } else {
+            // Sessione scaduta, rimuovi
+            localStorage.removeItem('weddingAuth');
+          }
+        } catch (e) {
+          localStorage.removeItem('weddingAuth');
+        }
+      }
+    }
+    
+    // Se già autenticato in questa sessione
+    if (sessionStorage.getItem('weddingSession') === 'authenticated') {
+      window.location.href = "index.html";
+    }
+    
+    // Verifica all'avvio
+    checkExistingAuth();
+    
+    // Animazione shake per errore
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+        20%, 40%, 60%, 80% { transform: translateX(5px); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
