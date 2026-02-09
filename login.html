@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Accesso - Matrimonio Elpidio & Cecilia</title>
   <style>
-    /* Stili uguali a prima */
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
       background: linear-gradient(135deg, #f5e8c9 0%, #faf0dc 100%);
       font-family: 'Montserrat', sans-serif;
@@ -16,6 +16,7 @@
       min-height: 100vh;
       padding: 20px;
     }
+    
     .login-box {
       background: white;
       padding: 40px;
@@ -25,17 +26,20 @@
       max-width: 400px;
       width: 100%;
     }
+    
     h1 {
       font-family: 'Imperial Script', cursive;
       font-size: 42px;
       color: #D4AF37;
       margin-bottom: 10px;
     }
+    
     .subtitle {
       color: #666;
       margin-bottom: 30px;
       font-size: 16px;
     }
+    
     #password {
       width: 100%;
       padding: 15px;
@@ -45,6 +49,12 @@
       margin-bottom: 20px;
       text-align: center;
     }
+    
+    #password:focus {
+      outline: none;
+      border-color: #D4AF37;
+    }
+    
     #loginBtn {
       background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
       color: #222;
@@ -55,71 +65,192 @@
       font-weight: bold;
       cursor: pointer;
       width: 100%;
+      transition: transform 0.2s;
     }
+    
+    #loginBtn:hover {
+      transform: translateY(-2px);
+    }
+    
     #error {
-      color: red;
+      color: #ff4444;
       margin-top: 15px;
       display: none;
+      padding: 10px;
+      background: rgba(255, 68, 68, 0.1);
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    
+    .note {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #888;
+    }
+    
+    .key-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: #D4AF37;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    
+    .shake {
+      animation: shake 0.5s;
     }
   </style>
 </head>
 <body>
   <div class="login-box">
+    <div class="key-icon">🔐</div>
     <h1>Elpidio & Cecilia</h1>
     <p class="subtitle">Inserisci la password per accedere al sito del nostro matrimonio</p>
     
-    <input type="password" id="password" placeholder="Password" autofocus>
+    <input type="password" id="password" placeholder="Digita la password qui" autofocus>
     <button id="loginBtn" onclick="login()">Accedi</button>
     
-    <div id="error">Password errata. Riprova.</div>
+    <div id="error">Password errata. Controlla e riprova.</div>
+    
+    <p class="note">La password si trova sull'invito</p>
   </div>
 
   <script>
-    // Password offuscata (base64 + caratteri invertiti)
-    // Password reale: "10luglio2026" → offuscamento base
-    const OBFUSCATED = "MjAyNmd1Z2lvTDEw"; // Questo è "10luglio2026" offuscato
+    // === PASSWORD OFFUSCATA PER "10luglio" ===
+    // "10luglio" → invertita → "oilgul01" → base64 → "b2lsZ3VsMDE="
+    const OBFUSCATED = "b2lsZ3VsMDE=";
     
     function deobfuscate(str) {
-      // Decodifica base64 e inverte
-      return atob(str).split('').reverse().join('');
-    }
-    
-    function login() {
-      const input = document.getElementById('password').value;
-      const error = document.getElementById('error');
-      const correctPassword = deobfuscate(OBFUSCATED);
-      
-      if (input === correctPassword) {
-        // Token sicuro con data di scadenza
-        const authData = {
-          token: btoa(Date.now() + ':' + correctPassword).replace(/=/g, ''),
-          expires: Date.now() + (30 * 24 * 60 * 60 * 1000) // 30 giorni
-        };
+      try {
+        // Decodifica base64 → "oilgul01"
+        const decoded = atob(str); // "oilgul01"
+        console.log("Debug - Decoded from base64:", decoded);
         
-        sessionStorage.setItem('weddingSession', 'authenticated');
-        localStorage.setItem('weddingAuth', JSON.stringify(authData));
+        // Inverte la stringa correttamente
+        const reversed = decoded.split('').reverse().join(''); // "10luglio"
+        console.log("Debug - Reversed (should be 10luglio):", reversed);
         
-        // Cancella la password dalla memoria
-        correctPassword = null;
-        
-        window.location.href = 'index.html';
-      } else {
-        error.style.display = 'block';
-        document.getElementById('password').value = '';
-        document.getElementById('password').focus();
-        
-        setTimeout(() => {
-          error.style.display = 'none';
-        }, 3000);
+        return reversed;
+      } catch (e) {
+        console.error("Errore nella decodifica della password:", e);
+        return null;
       }
     }
     
+    function login() {
+      const input = document.getElementById('password').value.trim();
+      const error = document.getElementById('error');
+      const loginBtn = document.getElementById('loginBtn');
+      
+      // Reset errori
+      error.style.display = 'none';
+      error.classList.remove('shake');
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Verifica in corso...';
+      
+      // DEBUG: mostra cosa stiamo confrontando
+      console.log("=== DEBUG LOGIN ===");
+      console.log("Input dell'utente:", input);
+      console.log("Input length:", input.length);
+      
+      // Decodifica la password offuscata
+      const correctPassword = deobfuscate(OBFUSCATED);
+      console.log("Password corretta (dall'offuscamento):", correctPassword);
+      console.log("Password corretta length:", correctPassword ? correctPassword.length : "null");
+      
+      // Piccolo delay per feedback visivo
+      setTimeout(() => {
+        if (input === correctPassword) {
+          console.log("✅ Password CORRETTA!");
+          
+          // Password corretta! Crea autenticazione sicura
+          const authData = {
+            token: 'wedding_auth_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+            expires: Date.now() + (7 * 24 * 60 * 60 * 1000) // 7 giorni
+          };
+          
+          // Salva per la sessione corrente (finché il browser rimane aperto)
+          sessionStorage.setItem('weddingSession', 'authenticated');
+          
+          // Salva per i prossimi 7 giorni (se l'utente chiude e riapre)
+          localStorage.setItem('weddingAuth', JSON.stringify(authData));
+          
+          // Log per debug (solo in console)
+          console.log('✅ Accesso autorizzato. Token valido fino a:', new Date(authData.expires).toLocaleString());
+          
+          // Reindirizza alla home page
+          window.location.href = 'index.html';
+          
+        } else {
+          // Password sbagliata
+          console.log("❌ Password ERRATA!");
+          console.log("Confronto:", input, "vs", correctPassword);
+          console.log("Tipi:", typeof input, "vs", typeof correctPassword);
+          
+          error.style.display = 'block';
+          error.classList.add('shake');
+          document.getElementById('password').value = '';
+          document.getElementById('password').focus();
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Accedi';
+          
+          // Nascondi errore dopo 4 secondi
+          setTimeout(() => {
+            error.style.display = 'none';
+            error.classList.remove('shake');
+          }, 4000);
+        }
+      }, 300);
+    }
+    
+    // Permette l'invio con tasto Enter
     document.getElementById('password').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') login();
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        login();
+      }
     });
     
-    // Se per sbaglio qualcuno fa "View Source", non vede la password chiara
-    console.log("Accesso protetto - Il codice sorgente è offuscato");
+    // Se già autenticato in questa sessione, reindirizza
+    if (sessionStorage.getItem('weddingSession') === 'authenticated') {
+      window.location.href = 'index.html';
+    }
+    
+    // Se c'è un token valido nel localStorage, reindirizza
+    const savedAuth = localStorage.getItem('weddingAuth');
+    if (savedAuth) {
+      try {
+        const authData = JSON.parse(savedAuth);
+        if (authData.expires > Date.now()) {
+          sessionStorage.setItem('weddingSession', 'authenticated');
+          window.location.href = 'index.html';
+        } else {
+          // Token scaduto, rimuovilo
+          localStorage.removeItem('weddingAuth');
+        }
+      } catch (e) {
+        localStorage.removeItem('weddingAuth');
+      }
+    }
+    
+    // Focus automatico sul campo password
+    window.addEventListener('load', function() {
+      document.getElementById('password').focus();
+      
+      // Test automatico della decodifica al caricamento
+      console.log("=== TEST DECODIFICA AUTOMATICO ===");
+      console.log("Stringa base64:", OBFUSCATED);
+      const testDecode = atob(OBFUSCATED);
+      console.log("Dopo atob():", testDecode);
+      const testReverse = testDecode.split('').reverse().join('');
+      console.log("Dopo reverse():", testReverse);
+      console.log("Atteso: 10luglio");
+      console.log("Corrisponde?", testReverse === "10luglio");
+    });
   </script>
 </body>
 </html>
