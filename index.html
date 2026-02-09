@@ -265,23 +265,67 @@
   
 
     /* =========================================================
-       FIX HOME: mostra immagine intera (no tagli) + testi come
-       "immagine giusta Elpidio e Cecilia"
+       FIX HOME: nome nel cielo + foto centrale più larga + bordi sfocati
        ========================================================= */
     .hero-bg{
-      background-position: center center !important;
-      background-repeat: no-repeat !important;
-      background-size: contain !important;
-      background-color: #000 !important; /* bande sopra/sotto o laterali */
+      --hero-image: none;
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 1 !important;
+      overflow: hidden;
+      background: linear-gradient(135deg, #FAF0DC 0%, #F5E8C9 100%) !important; /* fallback */
     }
 
-    /* Posizionamento testi (desktop) */
+    .hero-bg::before,
+    .hero-bg::after{
+      content: "";
+      position: absolute;
+      opacity: 0;
+      transition: opacity .25s ease;
+      background-image: var(--hero-image);
+      background-repeat: no-repeat;
+    }
+
+    /* stessa foto a tutto schermo, sfocata (riempie i bordi) */
+    .hero-bg::before{
+      inset: -3%;
+      background-position: center center;
+      background-size: cover;
+      filter: blur(22px) saturate(1.1) brightness(0.65);
+      transform: scale(1.08);
+    }
+
+    /* foto principale nitida, più larga */
+    .hero-bg::after{
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: min(96vw, 1700px);
+      transform: translateX(-50%);
+      background-position: center 58%;
+      background-size: cover;
+      box-shadow: 0 0 48px rgba(0, 0, 0, 0.45);
+    }
+
+    .hero-bg.has-image::before,
+    .hero-bg.has-image::after{
+      opacity: 1;
+    }
+
+    /* overlay scuro sopra foto ma sotto i testi */
+    .hero::before{
+      z-index: 2 !important;
+      background: rgba(0, 0, 0, 0.22);
+    }
+
+    /* Posizionamento testi (desktop) - invariato */
     .hero-content{
       position: absolute !important;
       inset: 0 !important;
       padding: 0 !important;
       max-width: none !important;
       width: 100% !important;
+      z-index: 3 !important;
     }
 
     .hero-content .couple-name{
@@ -317,11 +361,21 @@
       width: min(900px, 92%);
     }
 
-    /* Mobile: torna a layout "in colonna" per evitare sovrapposizioni */
+    /* Mobile: torna a layout in colonna per evitare sovrapposizioni */
     @media (max-width: 768px){
       .hero{
         height: 100vh;
       }
+
+      .hero-bg::before{
+        filter: blur(16px) saturate(1.05) brightness(0.62);
+      }
+
+      .hero-bg::after{
+        width: 100vw;
+        background-position: center center;
+      }
+
       .hero-content{
         position: relative !important;
         inset: auto !important;
@@ -337,6 +391,7 @@
         left: auto !important;
         transform: none !important;
       }
+
       .hero-content .welcome-message{
         width: 100%;
       }
@@ -468,13 +523,9 @@
           try {
             const result = await testImage(src);
             if (result) {
-              // TROVATA! Usa questa immagine con opacità
-              // MODIFICATO: calc per spostamento preciso - sinistra e in basso
-              heroBg.style.backgroundImage = `url('${result}')`;
-              heroBg.style.backgroundPosition = 'center center';
-              heroBg.style.backgroundSize = 'contain';
-              heroBg.style.backgroundRepeat = 'no-repeat';
-              heroBg.style.backgroundColor = '#000';
+              // TROVATA! Applica la stessa immagine ai due livelli (nitido + sfocato)
+              heroBg.style.setProperty('--hero-image', `url('${result}')`);
+              heroBg.classList.add('has-image');
               console.log(`✅ Immagine di sfondo trovata: ${result}`);
               return;
             }
@@ -483,7 +534,7 @@
           }
         }
         // Se nessuna immagine viene trovata, mantieni il colore di fallback chiaro
-        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando colore di fallback chiaro.');
+        console.warn('⚠️ Nessuna immagine di sfondo trovata. Uso fallback neutro.');
       }
       
       // Esegui la ricerca dell'immagine
