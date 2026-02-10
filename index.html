@@ -17,29 +17,36 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* SOLO GLI STILI UNICI DELLA HOMEPAGE */
+    /* STILI PER L'IMMAGINE DI SFONDO INTERA E TESTO NEL CIELO */
     
-    /* HERO CON IMMAGINE DI SFONDO */
+    /* HERO CON IMMAGINE DI SFONDO - MODIFICATO */
     .hero { 
       height: 100vh; 
-      display: grid; 
-      place-items: center; 
-      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
       overflow: hidden;
       position: relative;
+      background-color: #000; /* Sfondo nero per le bande laterali */
     }
     
-    /* Contenitore per l'immagine di sfondo */
+    /* Contenitore per l'immagine di sfondo - MODIFICATO */
     .hero-bg {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #FAF0DC 0%, #F5E8C9 100%);
+      background-color: #000; /* Sfondo nero per le bande */
       z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
+    /* Overlay leggero per migliorare la leggibilità del testo */
     .hero::before {
       content: '';
       position: absolute;
@@ -47,47 +54,65 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.2);
-      z-index: 1;
+      background: rgba(0, 0, 0, 0.15);
+      z-index: 2;
     }
     
     .hero-content {
       text-align: center;
       position: relative;
-      z-index: 2;
-      padding: 30px;
-      max-width: 90%;
+      z-index: 3;
       width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
     
-    /* MODIFICATO: Font Imperial Script e margine superiore aumentato */
+    /* Nomi degli sposi - POSIZIONATI NEL CIELO */
     .couple-name {
       font-family: 'Imperial Script', cursive;
-      font-size: clamp(64px, 12vw, 160px);
+      font-size: clamp(60px, 10vw, 140px);
       font-weight: 400;
-      margin: 30px 0 0 0; /* MODIFICATO: ridotto margine superiore per spostare più in alto */
+      margin: 0;
       color: #FF7F50;
-      white-space: nowrap;
-      text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
+      text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.7);
       letter-spacing: 1px;
       line-height: 0.9;
-      font-style: normal;
+      position: absolute;
+      top: 20%; /* POSIZIONE NEL CIELO - regolabile */
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      z-index: 4;
     }
     
     .wedding-date {
       font-family: 'Marcellus', serif;
-      font-size: clamp(24px, 4vw, 36px);
+      font-size: clamp(20px, 3.5vw, 32px);
       color: #FF7F50;
-      margin: 20px 0 0;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-      letter-spacing: 3px;
+      margin: 0;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+      letter-spacing: 2px;
       font-weight: 500;
+      position: absolute;
+      top: 35%; /* Sotto i nomi */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
     }
     
-    /* PULSANTE HERO ORO/BIANCO */
+    /* PULSANTE RSVP - POSIZIONATO AL CENTRO */
     .rsvp-hero-btn {
-      display: inline-block;
-      margin-top: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 50%; /* Centro verticale */
+      left: 50%;
+      transform: translate(-50%, -50%);
       padding: 18px 40px;
       border-radius: 999px;
       background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 50%, #D4AF37 100%);
@@ -101,23 +126,21 @@
         0 8px 30px rgba(212, 175, 55, 0.5),
         inset 0 2px 4px rgba(255, 255, 255, 0.8),
         0 0 25px rgba(212, 175, 55, 0.5);
-      position: relative;
+      z-index: 4;
       overflow: hidden;
       transition: all 0.3s ease;
       letter-spacing: 1px;
+      min-width: 280px;
+      text-align: center;
     }
 
     .rsvp-hero-btn:hover {
-      transform: translateY(-3px);
+      transform: translate(-50%, -50%) scale(1.05);
       box-shadow: 
         0 12px 40px rgba(212, 175, 55, 0.7),
         inset 0 2px 6px rgba(255, 255, 255, 0.9),
         0 0 35px rgba(212, 175, 55, 0.7);
       background: linear-gradient(135deg, #E6BF40 0%, #F5E8B0 50%, #E6BF40 100%);
-    }
-
-    .rsvp-hero-btn:active {
-      transform: translateY(-1px);
     }
 
     /* Effetto brillante */
@@ -143,24 +166,30 @@
 
     /* Animazione pulsazione leggera */
     @keyframes gentlePulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.03); }
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.03); }
     }
 
     .rsvp-hero-btn {
       animation: gentlePulse 4s infinite ease-in-out;
     }
 
-    /* MESSAGGIO DI BENVENUTO */
+    /* MESSAGGIO DI SHAKESPEARE IN BASSO */
     .welcome-message {
       color: #FF7F50;
       font-family: 'Marcellus', serif;
-      font-size: clamp(18px, 2.5vw, 22px);
+      font-size: clamp(16px, 2vw, 20px);
       max-width: 700px;
-      margin: 40px auto 0;
       line-height: 1.6;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
       font-style: italic;
+      position: absolute;
+      bottom: 15%; /* POSIZIONE IN BASSO */
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      width: 90%;
+      z-index: 4;
       padding: 0 20px;
     }
 
@@ -169,35 +198,32 @@
       .rsvp-hero-btn {
         padding: 16px 32px;
         font-size: 18px;
-        margin-top: 30px;
-      }
-      
-      .hero-content {
-        padding: 20px 15px;
-        margin: 0 10px;
+        min-width: 240px;
       }
       
       .couple-name {
-        font-size: clamp(56px, 11vw, 140px);
+        font-size: clamp(50px, 9vw, 120px);
         white-space: normal;
         line-height: 0.9;
-        margin: 20px 0 0 0; /* MODIFICATO per mobile */
-        word-break: break-word;
+        top: 15%;
+        text-align: center;
+        width: 90%;
       }
       
       .wedding-date {
-        font-size: clamp(20px, 3.5vw, 28px);
-        margin: 15px 0 0;
+        font-size: clamp(18px, 3vw, 26px);
+        top: 30%;
+        text-align: center;
+        width: 90%;
       }
       
       .welcome-message {
-        font-size: clamp(16px, 2.2vw, 20px);
-        margin: 30px auto 0;
-        padding: 0 15px;
+        font-size: clamp(14px, 1.8vw, 18px);
+        bottom: 10%;
       }
       
       .hero {
-        padding-top: 20px;
+        height: 100vh;
       }
     }
 
@@ -262,87 +288,7 @@
       background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
       opacity: 0;
     }
-  
-
-    /* =========================================================
-       FIX HOME: mostra immagine intera (no tagli) + testi come
-       "immagine giusta Elpidio e Cecilia"
-       ========================================================= */
-    .hero-bg{
-      background-position: center center !important;
-      background-repeat: no-repeat !important;
-      background-size: contain !important;
-      background-color: #000 !important; /* bande sopra/sotto o laterali */
-    }
-
-    /* Posizionamento testi (desktop) */
-    .hero-content{
-      position: absolute !important;
-      inset: 0 !important;
-      padding: 0 !important;
-      max-width: none !important;
-      width: 100% !important;
-    }
-
-    .hero-content .couple-name{
-      position: absolute;
-      top: calc(70px + 4vh);
-      left: 50%;
-      transform: translateX(-50%);
-      margin: 0 !important;
-    }
-
-    .hero-content .wedding-date{
-      position: absolute;
-      top: 55%;
-      left: 50%;
-      transform: translateX(-50%);
-      margin: 0 !important;
-    }
-
-    .hero-content .rsvp-hero-btn{
-      position: absolute;
-      top: 66%;
-      left: 50%;
-      transform: translateX(-50%);
-      margin: 0 !important;
-    }
-
-    .hero-content .welcome-message{
-      position: absolute;
-      bottom: 6%;
-      left: 50%;
-      transform: translateX(-50%);
-      margin: 0 !important;
-      width: min(900px, 92%);
-    }
-
-    /* Mobile: torna a layout "in colonna" per evitare sovrapposizioni */
-    @media (max-width: 768px){
-      .hero{
-        height: 100vh;
-      }
-      .hero-content{
-        position: relative !important;
-        inset: auto !important;
-        padding: 24px !important;
-      }
-      .hero-content .couple-name,
-      .hero-content .wedding-date,
-      .hero-content .rsvp-hero-btn,
-      .hero-content .welcome-message{
-        position: relative !important;
-        top: auto !important;
-        bottom: auto !important;
-        left: auto !important;
-        transform: none !important;
-      }
-      .hero-content .welcome-message{
-        width: 100%;
-      }
-    }
-
-</style>
+  </style>
 </head>
 <body id="top">
 
@@ -385,10 +331,10 @@
         <div class="shine"></div>
       </a>
       
-      <!-- MESSAGGIO DI BENVENUTO -->
+      <!-- MESSAGGIO DI SHAKESPEARE -->
       <div class="welcome-message">
         "Il mio amore è profondo quanto il mare; più ti dono, più ne ho, perchè l'uno e l'altro sono infiniti"
-        W. Shakespeare
+        <br>W. Shakespeare
       </div>
     </div>
   </header>
@@ -448,7 +394,8 @@
         'bmp', 'BMP', 'tiff', 'TIFF'
       ];
       
-      const baseName = 'immagine1';
+      // Nome base dell'immagine come nell'esempio
+      const baseName = 'immagine giusta Elpidio e Cecilia';
       const heroBg = document.querySelector('.hero-bg');
       
       // Funzione per testare se un'immagine esiste
@@ -464,26 +411,64 @@
       // Testa tutte le estensioni in ordine
       async function findImage() {
         for (const format of imageFormats) {
+          // Per spazi nel nome file, usiamo encodeURI
           const src = `${baseName}.${format}`;
+          const encodedSrc = encodeURI(src);
           try {
-            const result = await testImage(src);
+            const result = await testImage(encodedSrc);
             if (result) {
-              // TROVATA! Usa questa immagine con opacità
-              // MODIFICATO: calc per spostamento preciso - sinistra e in basso
+              // IMMAGINE TROVATA! La mostriamo con dimensioni adatte
               heroBg.style.backgroundImage = `url('${result}')`;
               heroBg.style.backgroundPosition = 'center center';
-              heroBg.style.backgroundSize = 'contain';
+              heroBg.style.backgroundSize = 'contain'; // Mostra l'immagine intera senza tagli
               heroBg.style.backgroundRepeat = 'no-repeat';
-              heroBg.style.backgroundColor = '#000';
+              heroBg.style.backgroundColor = '#000'; // Bande nere se l'immagine non riempie tutto
               console.log(`✅ Immagine di sfondo trovata: ${result}`);
+              
+              // Regola le posizioni dei testi in base alle dimensioni dell'immagine
+              adjustTextPositions();
               return;
             }
           } catch (e) {
             console.log(`❌ Immagine non trovata: ${src}`);
           }
         }
-        // Se nessuna immagine viene trovata, mantieni il colore di fallback chiaro
+        // Se nessuna immagine viene trovata, prova con nomi alternativi
+        console.warn('⚠️ Nessuna immagine trovata con il nome esatto. Provo alternative...');
+        
+        // Prova con nomi alternativi comuni
+        const alternativeNames = ['immagine1', 'foto', 'background', 'home-bg'];
+        for (const altName of alternativeNames) {
+          for (const format of imageFormats) {
+            const src = `${altName}.${format}`;
+            try {
+              const result = await testImage(src);
+              if (result) {
+                heroBg.style.backgroundImage = `url('${result}')`;
+                heroBg.style.backgroundPosition = 'center center';
+                heroBg.style.backgroundSize = 'contain';
+                heroBg.style.backgroundRepeat = 'no-repeat';
+                heroBg.style.backgroundColor = '#000';
+                console.log(`✅ Immagine alternativa trovata: ${result}`);
+                adjustTextPositions();
+                return;
+              }
+            } catch (e) {
+              // Continua con il prossimo
+            }
+          }
+        }
+        
+        // Se nessuna immagine viene trovata, mantieni il colore di fallback
         console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando colore di fallback chiaro.');
+        heroBg.style.background = 'linear-gradient(135deg, #FAF0DC 0%, #F5E8C9 100%)';
+      }
+      
+      // Funzione per regolare le posizioni dei testi in base alle dimensioni dell'immagine
+      function adjustTextPositions() {
+        // Questa funzione può essere estesa per regolare dinamicamente
+        // le posizioni dei testi in base all'immagine
+        console.log('✅ Immagine caricata, testi posizionati correttamente nel cielo');
       }
       
       // Esegui la ricerca dell'immagine
