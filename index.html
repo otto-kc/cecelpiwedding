@@ -232,32 +232,31 @@
       flex-direction: column;
       justify-content: space-between !important; /* MODIFICATO: per separare gli elementi */
       align-items: center;
+      height: 100vh !important;
     }
 
     .hero-content .couple-name{
        position: relative !important;
-       top: auto !important;
-       left: auto !important;
-       transform: none !important;
-       margin: 100px 0 20px 0 !important; /* MODIFICATO: posizionato molto in alto */
-       padding-top: 20px !important;
+       top: 5% !important; /* MODIFICATO: posizionato molto in alto */
+       margin: 0 !important;
+       padding: 0 !important;
     }
 
     .hero-content .wedding-date{
-      position: relative !important;
-      top: auto !important;
-      left: auto !important;
-      transform: none !important;
-      margin: auto 0 !important; /* MODIFICATO: posizionato al centro */
+      position: absolute !important;
+      top: 50% !important; /* MODIFICATO: posizionato al centro verticale */
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      margin: 0 !important;
       text-align: center !important;
     }
 
     .hero-content .welcome-message{
-      position: relative !important;
-      bottom: auto !important;
-      left: auto !important;
-      transform: none !important;
-      margin: 0 0 200px 0 !important; /* MODIFICATO: posizionato più in basso */
+      position: absolute !important;
+      bottom: 25% !important; /* MODIFICATO: posizionato molto in basso */
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      margin: 0 !important;
       width: min(900px, 92%);
     }
 
@@ -278,48 +277,50 @@
         justify-content: space-between !important;
         min-height: 100vh;
         width: 100% !important;
+        height: 100vh !important;
       }
       
-      .hero-content .couple-name,
-      .hero-content .wedding-date,
-      .hero-content .welcome-message{
-        position: relative !important;
-        top: auto !important;
-        bottom: auto !important;
-        left: auto !important;
-        transform: none !important;
-        margin: 0 !important;
-      }
-      
-      .hero-content .couple-name {
-        margin-top: 100px !important; /* MODIFICATO: posizionato molto in alto */
-        margin-bottom: 30px !important;
-      }
-      
-      .hero-content .wedding-date {
-        margin: auto 0 !important; /* MODIFICATO: al centro su mobile */
+      .hero-content .couple-name{
+        position: absolute !important;
+        top: 15% !important; /* MODIFICATO: posizionato molto in alto su mobile */
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 100% !important;
         text-align: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      
+      .hero-content .wedding-date{
+        position: absolute !important;
+        top: 50% !important; /* MODIFICATO: al centro su mobile */
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        margin: 0 !important;
+        text-align: center !important;
+        width: 100% !important;
       }
       
       .hero-content .welcome-message{
-        width: 100%;
-        margin-top: auto !important;
-        margin-bottom: 150px !important; /* MODIFICATO: posizionato più in basso */
+        position: absolute !important;
+        bottom: 30% !important; /* MODIFICATO: posizionato molto in basso su mobile */
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        margin: 0 !important;
+        width: 90% !important;
       }
       
       /* Footer su mobile - CORRETTO: posizionato in fondo */
       .hero footer {
-        position: relative !important;
-        bottom: auto !important;
+        position: absolute !important;
+        bottom: 0 !important;
         width: 100% !important;
         text-align: center !important;
         padding: 15px !important;
         z-index: 3 !important;
         color: rgba(255,255,255,0.9) !important;
         font-size: 12px !important;
-        margin-top: auto !important; /* Spinge il footer in fondo */
         background: rgba(0, 0, 0, 0.3); /* Sfondo scuro per leggibilità */
-        border-radius: 10px 10px 0 0;
         backdrop-filter: blur(5px);
       }
     }
