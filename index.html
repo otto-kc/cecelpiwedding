@@ -27,25 +27,19 @@
       padding: 0 20px;
       overflow: hidden;
       position: relative;
-      background: #FAF9F6; /* Sfondo avorio di fallback */
     }
     
-    /* Contenitore per l'immagine di sfondo - MODIFICATO */
+    /* Contenitore per l'immagine di sfondo - MODIFICATO: rimosso nero */
     .hero-bg {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: #FAF9F6; /* Sfondo avorio come fallback */
+      background: #FAF9F6; /* Sfondo avorio invece di nero */
       z-index: 1;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover; /* Cambiato da contain a cover per riempire meglio */
-      background-color: #FAF9F6; /* Sfondo avorio se l'immagine non copre tutto */
     }
     
-    /* Overlay leggero per migliorare la leggibilità del testo */
     .hero::before {
       content: '';
       position: absolute;
@@ -53,14 +47,14 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(255, 248, 240, 0.3); /* Overlay avorio chiarissimo */
+      background: rgba(0, 0, 0, 0.2);
       z-index: 2;
     }
     
     .hero-content {
       text-align: center;
       position: relative;
-      z-index: 3; /* Sopra l'overlay */
+      z-index: 3;
       padding: 30px;
       max-width: 90%;
       width: 100%;
@@ -74,7 +68,7 @@
       margin: 30px 0 0 0;
       color: #FF7F50;
       white-space: nowrap;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+      text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
       letter-spacing: 1px;
       line-height: 0.9;
       font-style: normal;
@@ -85,7 +79,7 @@
       font-size: clamp(24px, 4vw, 36px);
       color: #FF7F50;
       margin: 20px 0 0;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
       letter-spacing: 3px;
       font-weight: 500;
     }
@@ -165,7 +159,7 @@
       max-width: 700px;
       margin: 40px auto 0;
       line-height: 1.6;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
       font-style: italic;
       padding: 0 20px;
     }
@@ -204,24 +198,6 @@
       
       .hero {
         padding-top: 20px;
-      }
-      
-      /* Per mobile: overlay più chiaro per migliore leggibilità */
-      .hero::before {
-        background: rgba(255, 248, 240, 0.4);
-      }
-      
-      /* Per mobile: se l'immagine è verticale, usiamo contain */
-      .hero-bg {
-        background-size: contain;
-        background-color: #FAF9F6;
-      }
-    }
-
-    /* Per desktop: ottimizziamo per immagini orizzontali */
-    @media (min-width: 769px) {
-      .hero-bg {
-        background-size: cover;
       }
     }
 
@@ -286,8 +262,91 @@
       background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
       opacity: 0;
     }
+  
 
-  </style>
+    /* =========================================================
+       FIX HOME: mostra immagine intera (no tagli) con sfondo avorio
+       ========================================================= */
+    .hero-bg{
+      background-position: center center !important;
+      background-repeat: no-repeat !important;
+      background-size: contain !important;
+      background-color: #FAF9F6 !important; /* MODIFICATO: avorio invece di nero */
+    }
+
+    /* Posizionamento testi (desktop) */
+    .hero-content{
+      position: absolute !important;
+      inset: 0 !important;
+      padding: 0 !important;
+      max-width: none !important;
+      width: 100% !important;
+    }
+
+    .hero-content .couple-name{
+      position: absolute;
+      top: calc(70px + 4vh);
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
+    }
+
+    .hero-content .wedding-date{
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
+    }
+
+    .hero-content .rsvp-hero-btn{
+      position: absolute;
+      top: 66%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
+    }
+
+    .hero-content .welcome-message{
+      position: absolute;
+      bottom: 6%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
+      width: min(900px, 92%);
+    }
+
+    /* Mobile: torna a layout "in colonna" per evitare sovrapposizioni */
+    @media (max-width: 768px){
+      .hero{
+        height: 100vh;
+      }
+      .hero-content{
+        position: relative !important;
+        inset: auto !important;
+        padding: 24px !important;
+      }
+      .hero-content .couple-name,
+      .hero-content .wedding-date,
+      .hero-content .rsvp-hero-btn,
+      .hero-content .welcome-message{
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        transform: none !important;
+      }
+      .hero-content .welcome-message{
+        width: 100%;
+      }
+      
+      /* Per mobile: overlay leggermente più chiaro */
+      .hero::before {
+        background: rgba(0, 0, 0, 0.15);
+      }
+    }
+
+</style>
 </head>
 <body id="top">
 
@@ -413,26 +472,12 @@
           try {
             const result = await testImage(src);
             if (result) {
-              // TROVATA! Usa questa immagine con sfondo avorio
+              // TROVATA! Usa questa immagine mantenendo lo sfondo avorio
               heroBg.style.backgroundImage = `url('${result}')`;
               heroBg.style.backgroundPosition = 'center center';
+              heroBg.style.backgroundSize = 'contain';
               heroBg.style.backgroundRepeat = 'no-repeat';
               heroBg.style.backgroundColor = '#FAF9F6'; // Sfondo avorio
-              
-              // Ottimizza in base all'orientamento dell'immagine
-              const img = new Image();
-              img.src = result;
-              img.onload = function() {
-                const isPortrait = img.height > img.width;
-                if (window.innerWidth <= 768 || isPortrait) {
-                  // Mobile o immagine verticale: usa contain per vedere tutta l'immagine
-                  heroBg.style.backgroundSize = 'contain';
-                } else {
-                  // Desktop e immagine orizzontale: usa cover per riempire
-                  heroBg.style.backgroundSize = 'cover';
-                }
-              };
-              
               console.log(`✅ Immagine di sfondo trovata: ${result}`);
               return;
             }
@@ -440,8 +485,8 @@
             console.log(`❌ Immagine non trovata: ${src}`);
           }
         }
-        // Se nessuna immagine viene trovata, mantieni il colore di fallback avorio
-        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando sfondo avorio di fallback.');
+        // Se nessuna immagine viene trovata, mantieni solo lo sfondo avorio
+        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando sfondo avorio.');
         heroBg.style.background = '#FAF9F6';
       }
       
@@ -450,25 +495,6 @@
       
       // Avvia l'effetto fuochi d'artificio pomposo
       startPompousFireworks();
-      
-      // Rileva cambio orientamento e ridimensionamento
-      window.addEventListener('resize', function() {
-        // Ricarica l'immagine per adattare background-size
-        const currentBg = heroBg.style.backgroundImage;
-        if (currentBg && currentBg !== 'none') {
-          // Ricrea l'immagine per determinare orientamento
-          const img = new Image();
-          img.src = currentBg.replace('url("', '').replace('")', '');
-          img.onload = function() {
-            const isPortrait = img.height > img.width;
-            if (window.innerWidth <= 768 || isPortrait) {
-              heroBg.style.backgroundSize = 'contain';
-            } else {
-              heroBg.style.backgroundSize = 'cover';
-            }
-          };
-        }
-      });
     });
 
     // FUNZIONE FUOCHI D'ARTIFICIO POMPOSI (SENZA SUONI)
