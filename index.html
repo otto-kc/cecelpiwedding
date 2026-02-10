@@ -29,14 +29,14 @@
       position: relative;
     }
     
-    /* Contenitore per l'immagine di sfondo - MODIFICATO: rimosso nero */
+    /* Contenitore per l'immagine di sfondo */
     .hero-bg {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: #FAF9F6; /* Sfondo avorio invece di nero */
+      background: linear-gradient(135deg, #FAF0DC 0%, #F5E8C9 100%);
       z-index: 1;
     }
     
@@ -48,13 +48,13 @@
       right: 0;
       bottom: 0;
       background: rgba(0, 0, 0, 0.2);
-      z-index: 2;
+      z-index: 1;
     }
     
     .hero-content {
       text-align: center;
       position: relative;
-      z-index: 3;
+      z-index: 2;
       padding: 30px;
       max-width: 90%;
       width: 100%;
@@ -65,7 +65,7 @@
       font-family: 'Imperial Script', cursive;
       font-size: clamp(64px, 12vw, 160px);
       font-weight: 400;
-      margin: 30px 0 0 0;
+      margin: 30px 0 0 0; /* MODIFICATO: ridotto margine superiore per spostare più in alto */
       color: #FF7F50;
       white-space: nowrap;
       text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
@@ -181,7 +181,7 @@
         font-size: clamp(56px, 11vw, 140px);
         white-space: normal;
         line-height: 0.9;
-        margin: 20px 0 0 0;
+        margin: 20px 0 0 0; /* MODIFICATO per mobile */
         word-break: break-word;
       }
       
@@ -265,13 +265,14 @@
   
 
     /* =========================================================
-       FIX HOME: mostra immagine intera (no tagli) con sfondo avorio
+       FIX HOME: mostra immagine intera (no tagli) + testi come
+       "immagine giusta Elpidio e Cecilia"
        ========================================================= */
     .hero-bg{
       background-position: center center !important;
       background-repeat: no-repeat !important;
       background-size: contain !important;
-      background-color: #FAF9F6 !important; /* MODIFICATO: avorio invece di nero */
+      background-color: #000 !important; /* bande sopra/sotto o laterali */
     }
 
     /* Posizionamento testi (desktop) */
@@ -338,11 +339,6 @@
       }
       .hero-content .welcome-message{
         width: 100%;
-      }
-      
-      /* Per mobile: overlay leggermente più chiaro */
-      .hero::before {
-        background: rgba(0, 0, 0, 0.15);
       }
     }
 
@@ -472,12 +468,13 @@
           try {
             const result = await testImage(src);
             if (result) {
-              // TROVATA! Usa questa immagine mantenendo lo sfondo avorio
+              // TROVATA! Usa questa immagine con opacità
+              // MODIFICATO: calc per spostamento preciso - sinistra e in basso
               heroBg.style.backgroundImage = `url('${result}')`;
               heroBg.style.backgroundPosition = 'center center';
               heroBg.style.backgroundSize = 'contain';
               heroBg.style.backgroundRepeat = 'no-repeat';
-              heroBg.style.backgroundColor = '#FAF9F6'; // Sfondo avorio
+              heroBg.style.backgroundColor = '#000';
               console.log(`✅ Immagine di sfondo trovata: ${result}`);
               return;
             }
@@ -485,9 +482,8 @@
             console.log(`❌ Immagine non trovata: ${src}`);
           }
         }
-        // Se nessuna immagine viene trovata, mantieni solo lo sfondo avorio
-        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando sfondo avorio.');
-        heroBg.style.background = '#FAF9F6';
+        // Se nessuna immagine viene trovata, mantieni il colore di fallback chiaro
+        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando colore di fallback chiaro.');
       }
       
       // Esegui la ricerca dell'immagine
