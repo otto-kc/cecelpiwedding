@@ -230,8 +230,9 @@
       width: 100% !important;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start !important; /* MODIFICATO: da center a flex-start */
       align-items: center;
+      padding-top: 120px !important; /* AGGIUNTO: per posizionare sotto la navbar */
     }
 
     .hero-content .couple-name{
@@ -239,7 +240,7 @@
   top: auto;
   left: auto;
   transform: none;
-  margin: 0 0 3px 0 !important; /* RIDOTTO DA 20px A 10px */
+  margin: 0 0 10px 0 !important; /* RIDOTTO MARGINE */
 }
 
     .hero-content .wedding-date{
@@ -247,7 +248,7 @@
       top: auto;
       left: auto;
       transform: none;
-      margin: 0 0 20px 0 !important; /* RIDOTTO DA 40px A 20px */
+      margin: 0 0 15px 0 !important; /* RIDOTTO MARGINE */
 }
 
     .hero-content .welcome-message{
@@ -255,8 +256,8 @@
       bottom: auto;
       left: auto;
       transform: none;
-      margin: 40px 0 0 0 !important; /* AGGIUNTO 40px SOPRA */
-  width: min(900px, 92%);
+      margin: 40px 0 0 0 !important;
+      width: min(900px, 92%);
 }
 
     /* Mobile: layout flessibile per gestire spazio senza pulsante */
@@ -290,12 +291,12 @@
       }
       
       .hero-content .couple-name {
-        margin-top: 40px !important;
-        margin-bottom: 20px !important;
+        margin-top: 80px !important; /* AUMENTATO: per posizionare sotto la navbar su mobile */
+        margin-bottom: 15px !important;
       }
       
       .hero-content .wedding-date {
-        margin-bottom: 30px !important;
+        margin-bottom: 20px !important;
       }
       
       .hero-content .welcome-message{
