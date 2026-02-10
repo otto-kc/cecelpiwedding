@@ -37,7 +37,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #000;
+      background-color: #FFF8F0; /* Sfondo avorio che si abbina alla palette del sito */
       z-index: 1;
     }
     
@@ -180,15 +180,38 @@
       opacity: 0;
     }
 
-    /* STILI PER L'IMMAGINE DI SFONDO A SCHERMO INTERO */
+    /* STILI PER L'IMMAGINE DI SFONDO - VISUALIZZA TUTTA L'IMMAGINE */
     .hero-bg {
       background-position: center center !important;
       background-repeat: no-repeat !important;
-      background-size: cover !important; /* Modificato da contain a cover */
-      background-color: transparent !important; /* Rimossi i bordi neri */
+      background-size: contain !important; /* MODIFICATO: contain invece di cover */
+      background-color: #FFF8F0 !important; /* Sfondo avorio che si abbina al sito */
     }
 
-    /* Posizionamento del pulsante - sempre in basso */
+    /* Per desktop: centra l'immagine verticalmente */
+    @media (min-width: 769px) {
+      .hero {
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+      
+      .hero-content {
+        position: absolute;
+        bottom: 60px;
+        right: 5%;
+        max-width: 400px;
+        text-align: right;
+      }
+      
+      /* Se l'immagine è verticale, sposta il pulsante a destra */
+      .hero-bg {
+        background-position: left center !important;
+      }
+    }
+
+    /* Posizionamento del pulsante - sempre in basso su mobile */
     .hero-content {
       position: absolute;
       bottom: 60px;
@@ -203,6 +226,8 @@
     @media (max-width: 768px) {
       .hero {
         padding: 0 15px 40px;
+        align-items: flex-end;
+        justify-content: center;
       }
       
       .rsvp-hero-btn {
@@ -213,6 +238,12 @@
       
       .hero-content {
         bottom: 40px;
+        text-align: center;
+      }
+      
+      /* Su mobile: l'immagine viene visualizzata al centro senza tagli */
+      .hero-bg {
+        background-position: center center !important;
       }
     }
 
@@ -237,6 +268,23 @@
     @media (min-height: 800px) and (max-width: 768px) {
       .hero-content {
         bottom: 80px;
+      }
+    }
+
+    /* Per schermi orizzontali (landscape) su mobile */
+    @media (max-height: 600px) and (orientation: landscape) {
+      .hero {
+        padding-bottom: 30px;
+      }
+      
+      .hero-content {
+        bottom: 30px;
+      }
+      
+      .rsvp-hero-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+        max-width: 300px;
       }
     }
 
@@ -344,14 +392,21 @@
       function testImage(src) {
         return new Promise((resolve) => {
           const img = new Image();
-          img.onload = () => resolve(src);
-          img.onerror = () => resolve(null);
+          img.onload = () => {
+            console.log(`✅ Immagine di sfondo trovata e caricata: ${src}`);
+            resolve(src);
+          };
+          img.onerror = () => {
+            console.log(`❌ Immagine non trovata: ${src}`);
+            resolve(null);
+          };
           img.src = src;
         });
       }
       
       // Testa tutte le estensioni in ordine
       async function findImage() {
+        console.log("🔍 Ricerca immagine di sfondo...");
         for (const format of imageFormats) {
           const src = `${baseName}.${format}`;
           try {
@@ -359,23 +414,70 @@
             if (result) {
               // TROVATA! Usa questa immagine
               heroBg.style.backgroundImage = `url('${result}')`;
-              heroBg.style.backgroundPosition = 'center center';
-              heroBg.style.backgroundSize = 'cover'; // Copre tutto lo schermo senza bordi
+              
+              // Per desktop: posiziona l'immagine a sinistra
+              if (window.innerWidth >= 769) {
+                heroBg.style.backgroundPosition = 'left center';
+              } else {
+                // Per mobile: centra l'immagine
+                heroBg.style.backgroundPosition = 'center center';
+              }
+              
+              heroBg.style.backgroundSize = 'contain'; // Mostra tutta l'immagine senza tagli
               heroBg.style.backgroundRepeat = 'no-repeat';
-              heroBg.style.backgroundColor = 'transparent'; // Rimuove bordi neri
-              console.log(`✅ Immagine di sfondo trovata: ${result}`);
+              heroBg.style.backgroundColor = '#FFF8F0'; // Sfondo avorio per i bordi
+              
+              console.log(`✅ Immagine di sfondo impostata: ${result}`);
+              console.log(`📐 Dimensioni viewport: ${window.innerWidth}x${window.innerHeight}`);
+              
+              // Adatta il posizionamento del pulsante in base all'orientamento
+              adjustButtonPosition();
+              
               return;
             }
           } catch (e) {
-            console.log(`❌ Immagine non trovata: ${src}`);
+            console.log(`Errore nel caricamento: ${src}`, e);
           }
         }
         // Se nessuna immagine viene trovata, mantieni il colore di fallback
         console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando colore di fallback.');
       }
       
+      // Funzione per adattare la posizione del pulsante in base all'orientamento
+      function adjustButtonPosition() {
+        const heroContent = document.querySelector('.hero-content');
+        if (!heroContent) return;
+        
+        // Se lo schermo è in orizzontale (landscape) e largo
+        if (window.innerWidth > window.innerHeight && window.innerWidth >= 769) {
+          heroContent.style.right = '5%';
+          heroContent.style.left = 'auto';
+          heroContent.style.textAlign = 'right';
+        } else {
+          // Per verticale (portrait) o mobile
+          heroContent.style.right = '0';
+          heroContent.style.left = '0';
+          heroContent.style.textAlign = 'center';
+        }
+      }
+      
       // Esegui la ricerca dell'immagine
       findImage();
+      
+      // Riadatta il layout quando la finestra viene ridimensionata
+      window.addEventListener('resize', function() {
+        setTimeout(adjustButtonPosition, 100);
+        
+        // Aggiorna anche la posizione dell'immagine
+        const heroBg = document.querySelector('.hero-bg');
+        if (heroBg && heroBg.style.backgroundImage !== 'none') {
+          if (window.innerWidth >= 769) {
+            heroBg.style.backgroundPosition = 'left center';
+          } else {
+            heroBg.style.backgroundPosition = 'center center';
+          }
+        }
+      });
       
       // Avvia l'effetto fuochi d'artificio pomposo
       startPompousFireworks();
@@ -384,6 +486,8 @@
     // FUNZIONE FUOCHI D'ARTIFICIO POMPOSI (SENZA SUONI)
     function startPompousFireworks() {
       const overlay = document.getElementById('fireworks-overlay');
+      if (!overlay) return;
+      
       const colors = [
         '#FFD700', '#FF4500', '#00FFFF', '#FF1493', '#32CD32', 
         '#FF69B4', '#1E90FF', '#FF00FF', '#00FF00', '#FFFF00',
