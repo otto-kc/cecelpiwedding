@@ -230,35 +230,36 @@
       width: 100% !important;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start !important; /* MODIFICATO: da center a flex-start */
+      justify-content: space-between !important; /* MODIFICATO: per separare gli elementi */
       align-items: center;
-      padding-top: 120px !important; /* AGGIUNTO: per posizionare sotto la navbar */
     }
 
     .hero-content .couple-name{
-       position: relative;
-  top: auto;
-  left: auto;
-  transform: none;
-  margin: 0 0 10px 0 !important; /* RIDOTTO MARGINE */
-}
+       position: relative !important;
+       top: auto !important;
+       left: auto !important;
+       transform: none !important;
+       margin: 100px 0 20px 0 !important; /* MODIFICATO: posizionato molto in alto */
+       padding-top: 20px !important;
+    }
 
     .hero-content .wedding-date{
-      position: relative;
-      top: auto;
-      left: auto;
-      transform: none;
-      margin: 0 0 15px 0 !important; /* RIDOTTO MARGINE */
-}
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+      margin: auto 0 !important; /* MODIFICATO: posizionato al centro */
+      text-align: center !important;
+    }
 
     .hero-content .welcome-message{
-      position: relative;
-      bottom: auto;
-      left: auto;
-      transform: none;
-      margin: 40px 0 0 0 !important;
+      position: relative !important;
+      bottom: auto !important;
+      left: auto !important;
+      transform: none !important;
+      margin: 0 0 200px 0 !important; /* MODIFICATO: posizionato più in basso */
       width: min(900px, 92%);
-}
+    }
 
     /* Mobile: layout flessibile per gestire spazio senza pulsante */
     @media (max-width: 768px){
@@ -274,7 +275,7 @@
         padding: 24px !important;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-between !important;
         min-height: 100vh;
         width: 100% !important;
       }
@@ -291,18 +292,19 @@
       }
       
       .hero-content .couple-name {
-        margin-top: 80px !important; /* AUMENTATO: per posizionare sotto la navbar su mobile */
-        margin-bottom: 15px !important;
+        margin-top: 100px !important; /* MODIFICATO: posizionato molto in alto */
+        margin-bottom: 30px !important;
       }
       
       .hero-content .wedding-date {
-        margin-bottom: 20px !important;
+        margin: auto 0 !important; /* MODIFICATO: al centro su mobile */
+        text-align: center !important;
       }
       
       .hero-content .welcome-message{
         width: 100%;
-        margin-top: auto !important; /* Spinge il messaggio verso l'alto */
-        margin-bottom: 20px !important;
+        margin-top: auto !important;
+        margin-bottom: 150px !important; /* MODIFICATO: posizionato più in basso */
       }
       
       /* Footer su mobile - CORRETTO: posizionato in fondo */
