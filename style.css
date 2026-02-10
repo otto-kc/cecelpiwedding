@@ -53,15 +53,15 @@ body {
   overflow: hidden;
 }
 
-/* LOGO MODIFICATO: Immagine personalizzata */
+/* LOGO MODIFICATO: Immagine personalizzata SENZA RIQUADRO */
 .logo-badge {
   width: 56px;
   height: 56px;
-  border-radius: 18px;
-  background: #FFF8F0 url('logo.png') no-repeat center center;
+  border-radius: 0; /* Cambiato da 18px a 0 per angoli dritti */
+  background: url('logo.png') no-repeat center center; /* Rimosso #FFF8F0 */
   background-size: contain;
-  border: 2px solid #D4AF37;
-  box-shadow: 0 8px 18px rgba(212, 175, 55, 0.25);
+  /* border: 2px solid #D4AF37; RIMOSSO - commenta o elimina questa riga */
+  /* box-shadow: 0 8px 18px rgba(212, 175, 55, 0.25); RIMOSSO - commenta o elimina questa riga */
   user-select: none;
   flex-shrink: 0;
   font-style: normal;
@@ -155,12 +155,12 @@ body {
     font-size: 15px;
   }
   
-  /* Ottimizzazione LOGO per mobile */
+  /* Ottimizzazione LOGO per mobile SENZA RIQUADRO */
   .logo-badge {
     width: 50px;
     height: 50px;
-    border-radius: 15px;
-    border: 1.5px solid #D4AF37; /* Bordo più sottile su mobile */
+    border-radius: 0; /* Cambiato da 15px a 0 */
+    /* border: 1.5px solid #D4AF37; RIMOSSO - commenta o elimina questa riga */
   }
   .navlinks {
     position: fixed;
