@@ -36,7 +36,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: #FFF8F0; /* MODIFICATO: sfondo avorio chiaro */
+      background: linear-gradient(135deg, #FAF0DC 0%, #F5E8C9 100%);
       z-index: 1;
     }
     
@@ -47,7 +47,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(0, 0, 0, 0.08);
       z-index: 1;
     }
     
@@ -65,10 +65,10 @@
       font-family: 'Imperial Script', cursive;
       font-size: clamp(64px, 12vw, 160px);
       font-weight: 400;
-      margin: 30px 0 0 0;
-      color: #D4AF37; /* MODIFICATO: colore oro invece di arancione */
+      margin: 30px 0 0 0; /* MODIFICATO: ridotto margine superiore per spostare più in alto */
+      color: #FF7F50;
       white-space: nowrap;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+      text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
       letter-spacing: 1px;
       line-height: 0.9;
       font-style: normal;
@@ -77,29 +77,30 @@
     .wedding-date {
       font-family: 'Marcellus', serif;
       font-size: clamp(24px, 4vw, 36px);
-      color: #D4AF37; /* MODIFICATO: colore oro */
-      margin: 10px 0 0;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+      color: #FF7F50;
+      margin: 20px 0 0;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
       letter-spacing: 3px;
       font-weight: 500;
     }
     
-    /* PULSANTE HERO BIANCO AVORIO (MODIFICATO) */
+    /* PULSANTE HERO ORO/BIANCO */
     .rsvp-hero-btn {
       display: inline-block;
-      margin-top: 30px;
+      margin-top: 40px;
       padding: 18px 40px;
       border-radius: 999px;
-      background: #FFF8F0; /* MODIFICATO: bianco avorio */
+      background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 50%, #D4AF37 100%);
       color: #222;
       font-family: 'Marcellus', serif;
       font-size: 20px;
       font-weight: 700;
       text-decoration: none;
-      border: 2px solid #D4AF37; /* Bordo oro */
+      border: 2px solid #B8941F;
       box-shadow: 
-        0 8px 25px rgba(212, 175, 55, 0.3),
-        inset 0 1px 3px rgba(255, 255, 255, 0.9);
+        0 8px 30px rgba(212, 175, 55, 0.5),
+        inset 0 2px 4px rgba(255, 255, 255, 0.8),
+        0 0 25px rgba(212, 175, 55, 0.5);
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
@@ -109,16 +110,17 @@
     .rsvp-hero-btn:hover {
       transform: translateY(-3px);
       box-shadow: 
-        0 12px 35px rgba(212, 175, 55, 0.4),
-        inset 0 1px 4px rgba(255, 255, 255, 0.95);
-      background: #FFFDFA; /* Leggermente più chiaro al passaggio */
+        0 12px 40px rgba(212, 175, 55, 0.7),
+        inset 0 2px 6px rgba(255, 255, 255, 0.9),
+        0 0 35px rgba(212, 175, 55, 0.7);
+      background: linear-gradient(135deg, #E6BF40 0%, #F5E8B0 50%, #E6BF40 100%);
     }
 
     .rsvp-hero-btn:active {
       transform: translateY(-1px);
     }
 
-    /* Effetto brillante leggero */
+    /* Effetto brillante */
     .rsvp-hero-btn .shine {
       position: absolute;
       top: -50%;
@@ -128,7 +130,7 @@
       background: linear-gradient(
         to right,
         transparent 0%,
-        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0.5) 50%,
         transparent 100%
       );
       transform: rotate(30deg);
@@ -142,29 +144,24 @@
     /* Animazione pulsazione leggera */
     @keyframes gentlePulse {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
+      50% { transform: scale(1.03); }
     }
 
     .rsvp-hero-btn {
-      animation: gentlePulse 5s infinite ease-in-out;
+      animation: gentlePulse 4s infinite ease-in-out;
     }
 
-    /* MESSAGGIO DI BENVENUTO - CENTRALE E SOTTO IL PULSANTE */
+    /* MESSAGGIO DI BENVENUTO */
     .welcome-message {
-      color: #222;
+      color: #FF7F50;
       font-family: 'Marcellus', serif;
       font-size: clamp(18px, 2.5vw, 22px);
       max-width: 700px;
       margin: 40px auto 0;
       line-height: 1.6;
-      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
       font-style: italic;
-      padding: 20px;
-      background: rgba(255, 248, 240, 0.7);
-      border-radius: 16px;
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      backdrop-filter: blur(5px);
-      text-align: center;
+      padding: 0 20px;
     }
 
     /* Responsive per mobile migliorato */
@@ -172,7 +169,7 @@
       .rsvp-hero-btn {
         padding: 16px 32px;
         font-size: 18px;
-        margin-top: 25px;
+        margin-top: 30px;
       }
       
       .hero-content {
@@ -184,20 +181,19 @@
         font-size: clamp(56px, 11vw, 140px);
         white-space: normal;
         line-height: 0.9;
-        margin: 20px 0 0 0;
+        margin: 20px 0 0 0; /* MODIFICATO per mobile */
         word-break: break-word;
       }
       
       .wedding-date {
         font-size: clamp(20px, 3.5vw, 28px);
-        margin: 8px 0 0;
+        margin: 15px 0 0;
       }
       
       .welcome-message {
         font-size: clamp(16px, 2.2vw, 20px);
         margin: 30px auto 0;
-        padding: 15px;
-        background: rgba(255, 248, 240, 0.85);
+        padding: 0 15px;
       }
       
       .hero {
@@ -268,81 +264,182 @@
     }
   
 
+    
     /* =========================================================
-       FIX HOME: mostra immagine intera (no tagli) + testi come
-       "immagine giusta Elpidio e Cecilia"
+       FIX HOME (desktop + mobile)
+       - niente barre nere laterali: sfondo avorio
+       - pulsante RSVP avorio sotto la citazione
+       - footer sovrapposto alla foto (dentro hero)
        ========================================================= */
+    :root{
+      --ivory-bg: #FAF0DC;
+      --ivory-btn: #FFF9ED;
+      --ivory-btn-border: #E8D7B6;
+      --ivory-btn-text: #6F5833;
+    }
+
+    body{
+      background: var(--ivory-bg);
+    }
+
+    .hero{
+      min-height: 100vh;
+      background: var(--ivory-bg);
+    }
+
     .hero-bg{
       background-position: center center !important;
       background-repeat: no-repeat !important;
       background-size: contain !important;
-      background-color: #FFF8F0 !important; /* MODIFICATO: avorio invece di nero */
+      background-color: var(--ivory-bg) !important; /* laterali avorio */
     }
 
-    /* Posizionamento testi (desktop) */
+    /* Desktop: posizionamento sovrapposto all'immagine */
     .hero-content{
       position: absolute !important;
       inset: 0 !important;
       padding: 0 !important;
       max-width: none !important;
       width: 100% !important;
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: center !important;
-      align-items: center !important;
     }
 
     .hero-content .couple-name{
-      position: relative !important;
-      top: auto !important;
-      left: auto !important;
-      transform: none !important;
-      margin: 0 0 10px 0 !important;
+      position: absolute;
+      top: calc(62px + 3.6vh);
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
     }
 
     .hero-content .wedding-date{
-      position: relative !important;
-      top: auto !important;
-      left: auto !important;
-      transform: none !important;
-      margin: 0 0 20px 0 !important;
-    }
-
-    .hero-content .rsvp-hero-btn{
-      position: relative !important;
-      top: auto !important;
-      left: auto !important;
-      transform: none !important;
-      margin: 20px 0 30px 0 !important;
+      position: absolute;
+      top: 53%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
     }
 
     .hero-content .welcome-message{
-      position: relative !important;
-      top: auto !important;
-      bottom: auto !important;
-      left: auto !important;
-      transform: none !important;
-      margin: 0 0 40px 0 !important;
-      width: min(900px, 92%);
+      position: absolute;
+      bottom: 17%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
+      width: min(980px, 92%);
+      text-align: center;
     }
 
-    /* Mobile: torna a layout "in colonna" per evitare sovrapposizioni */
+    /* Pulsante: avorio, centrato, sotto citazione */
+    .hero-content .rsvp-hero-btn{
+      position: absolute;
+      bottom: 8.2%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
+      background: var(--ivory-btn) !important;
+      color: var(--ivory-btn-text) !important;
+      border: 2px solid var(--ivory-btn-border) !important;
+      box-shadow:
+        0 8px 24px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.9) !important;
+      animation: none !important;
+      font-weight: 700;
+    }
+
+    .hero-content .rsvp-hero-btn:hover{
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow:
+        0 12px 28px rgba(0,0,0,0.22),
+        inset 0 1px 0 rgba(255,255,255,1) !important;
+      background: #FFFCF3 !important;
+    }
+
+    .hero-content .rsvp-hero-btn .shine{
+      display: none;
+    }
+
+    /* Footer dentro foto (no fascia separata in basso) */
+    .hero-footer{
+      position: absolute !important;
+      left: 50%;
+      bottom: 1rem;
+      transform: translateX(-50%);
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
+      color: #f2e8d2 !important;
+      font-family: 'Marcellus', serif;
+      font-size: clamp(15px, 1.2vw, 22px);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+      z-index: 3;
+      border: none !important;
+    }
+
+    /* Mobile: layout in colonna ordinato, senza sovrapposizioni */
     @media (max-width: 768px){
       .hero{
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        min-height: 100vh;
+        padding-top: 10px;
       }
+
+      .hero-bg{
+        background-size: contain !important; /* mobile: immagine intera */
+        background-position: center center !important;
+      }
+
+      .hero-content{
+        position: relative !important;
+        inset: auto !important;
+        padding: clamp(14px, 4vw, 24px) !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-bottom: 78px !important; /* spazio per footer dentro hero */
+      }
+
+      .hero-content .couple-name,
+      .hero-content .wedding-date,
+      .hero-content .welcome-message,
+      .hero-content .rsvp-hero-btn{
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        transform: none !important;
+      }
+
+      .hero-content .couple-name{
+        margin-top: clamp(8px, 2vh, 16px) !important;
+      }
+
+      .hero-content .wedding-date{
+        margin-top: 16px !important;
+      }
+
+      .hero-content .welcome-message{
+        margin-top: 28px !important;
+        width: 100%;
+      }
+
+      .hero-content .rsvp-hero-btn{
+        margin-top: 16px !important;
+        padding: 14px 28px;
+        font-size: clamp(16px, 4vw, 18px);
+        width: min(92%, 420px);
+        text-align: center;
+      }
+
+      .hero-footer{
+        font-size: 14px;
+        bottom: 10px;
+      }
+    }
+
       .hero-content{
         position: relative !important;
         inset: auto !important;
         padding: 24px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: center !important;
-        text-align: center;
       }
       .hero-content .couple-name,
       .hero-content .wedding-date,
@@ -353,20 +450,9 @@
         bottom: auto !important;
         left: auto !important;
         transform: none !important;
-        margin: 0 0 15px 0 !important;
       }
       .hero-content .welcome-message{
-        margin-bottom: 20px !important;
         width: 100%;
-      }
-      .hero-content .couple-name{
-        margin-bottom: 5px !important;
-      }
-      .hero-content .wedding-date{
-        margin-bottom: 15px !important;
-      }
-      .hero-content .rsvp-hero-btn{
-        margin: 15px 0 25px 0 !important;
       }
     }
 
@@ -406,22 +492,20 @@
     <div class="hero-content">
       <h1 class="couple-name">Elpidio&nbsp;&amp;&nbsp;Cecilia</h1>
       <p class="wedding-date">10/07/2026</p>
-      
-      <!-- PULSANTE CONFERMA PRESENZA BIANCO AVORIO (MODIFICATO) -->
+      <!-- MESSAGGIO DI BENVENUTO -->
+      <div class="welcome-message">
+        "Il mio amore è profondo quanto il mare; più ti dono, più ne ho, perchè l'uno e l'altro sono infiniti"
+        W. Shakespeare
+      </div>
+
+      <!-- PULSANTE CONFERMA PRESENZA (AVORIO) -->
       <a href="rsvp.html" class="rsvp-hero-btn" id="heroRsvpBtn">
         <span>Conferma la tua presenza</span>
         <div class="shine"></div>
       </a>
-      
-      <!-- MESSAGGIO DI BENVENUTO (MODIFICATO: CENTRALE E SOTTO IL PULSANTE) -->
-      <div class="welcome-message">
-        "Il mio amore è profondo quanto il mare; più ti dono, più ne ho, perchè l'uno e l'altro sono infiniti"
-        <br><em>W. Shakespeare</em>
-      </div>
     </div>
+    <footer class="hero-footer">© <span id="year"></span> Elpidio &amp; Cecilia</footer>
   </header>
-
-  <footer>© <span id="year"></span> Elpidio &amp; Cecilia</footer>
 
   <!-- BACK TO TOP BUTTON -->
   <button class="back-to-top" id="backToTop" aria-label="Torna all'inizio" title="Torna su">▲</button>
@@ -497,11 +581,12 @@
             const result = await testImage(src);
             if (result) {
               // TROVATA! Usa questa immagine con opacità
+              // MODIFICATO: calc per spostamento preciso - sinistra e in basso
               heroBg.style.backgroundImage = `url('${result}')`;
               heroBg.style.backgroundPosition = 'center center';
-              heroBg.style.backgroundSize = 'cover'; // MODIFICATO: cover invece di contain per evitare barre
+              heroBg.style.backgroundSize = 'contain';
               heroBg.style.backgroundRepeat = 'no-repeat';
-              heroBg.style.backgroundColor = '#FFF8F0'; // MODIFICATO: avorio invece di nero
+              heroBg.style.backgroundColor = '#FAF0DC';
               console.log(`✅ Immagine di sfondo trovata: ${result}`);
               return;
             }
@@ -511,7 +596,6 @@
         }
         // Se nessuna immagine viene trovata, mantieni il colore di fallback chiaro
         console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando colore di fallback chiaro.');
-        heroBg.style.background = '#FFF8F0';
       }
       
       // Esegui la ricerca dell'immagine
