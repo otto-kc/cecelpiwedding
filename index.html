@@ -276,16 +276,21 @@
       height: 110vh !important; /* MODIFICATO: aumentata altezza */
     }
 
-    /* Per mobile: mantieni contain per vedere tutta l'immagine */
+    /* Per mobile: anche su mobile usiamo cover per tutto schermo */
     @media (max-width: 768px){
       .hero-bg{
-        background-size: contain !important;
-        background-position: center center !important;
-        height: 100vh !important; /* MODIFICATO: mobile normale */
+        background-size: cover !important; /* MODIFICATO: cover anche su mobile */
+        background-position: center 40% !important; /* MODIFICATO: spostata un po' più in alto */
+        height: 100vh !important;
       }
       
       .hero {
-        height: 100vh !important; /* MODIFICATO: mobile normale */
+        height: 100vh !important;
+      }
+      
+      /* Aumenta leggermente l'overlay per leggibilità su mobile */
+      .hero::before {
+        background: rgba(0, 0, 0, 0.25);
       }
     }
 
@@ -353,6 +358,18 @@
       }
       .hero-content .welcome-message{
         width: 100%;
+      }
+      
+      /* Footer su mobile */
+      .hero footer {
+        position: absolute !important;
+        bottom: 10px !important;
+        width: 100% !important;
+        text-align: center !important;
+        padding: 15px !important;
+        z-index: 3 !important;
+        color: rgba(255,255,255,0.8) !important;
+        font-size: 12px !important;
       }
     }
 
@@ -490,13 +507,13 @@
               
               // Adatta background-size per dispositivo
               if (window.innerWidth <= 768) {
-                heroBg.style.backgroundSize = 'contain';
-                heroBg.style.backgroundPosition = 'center center';
+                heroBg.style.backgroundSize = 'cover'; // MODIFICATO: cover anche su mobile
+                heroBg.style.backgroundPosition = 'center 40%'; // MODIFICATO: spostata un po' più in alto
                 heroBg.style.height = '100vh';
               } else {
                 heroBg.style.backgroundSize = 'cover';
-                heroBg.style.backgroundPosition = 'center 30%'; // Sposta l'immagine più in alto
-                heroBg.style.height = '110vh'; // Estende l'immagine
+                heroBg.style.backgroundPosition = 'center 30%';
+                heroBg.style.height = '110vh';
               }
               
               heroBg.style.backgroundRepeat = 'no-repeat';
@@ -506,8 +523,8 @@
               // Aggiungi listener per ridimensionamento
               window.addEventListener('resize', function() {
                 if (window.innerWidth <= 768) {
-                  heroBg.style.backgroundSize = 'contain';
-                  heroBg.style.backgroundPosition = 'center center';
+                  heroBg.style.backgroundSize = 'cover';
+                  heroBg.style.backgroundPosition = 'center 40%';
                   heroBg.style.height = '100vh';
                 } else {
                   heroBg.style.backgroundSize = 'cover';
