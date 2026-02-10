@@ -271,8 +271,15 @@
     .hero-bg{
       background-position: center center !important;
       background-repeat: no-repeat !important;
-      background-size: contain !important;
-      background-color: #FAF9F6 !important; /* MODIFICATO: avorio invece di nero */
+      background-size: cover !important; /* MODIFICATO: cover per estendere l'immagine */
+      background-color: #FAF9F6 !important;
+    }
+
+    /* Per mobile: mantieni contain per vedere tutta l'immagine */
+    @media (max-width: 768px){
+      .hero-bg{
+        background-size: contain !important;
+      }
     }
 
     /* Posizionamento testi (desktop) */
@@ -471,10 +478,27 @@
               // TROVATA! Usa questa immagine
               heroBg.style.backgroundImage = `url('${result}')`;
               heroBg.style.backgroundPosition = 'center center';
-              heroBg.style.backgroundSize = 'contain';
+              
+              // Adatta background-size per dispositivo
+              if (window.innerWidth <= 768) {
+                heroBg.style.backgroundSize = 'contain';
+              } else {
+                heroBg.style.backgroundSize = 'cover'; // MODIFICATO: cover per desktop
+              }
+              
               heroBg.style.backgroundRepeat = 'no-repeat';
-              heroBg.style.backgroundColor = '#FAF9F6'; // MODIFICATO: avorio invece di nero
+              heroBg.style.backgroundColor = '#FAF9F6';
               console.log(`✅ Immagine di sfondo trovata: ${result}`);
+              
+              // Aggiungi listener per ridimensionamento
+              window.addEventListener('resize', function() {
+                if (window.innerWidth <= 768) {
+                  heroBg.style.backgroundSize = 'contain';
+                } else {
+                  heroBg.style.backgroundSize = 'cover';
+                }
+              });
+              
               return;
             }
           } catch (e) {
