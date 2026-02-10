@@ -22,10 +22,9 @@
     /* HERO CON IMMAGINE DI SFONDO */
     .hero { 
       height: 100vh; 
-      display: flex; 
-      align-items: flex-end;
-      justify-content: center;
-      padding: 0 20px 60px;
+      display: grid; 
+      place-items: center; 
+      padding: 0 20px;
       overflow: hidden;
       position: relative;
     }
@@ -37,7 +36,18 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #FFF8F0; /* Sfondo avorio che si abbina alla palette del sito */
+      background: linear-gradient(135deg, #FAF0DC 0%, #F5E8C9 100%);
+      z-index: 1;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.2);
       z-index: 1;
     }
     
@@ -45,14 +55,39 @@
       text-align: center;
       position: relative;
       z-index: 2;
-      padding: 20px;
+      padding: 30px;
+      max-width: 90%;
       width: 100%;
-      max-width: 600px;
     }
     
-    /* PULSANTE HERO ORO/BIANCO - POSIZIONATO IN BASSO */
+    /* MODIFICATO: Font Imperial Script e margine superiore aumentato */
+    .couple-name {
+      font-family: 'Imperial Script', cursive;
+      font-size: clamp(64px, 12vw, 160px);
+      font-weight: 400;
+      margin: 30px 0 0 0; /* MODIFICATO: ridotto margine superiore per spostare più in alto */
+      color: #FF7F50;
+      white-space: nowrap;
+      text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
+      letter-spacing: 1px;
+      line-height: 0.9;
+      font-style: normal;
+    }
+    
+    .wedding-date {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(24px, 4vw, 36px);
+      color: #FF7F50;
+      margin: 20px 0 0;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      letter-spacing: 3px;
+      font-weight: 500;
+    }
+    
+    /* PULSANTE HERO ORO/BIANCO */
     .rsvp-hero-btn {
       display: inline-block;
+      margin-top: 40px;
       padding: 18px 40px;
       border-radius: 999px;
       background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 50%, #D4AF37 100%);
@@ -70,8 +105,6 @@
       overflow: hidden;
       transition: all 0.3s ease;
       letter-spacing: 1px;
-      width: 100%;
-      max-width: 400px;
     }
 
     .rsvp-hero-btn:hover {
@@ -116,6 +149,56 @@
 
     .rsvp-hero-btn {
       animation: gentlePulse 4s infinite ease-in-out;
+    }
+
+    /* MESSAGGIO DI BENVENUTO */
+    .welcome-message {
+      color: #FF7F50;
+      font-family: 'Marcellus', serif;
+      font-size: clamp(18px, 2.5vw, 22px);
+      max-width: 700px;
+      margin: 40px auto 0;
+      line-height: 1.6;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      font-style: italic;
+      padding: 0 20px;
+    }
+
+    /* Responsive per mobile migliorato */
+    @media (max-width: 768px) {
+      .rsvp-hero-btn {
+        padding: 16px 32px;
+        font-size: 18px;
+        margin-top: 30px;
+      }
+      
+      .hero-content {
+        padding: 20px 15px;
+        margin: 0 10px;
+      }
+      
+      .couple-name {
+        font-size: clamp(56px, 11vw, 140px);
+        white-space: normal;
+        line-height: 0.9;
+        margin: 20px 0 0 0; /* MODIFICATO per mobile */
+        word-break: break-word;
+      }
+      
+      .wedding-date {
+        font-size: clamp(20px, 3.5vw, 28px);
+        margin: 15px 0 0;
+      }
+      
+      .welcome-message {
+        font-size: clamp(16px, 2.2vw, 20px);
+        margin: 30px auto 0;
+        padding: 0 15px;
+      }
+      
+      .hero {
+        padding-top: 20px;
+      }
     }
 
     /* STILI PER FUOCHI D'ARTIFICIO POMPOSI */
@@ -179,116 +262,87 @@
       background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
       opacity: 0;
     }
+  
 
-    /* STILI PER L'IMMAGINE DI SFONDO - VISUALIZZA TUTTA L'IMMAGINE */
-    .hero-bg {
+    /* =========================================================
+       FIX HOME: mostra immagine intera (no tagli) + testi come
+       "immagine giusta Elpidio e Cecilia"
+       ========================================================= */
+    .hero-bg{
       background-position: center center !important;
       background-repeat: no-repeat !important;
-      background-size: contain !important; /* MODIFICATO: contain invece di cover */
-      background-color: #FFF8F0 !important; /* Sfondo avorio che si abbina al sito */
+      background-size: contain !important;
+      background-color: #000 !important; /* bande sopra/sotto o laterali */
     }
 
-    /* Per desktop: centra l'immagine verticalmente */
-    @media (min-width: 769px) {
-      .hero {
-        align-items: center;
-        justify-content: flex-start;
-        padding-left: 5%;
-        padding-right: 5%;
-      }
-      
-      .hero-content {
-        position: absolute;
-        bottom: 60px;
-        right: 5%;
-        max-width: 400px;
-        text-align: right;
-      }
-      
-      /* Se l'immagine è verticale, sposta il pulsante a destra */
-      .hero-bg {
-        background-position: left center !important;
-      }
+    /* Posizionamento testi (desktop) */
+    .hero-content{
+      position: absolute !important;
+      inset: 0 !important;
+      padding: 0 !important;
+      max-width: none !important;
+      width: 100% !important;
     }
 
-    /* Posizionamento del pulsante - sempre in basso su mobile */
-    .hero-content {
+    .hero-content .couple-name{
       position: absolute;
-      bottom: 60px;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      top: calc(70px + 4vh);
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
     }
 
-    /* Mobile: riduci padding e font size */
-    @media (max-width: 768px) {
-      .hero {
-        padding: 0 15px 40px;
-        align-items: flex-end;
-        justify-content: center;
-      }
-      
-      .rsvp-hero-btn {
-        padding: 16px 32px;
-        font-size: 18px;
-        max-width: 320px;
-      }
-      
-      .hero-content {
-        bottom: 40px;
-        text-align: center;
-      }
-      
-      /* Su mobile: l'immagine viene visualizzata al centro senza tagli */
-      .hero-bg {
-        background-position: center center !important;
-      }
+    .hero-content .wedding-date{
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
     }
 
-    /* Per schermi molto piccoli */
-    @media (max-width: 480px) {
-      .hero {
-        padding: 0 10px 30px;
-      }
-      
-      .rsvp-hero-btn {
-        padding: 14px 28px;
-        font-size: 16px;
-        max-width: 280px;
-      }
-      
-      .hero-content {
-        bottom: 30px;
-      }
+    .hero-content .rsvp-hero-btn{
+      position: absolute;
+      top: 66%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
     }
 
-    /* Per schermi alti (es. smartphone in portrait) */
-    @media (min-height: 800px) and (max-width: 768px) {
-      .hero-content {
-        bottom: 80px;
-      }
+    .hero-content .welcome-message{
+      position: absolute;
+      bottom: 6%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
+      width: min(900px, 92%);
     }
 
-    /* Per schermi orizzontali (landscape) su mobile */
-    @media (max-height: 600px) and (orientation: landscape) {
-      .hero {
-        padding-bottom: 30px;
+    /* Mobile: torna a layout "in colonna" per evitare sovrapposizioni */
+    @media (max-width: 768px){
+      .hero{
+        height: 100vh;
       }
-      
-      .hero-content {
-        bottom: 30px;
+      .hero-content{
+        position: relative !important;
+        inset: auto !important;
+        padding: 24px !important;
       }
-      
-      .rsvp-hero-btn {
-        padding: 12px 24px;
-        font-size: 16px;
-        max-width: 300px;
+      .hero-content .couple-name,
+      .hero-content .wedding-date,
+      .hero-content .rsvp-hero-btn,
+      .hero-content .welcome-message{
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        transform: none !important;
+      }
+      .hero-content .welcome-message{
+        width: 100%;
       }
     }
 
-  </style>
+</style>
 </head>
 <body id="top">
 
@@ -322,11 +376,20 @@
   <header class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <!-- SOLO PULSANTE CONFERMA PRESENZA ORO/BIANCO -->
+      <h1 class="couple-name">Elpidio&nbsp;&amp;&nbsp;Cecilia</h1>
+      <p class="wedding-date">10/07/2026</p>
+      
+      <!-- PULSANTE CONFERMA PRESENZA ORO/BIANCO -->
       <a href="rsvp.html" class="rsvp-hero-btn" id="heroRsvpBtn">
         <span>Conferma la tua presenza</span>
         <div class="shine"></div>
       </a>
+      
+      <!-- MESSAGGIO DI BENVENUTO -->
+      <div class="welcome-message">
+        "Il mio amore è profondo quanto il mare; più ti dono, più ne ho, perchè l'uno e l'altro sono infiniti"
+        W. Shakespeare
+      </div>
     </div>
   </header>
 
@@ -392,92 +455,39 @@
       function testImage(src) {
         return new Promise((resolve) => {
           const img = new Image();
-          img.onload = () => {
-            console.log(`✅ Immagine di sfondo trovata e caricata: ${src}`);
-            resolve(src);
-          };
-          img.onerror = () => {
-            console.log(`❌ Immagine non trovata: ${src}`);
-            resolve(null);
-          };
+          img.onload = () => resolve(src);
+          img.onerror = () => resolve(null);
           img.src = src;
         });
       }
       
       // Testa tutte le estensioni in ordine
       async function findImage() {
-        console.log("🔍 Ricerca immagine di sfondo...");
         for (const format of imageFormats) {
           const src = `${baseName}.${format}`;
           try {
             const result = await testImage(src);
             if (result) {
-              // TROVATA! Usa questa immagine
+              // TROVATA! Usa questa immagine con opacità
+              // MODIFICATO: calc per spostamento preciso - sinistra e in basso
               heroBg.style.backgroundImage = `url('${result}')`;
-              
-              // Per desktop: posiziona l'immagine a sinistra
-              if (window.innerWidth >= 769) {
-                heroBg.style.backgroundPosition = 'left center';
-              } else {
-                // Per mobile: centra l'immagine
-                heroBg.style.backgroundPosition = 'center center';
-              }
-              
-              heroBg.style.backgroundSize = 'contain'; // Mostra tutta l'immagine senza tagli
+              heroBg.style.backgroundPosition = 'center center';
+              heroBg.style.backgroundSize = 'contain';
               heroBg.style.backgroundRepeat = 'no-repeat';
-              heroBg.style.backgroundColor = '#FFF8F0'; // Sfondo avorio per i bordi
-              
-              console.log(`✅ Immagine di sfondo impostata: ${result}`);
-              console.log(`📐 Dimensioni viewport: ${window.innerWidth}x${window.innerHeight}`);
-              
-              // Adatta il posizionamento del pulsante in base all'orientamento
-              adjustButtonPosition();
-              
+              heroBg.style.backgroundColor = '#000';
+              console.log(`✅ Immagine di sfondo trovata: ${result}`);
               return;
             }
           } catch (e) {
-            console.log(`Errore nel caricamento: ${src}`, e);
+            console.log(`❌ Immagine non trovata: ${src}`);
           }
         }
-        // Se nessuna immagine viene trovata, mantieni il colore di fallback
-        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando colore di fallback.');
-      }
-      
-      // Funzione per adattare la posizione del pulsante in base all'orientamento
-      function adjustButtonPosition() {
-        const heroContent = document.querySelector('.hero-content');
-        if (!heroContent) return;
-        
-        // Se lo schermo è in orizzontale (landscape) e largo
-        if (window.innerWidth > window.innerHeight && window.innerWidth >= 769) {
-          heroContent.style.right = '5%';
-          heroContent.style.left = 'auto';
-          heroContent.style.textAlign = 'right';
-        } else {
-          // Per verticale (portrait) o mobile
-          heroContent.style.right = '0';
-          heroContent.style.left = '0';
-          heroContent.style.textAlign = 'center';
-        }
+        // Se nessuna immagine viene trovata, mantieni il colore di fallback chiaro
+        console.warn('⚠️ Nessuna immagine di sfondo trovata. Usando colore di fallback chiaro.');
       }
       
       // Esegui la ricerca dell'immagine
       findImage();
-      
-      // Riadatta il layout quando la finestra viene ridimensionata
-      window.addEventListener('resize', function() {
-        setTimeout(adjustButtonPosition, 100);
-        
-        // Aggiorna anche la posizione dell'immagine
-        const heroBg = document.querySelector('.hero-bg');
-        if (heroBg && heroBg.style.backgroundImage !== 'none') {
-          if (window.innerWidth >= 769) {
-            heroBg.style.backgroundPosition = 'left center';
-          } else {
-            heroBg.style.backgroundPosition = 'center center';
-          }
-        }
-      });
       
       // Avvia l'effetto fuochi d'artificio pomposo
       startPompousFireworks();
@@ -486,8 +496,6 @@
     // FUNZIONE FUOCHI D'ARTIFICIO POMPOSI (SENZA SUONI)
     function startPompousFireworks() {
       const overlay = document.getElementById('fireworks-overlay');
-      if (!overlay) return;
-      
       const colors = [
         '#FFD700', '#FF4500', '#00FFFF', '#FF1493', '#32CD32', 
         '#FF69B4', '#1E90FF', '#FF00FF', '#00FF00', '#FFFF00',
