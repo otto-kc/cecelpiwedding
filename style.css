@@ -78,15 +78,11 @@ body {
 
 /* HAMBURGER MENU - VISIBILE SOLO SU MOBILE */
 .hamburger {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-between;
   width: 36px;
   height: 30px;
-  background: white;
-  border: 2px solid #D4AF37;
-  border-radius: 8px;
-  padding: 6px;
   cursor: pointer;
   z-index: 1001;
 }
@@ -147,7 +143,17 @@ body {
 /* MOBILE STYLES */
 @media (max-width: 1024px) {
   .hamburger {
-    display: flex;
+  display: flex;   /* ← lo riaccendiamo per mobile */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 30px;
+  background: transparent;  /* niente sfondo */
+  border: none;            /* niente bordo */
+  border-radius: 0;        /* niente angoli stondati */
+  padding: 0;             /* niente spazio interno */
+  cursor: pointer;
+  z-index: 1001;
   }
   .card {
     margin-top: 100px;
