@@ -47,13 +47,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px clamp(14px, 4vw, 28px);
+  padding: 10px clamp(14px, 4vw, 28px);
   background: rgba(255, 248, 240, 0.3);
   backdrop-filter: blur(10px);
 -webkit-backdrop-filter: blur(10px); /* per Safari */
   border-bottom: 1px solid rgba(0,0,0,0.05);
   box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-  height: 80px;
+  height: 60px;
   }
 
 /* LOGO MODIFICATO: Immagine personalizzata SENZA RIQUADRO */
