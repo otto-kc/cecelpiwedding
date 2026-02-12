@@ -12,6 +12,7 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Playfair+Display:wght@600;700&family=Marcellus&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 
   <style>
@@ -65,7 +66,7 @@
       margin-bottom: 25px;
     }
     .info-item h3 {
-      font-family: 'Marcellus', serif;
+      font-family: 'EB Garamond', serif;
       font-size: 22px;
       margin: 0 0 15px;
       color: #222;
@@ -86,7 +87,7 @@
       text-align: center;
     }
     .iban-number {
-      font-family: monospace;
+      font-family: 'EB Garamond', serif;
       font-size: 18px;
       font-weight: bold;
       color: #222;
@@ -125,6 +126,34 @@
       opacity: 0.6;
       color: #666;
     }
+    /* 🌟 TUTTA LA PAGINA in EB Garamond, tranne il titolo principale */
+body, body * {
+  font-family: 'EB Garamond', serif;
+}
+    /* 📏 PARAGRAFI PIÙ GRANDI */
+.lista-subtitle,
+.iban-box,
+.iban-number,
+.iban-details,
+.back-btn,
+footer p,
+p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* 📱 Su mobile */
+@media (max-width: 768px) {
+  .lista-subtitle,
+  .iban-box,
+  .iban-number,
+  .iban-details,
+  .back-btn,
+  footer p,
+  p {
+    font-size: 17px;
+  }
+}
   </style>
 </head>
 <body>
