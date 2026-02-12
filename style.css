@@ -299,7 +299,8 @@ a, button {
     font-family: 'Imperial Script', cursive !important;
     font-weight: 700 !important;
     font-size: clamp(40px, 8vw, 90px) !important;
+  text-align: center !important;
     margin-top: 0;
     margin-bottom: 10px;
     line-height: 1.1;
-}
+  }
