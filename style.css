@@ -297,7 +297,7 @@ a, button {
 .gallery-card h1,
 .contact-card h1 {
     font-family: 'Imperial Script', cursive !important;
-    font-weight: 400 !important;
+    font-weight: 700 !important;
     font-size: clamp(40px, 8vw, 90px) !important;
     margin-top: 0;
     margin-bottom: 10px;
