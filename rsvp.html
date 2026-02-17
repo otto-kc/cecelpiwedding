@@ -236,6 +236,41 @@ p {
     font-size: 20px;
   }
 }
+    /* Pulsanti scelta SI/NO */
+.choice-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.choice-btn {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: rgba(255, 248, 240, 0.7);
+  cursor: pointer;
+  font-family: 'EB Garamond', serif;
+  font-size: 22px;
+  line-height: 1.2;
+  transition: all 0.2s ease;
+}
+
+.choice-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(0,0,0,0.05);
+}
+
+.choice-btn.active {
+  border-color: #222;
+  background: rgba(0,0,0,0.08);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .choice-btn { font-size: 20px; }
+}
   </style>
 </head>
 <body>
@@ -337,12 +372,19 @@ p {
           </div>
 
           <div class="form-group required">
-  <label for="aperitivo_sabato">E per i più eroici i festeggiamenti proseguiranno anche Sabato 11 Luglio con un aperitivo verso sera ci sarai?</label>
-  <select id="aperitivo_sabato" name="aperitivo_sabato" required>
-    <option value="" disabled selected>Seleziona un'opzione</option>
-    <option value="Si">Si</option>
-    <option value="No">No</option>
-  </select>
+  <label id="aperitivo-label" for="aperitivo_sabato">
+    E per i più eroici i festeggiamenti proseguiranno anche Sabato 11 Luglio con un aperitivo verso sera ci sarai?
+  </label>
+
+  <!-- Campo vero che viene inviato (resta uguale come nome/id) -->
+  <input type="hidden" id="aperitivo_sabato" name="aperitivo_sabato" required>
+
+  <!-- Pulsanti visibili -->
+  <div class="choice-buttons" id="aperitivo-buttons" role="radiogroup" aria-labelledby="aperitivo-label">
+    <button type="button" class="choice-btn" data-target="aperitivo_sabato" data-value="Si" aria-pressed="false">Sì</button>
+    <button type="button" class="choice-btn" data-target="aperitivo_sabato" data-value="No" aria-pressed="false">No</button>
+  </div>
+
   <div class="error-message" id="aperitivo_sabato-error">Seleziona una risposta</div>
 </div>
 
@@ -439,6 +481,29 @@ p {
 
     const gfForm = document.getElementById('gf-form');
     const gfIframe = document.getElementById('gf-iframe');
+    // Gestione pulsanti SI/NO per aperitivo
+const aperitivoField = document.getElementById('aperitivo_sabato');
+const aperitivoBtns = document.querySelectorAll('.choice-btn[data-target="aperitivo_sabato"]');
+
+function syncAperitivoButtons() {
+  const current = (aperitivoField?.value || '').toLowerCase();
+  aperitivoBtns.forEach(btn => {
+    const isActive = btn.dataset.value.toLowerCase() === current;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+}
+
+aperitivoBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (!aperitivoField) return;
+    aperitivoField.value = btn.dataset.value;
+    // trigger per validazione + salvataggio bozza
+    aperitivoField.dispatchEvent(new Event('input', { bubbles: true }));
+    aperitivoField.dispatchEvent(new Event('change', { bubbles: true }));
+    syncAperitivoButtons();
+  });
+});
 
     let pendingSubmit = false;
 
@@ -502,6 +567,7 @@ p {
 
       // Reset form e bozza
       form.reset();
+      syncAperitivoButtons();
       localStorage.removeItem('rsvpDraft');
     });
 
@@ -561,6 +627,7 @@ p {
         const nome = document.getElementById('nome').value.trim();
         showSuccess(nome);
         form.reset();
+        window.addEventListener('load', function(){
         localStorage.removeItem('rsvpDraft');
       }, 2500);
     });
@@ -593,6 +660,7 @@ p {
         // ignore
       }
     });
+      syncAperitivoButtons();      
   </script>
   <script src="auth-check.js"></script>
 </body>
