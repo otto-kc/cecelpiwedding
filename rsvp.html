@@ -336,6 +336,16 @@ p {
             <textarea id="messaggio" name="messaggio" placeholder="Scrivici qualcosa di speciale..." autocomplete="off"></textarea>
           </div>
 
+          <div class="form-group required">
+  <label for="aperitivo_sabato">E per i più eroici i festeggiamenti proseguiranno anche Sabato 11 Luglio con un aperitivo verso sera ci sarai?</label>
+  <select id="aperitivo_sabato" name="aperitivo_sabato" required>
+    <option value="" disabled selected>Seleziona un'opzione</option>
+    <option value="Si">Si</option>
+    <option value="No">No</option>
+  </select>
+  <div class="error-message" id="aperitivo_sabato-error">Seleziona una risposta</div>
+</div>
+
           <!-- Anti-spam semplice (campo nascosto) -->
           <div class="sr-only" aria-hidden="true">
             <label for="website">Website</label>
@@ -377,6 +387,7 @@ p {
     <input type="text" name="entry.579231647" id="gf_partecipazione">
     <textarea name="entry.605281712" id="gf_note"></textarea>
     <textarea name="entry.1427081091" id="gf_messaggio"></textarea>
+    <input type="text" name="entry.1719619062" id="gf_aperitivo_sabato">
   </form>
 
   <script>
@@ -533,6 +544,7 @@ p {
       document.getElementById('gf_partecipazione').value = document.getElementById('partecipazione').value;
       document.getElementById('gf_note').value = (document.getElementById('note').value || '').trim();
       document.getElementById('gf_messaggio').value = (document.getElementById('messaggio').value || '').trim();
+      document.getElementById('gf_aperitivo_sabato').value = document.getElementById('aperitivo_sabato').value;
 
       // Invio
       pendingSubmit = true;
