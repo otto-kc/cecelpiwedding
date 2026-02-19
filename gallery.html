@@ -63,7 +63,7 @@
     .qr-upload-section {
       display: flex;
       align-items: center;
-      justify-content: center; /* SPOSTA TUTTO IL BLOCCO A DESTRA */
+      justify-content: center; /* CENTRA IL BLOCCO */
       gap: 30px;
       margin-bottom: 50px;
       background: rgba(255, 248, 240, 0.5);
@@ -73,7 +73,7 @@
     }
     .qr-image-container {
       flex: 0 0 180px;
-      margin: 0;   /* azzerato per evitare conflitti */
+      margin: 0;   /* azzerato */
       height: 180px;
       background: #fff;
       border-radius: 16px;
@@ -103,9 +103,9 @@
     }
     .qr-button {
       flex: 0 0 auto;            /* NON OCCUPA TUTTO LO SPAZIO */
-  text-align: center;
-  margin: 0;
-      margin-left: 80px;
+      text-align: center;
+      margin: 0;
+      margin-left: 80px;          /* DISTANZA DAL QR CODE */
     }
     .btn-gold {
       display: inline-block;
@@ -140,7 +140,7 @@
       font-weight: normal; /* TOLTO IL GRASSETTO */
     }
     
-    /* GALLERY GRID (invariata) */
+    /* GALLERY GRID (6 foto) */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -156,7 +156,14 @@
       color: #888;
       font-style: italic;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      overflow: hidden;
+      overflow: hidden;          /* NASCONDE PARTI DELL'IMMAGINE CHE ESCONO */
+      padding: 0;                /* TOGLIE SPAZI INTERNI */
+    }
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;         /* RIEMPIE IL CONTENITORE SENZA DEFORMARE */
+      display: block;            /* ELIMINA SPAZI BIANCHI SOTTO */
     }
     .photo-item:hover {
       transform: translateY(-5px);
@@ -196,16 +203,17 @@
         flex-direction: column;
         align-items: stretch;
         gap: 20px;
-        justify-content: center; /* SU MOBILE TORNA AL CENTRO */
+        justify-content: center;
       }
       .qr-image-container {
         flex: 0 0 auto;
         width: 180px;
         height: 180px;
-        margin: 0 auto; /* CENTRATO SU MOBILE */
+        margin: 0 auto;
       }
       .qr-button {
-        margin-right: 0; /* AZZERA IL MARGINE DESTRO SU MOBILE */
+        margin-left: 0;           /* AZZERA IL MARGINE SU MOBILE */
+        margin-right: 0;
       }
       .btn-gold {
         width: 100%;
@@ -277,7 +285,7 @@
       <h1>Gallery</h1>
       <p class="gallery-subtitle">Condividi con noi i tuoi scatti della giornata!</p>
       
-      <!-- NUOVO BLOCCO: QR CODE + PULSANTE -->
+      <!-- BLOCCO QR CODE + PULSANTE -->
       <div class="qr-upload-section">
         <!-- Area per il QR code (sostituisci .qr-placeholder con <img src="..."> quando hai l'immagine) -->
         <div class="qr-image-container">
@@ -297,20 +305,14 @@
       <!-- TITOLO "Alcuni momenti speciali del nostro percorso insieme" -->
       <h2 class="momenti-title">Alcuni momenti speciali del nostro percorso insieme</h2>
       
-      <!-- GALLERY GRID (invariata, solo placeholder) -->
+      <!-- GALLERY GRID con 6 foto (sostituisci i nomi dei file con i tuoi) -->
       <div class="photo-grid">
-        <div class="photo-item">Foto 1</div>
-        <div class="photo-item">Foto 2</div>
-        <div class="photo-item">Foto 3</div>
-        <div class="photo-item">Foto 4</div>
-        <div class="photo-item">Foto 5</div>
-        <div class="photo-item">Foto 6</div>
-        <div class="photo-item">Foto 7</div>
-        <div class="photo-item">Foto 8</div>
-        <div class="photo-item">Foto 9</div>
-        <div class="photo-item">Foto 10</div>
-        <div class="photo-item">Foto 11</div>
-        <div class="photo-item">Foto 12</div>
+        <div class="photo-item"><img src="foto1.jpg" alt="Foto 1"></div>
+        <div class="photo-item"><img src="foto2.jpg" alt="Foto 2"></div>
+        <div class="photo-item"><img src="foto3.jpg" alt="Foto 3"></div>
+        <div class="photo-item"><img src="foto4.jpg" alt="Foto 4"></div>
+        <div class="photo-item"><img src="foto5.jpg" alt="Foto 5"></div>
+        <div class="photo-item"><img src="foto6.jpg" alt="Foto 6"></div>
       </div>
 
       <a href="index.html" class="back-btn">← Torna alla Home</a>
