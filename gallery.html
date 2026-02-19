@@ -146,7 +146,7 @@
       margin-bottom: 40px;
     }
     .photo-item {
-      background: #f0f0f0;  /* colore di sfondo per le bande */
+      background: var(--panel-bg);  /* sfondo come la card per mimetizzare le bande */
       border-radius: 16px;
       height: 250px;
       display: grid;
@@ -159,9 +159,9 @@
     .photo-item img {
       width: 100%;
       height: 100%;
-      object-fit: contain;  /* 🔹 ORA L'IMMAGINE È INTERA (non tagliata) */
+      object-fit: contain;  /* 🔹 IMMAGINE INTERA, senza tagli */
       display: block;
-      background-color: #f0f0f0; /* uniforme con lo sfondo del contenitore */
+      background-color: var(--panel-bg); /* uniforme con lo sfondo del contenitore */
     }
     .photo-item:hover {
       transform: translateY(-5px);
@@ -457,8 +457,8 @@
     if (backBtn) backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
     // ===== FUNZIONE PER CARICARE IMMAGINI CON QUALSIASI ESTENSIONE =====
-    const imageBases = []; // conterrà tutti i data-base in ordine
-    const galleryImages = []; // conterrà gli elementi img (per i listener)
+    const imageBases = [];
+    const galleryImages = [];
 
     function loadImagesWithFallback() {
       const images = document.querySelectorAll('.gallery-img');
@@ -472,11 +472,9 @@
         const baseName = img.getAttribute('data-base');
         if (!baseName) return;
 
-        // Salva il baseName nell'array globale per la lightbox
         imageBases[index] = baseName;
         galleryImages[index] = img;
 
-        // Funzione per provare a caricare un'estensione
         function tryExtension(idx) {
           if (idx >= extensions.length) {
             console.warn(`Impossibile caricare ${baseName} con nessuna estensione`);
@@ -488,22 +486,18 @@
           const testImg = new Image();
           
           testImg.onload = () => {
-            // Trovata! Imposta il src
             img.src = src;
             img.style.display = 'block';
-            // Aggiunge il listener per il click (solo dopo che l'immagine è caricata)
             img.parentElement.addEventListener('click', () => openLightbox(index));
           };
           
           testImg.onerror = () => {
-            // Passa alla prossima estensione
             tryExtension(idx + 1);
           };
           
           testImg.src = src;
         }
 
-        // Inizia a provare dalla prima estensione
         tryExtension(0);
       });
     }
@@ -516,21 +510,18 @@
     const nextBtn = document.getElementById('lightbox-next');
     let currentIndex = 0;
 
-    // Funzione per aprire la lightbox
     function openLightbox(index) {
       currentIndex = index;
       loadLightboxImage(currentIndex);
       lightbox.classList.add('show');
-      document.body.style.overflow = 'hidden'; // impedisce lo scroll della pagina
+      document.body.style.overflow = 'hidden';
     }
 
-    // Funzione per chiudere la lightbox
     function closeLightbox() {
       lightbox.classList.remove('show');
-      document.body.style.overflow = ''; // ripristina scroll
+      document.body.style.overflow = '';
     }
 
-    // Carica l'immagine nella lightbox (con fallback)
     function loadLightboxImage(index) {
       const baseName = imageBases[index];
       if (!baseName) return;
@@ -543,8 +534,7 @@
 
       function tryExtension(idx) {
         if (idx >= extensions.length) {
-          console.warn(`Immagine lightbox ${baseName} non trovata`);
-          lightboxImg.src = ''; // vuoto o placeholder
+          lightboxImg.src = '';
           return;
         }
 
@@ -566,7 +556,6 @@
       tryExtension(0);
     }
 
-    // Event listener per i pulsanti della lightbox
     closeBtn.addEventListener('click', closeLightbox);
     prevBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -581,21 +570,18 @@
       loadLightboxImage(currentIndex);
     });
 
-    // Chiudi la lightbox cliccando sullo sfondo (overlay)
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) {
         closeLightbox();
       }
     });
 
-    // Chiudi con il tasto ESC
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && lightbox.classList.contains('show')) {
         closeLightbox();
       }
     });
 
-    // Avvia il caricamento delle immagini
     document.addEventListener('DOMContentLoaded', loadImagesWithFallback);
   </script>
   <script src="auth-check.js"></script>
