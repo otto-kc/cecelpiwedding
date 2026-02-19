@@ -49,20 +49,21 @@ body {
   padding: 10px clamp(14px, 4vw, 28px);
   background: rgba(255, 248, 240, 0.3);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* per Safari */
+-webkit-backdrop-filter: blur(10px); /* per Safari */
   border-bottom: 1px solid rgba(0,0,0,0.05);
   box-shadow: 0 4px 15px rgba(0,0,0,0.03);
   height: 60px;
-  flex-wrap: nowrap;
-}
+  }
 
 /* LOGO MODIFICATO: Immagine personalizzata SENZA RIQUADRO */
 .logo-badge {
   width: 56px;
   height: 56px;
   border-radius: 0; /* Cambiato da 18px a 0 per angoli dritti */
-  background: url('logo.png') no-repeat center center;
+  background: url('logo.png') no-repeat center center; /* Rimosso #FFF8F0 */
   background-size: contain;
+  /* border: 2px solid #D4AF37; RIMOSSO - commenta o elimina questa riga */
+  /* box-shadow: 0 8px 18px rgba(212, 175, 55, 0.25); RIMOSSO - commenta o elimina questa riga */
   user-select: none;
   flex-shrink: 0;
   font-style: normal;
@@ -72,26 +73,7 @@ body {
   overflow: hidden;
 }
 
-/* COUNTDOWN - stile comune */
-.countdown {
-  font-family: 'EB Garamond', serif;
-  font-size: 16px;
-  font-weight: 600;
-  color: #222;
-  background: rgba(255, 248, 240, 0.3);
-  padding: 5px 12px;
-  border-radius: 30px;
-  backdrop-filter: blur(5px);
-  white-space: nowrap;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
-  display: inline-block;
-  margin: 0 10px;
-  flex: 1 1 auto;
-  text-align: center;
-  min-width: 140px;
-}
+/* Se vuoi che l'immagine copra tutto lo spazio, usa background-size: cover; */
 
 /* HAMBURGER MENU - VISIBILE SOLO SU MOBILE */
 .hamburger {
@@ -102,7 +84,6 @@ body {
   height: 30px;
   cursor: pointer;
   z-index: 1001;
-  flex-shrink: 0;
 }
 
 .hamburger span {
@@ -137,7 +118,6 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
-  flex-shrink: 0;
 }
 
 .navlinks a {
@@ -163,19 +143,18 @@ body {
 /* MOBILE STYLES */
 @media (max-width: 1024px) {
   .hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 30px;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    padding: 0;
-    cursor: pointer;
-    z-index: 1001;
+  display: flex;   /* ← lo riaccendiamo per mobile */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 30px;
+  background: transparent;  /* niente sfondo */
+  border: none;            /* niente bordo */
+  border-radius: 0;        /* niente angoli stondati */
+  padding: 0;             /* niente spazio interno */
+  cursor: pointer;
+  z-index: 1001;
   }
-  
   .card {
     margin-top: 100px;
     padding: 24px 20px;
@@ -190,17 +169,9 @@ body {
   .logo-badge {
     width: 50px;
     height: 50px;
-    border-radius: 0;
+    border-radius: 0; /* Cambiato da 15px a 0 */
+    /* border: 1.5px solid #D4AF37; RIMOSSO - commenta o elimina questa riga */
   }
-
-  /* Countdown su mobile più piccolo */
-  .countdown {
-    font-size: 14px;
-    padding: 4px 8px;
-    min-width: 120px;
-    margin: 0 5px;
-  }
-  
   .navlinks {
     position: fixed;
     top: 80px;
@@ -320,7 +291,6 @@ a, button {
   background: rgba(255, 255, 255, 1);
   transform: translateY(-2px);
 }
-
 /* TUTTI I TITOLI DELLE PAGINE - Font elegante, grande e grassetto */
 .main-card h1,
 .lista-card h1,
@@ -328,11 +298,11 @@ a, button {
 .story-card h1,
 .gallery-card h1,
 .contact-card h1 {
-  font-family: 'Imperial Script', cursive !important;
-  font-weight: 400 !important;
-  font-size: clamp(45px, 9vw, 95px) !important;
+    font-family: 'Imperial Script', cursive !important;
+    font-weight: 400 !important;
+    font-size: clamp(45px, 9vw, 95px) !important;
   text-align: center !important;
-  margin-top: 0;
-  margin-bottom: 10px;
-  line-height: 1.1;
-}
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }

@@ -243,7 +243,6 @@ p {
   <!-- NAVBAR CON HAMBURGER MENU -->
   <nav class="nav">
     <div class="logo-badge" aria-label="Logo E e C">E&amp;C</div>
-        <div class="countdown" id="countdown"></div>
     
     <!-- Hamburger menu button (mobile only) -->
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -594,23 +593,6 @@ p {
         // ignore
       }
     });
-    // COUNTDOWN per il matrimonio
-    function updateCountdown() {
-      const wedding = new Date(2026, 6, 10); // 10 Luglio 2026
-      const now = new Date();
-      const diff = wedding - now;
-      if (diff <= 0) {
-        document.getElementById('countdown').textContent = '0g 0h 0m 0s';
-        return;
-      }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (86400000)) / (3600000));
-      const minutes = Math.floor((diff % 3600000) / 60000);
-      const seconds = Math.floor((diff % 60000) / 1000);
-      document.getElementById('countdown').textContent = `${days}g ${hours}h ${minutes}m ${seconds}s`;
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
   </script>
   <script src="auth-check.js"></script>
 </body>
