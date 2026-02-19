@@ -63,6 +63,7 @@
     .qr-upload-section {
       display: flex;
       align-items: center;
+      justify-content: flex-end; /* SPOSTA TUTTO IL BLOCCO A DESTRA */
       gap: 30px;
       margin-bottom: 50px;
       background: rgba(255, 248, 240, 0.5);
@@ -72,8 +73,8 @@
     }
     .qr-image-container {
       flex: 0 0 180px;
-      margin-left: auto;
-      margin-right: 20px;
+      margin-left: 20px; /* DISTANZA DAL BORDO SINISTRO (ora che tutto è spostato a destra) */
+      margin-right: 0;   /* azzerato per evitare conflitti */
       height: 180px;
       background: #fff;
       border-radius: 16px;
@@ -104,7 +105,7 @@
     .qr-button {
       flex: 1;
       text-align: center;
-      margin-right: 20px; /* (opzionale) evita che il pulsante tocchi il bordo destro */
+      margin-right: 20px; /* DISTANZA DAL BORDO DESTRO */
     }
     .btn-gold {
       display: inline-block;
@@ -136,6 +137,7 @@
       font-family: 'EB Garamond', serif;
       margin: 30px 0 20px;
       font-style: italic;
+      font-weight: normal; /* TOLTO IL GRASSETTO */
     }
     
     /* GALLERY GRID (invariata) */
@@ -194,12 +196,16 @@
         flex-direction: column;
         align-items: stretch;
         gap: 20px;
+        justify-content: center; /* SU MOBILE TORNA AL CENTRO */
       }
       .qr-image-container {
         flex: 0 0 auto;
         width: 180px;
         height: 180px;
-        margin: 0 auto;
+        margin: 0 auto; /* CENTRATO SU MOBILE */
+      }
+      .qr-button {
+        margin-right: 0; /* AZZERA IL MARGINE DESTRO SU MOBILE */
       }
       .btn-gold {
         width: 100%;
