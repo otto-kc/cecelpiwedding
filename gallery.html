@@ -59,49 +59,83 @@
       font-size: 18px;
     }
     
-    /* PULSANTE UPLOAD */
-    .upload-section {
-      text-align: center;
-      margin-bottom: 40px;
-      padding: 25px;
-      background: rgba(255, 248, 240, 0.7);
-      border-radius: 16px;
-      border: 2px dashed rgba(0,0,0,0.1);
-    }
-    .upload-btn {
-      display: inline-flex;
+    /* NUOVO BLOCCO QR + PULSANTE */
+    .qr-upload-section {
+      display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 14px 28px;
-      border-radius: 999px;
-      background: var(--upload-btn);
-      color: white;
+      gap: 30px;
+      margin-bottom: 50px;
+      background: rgba(255, 248, 240, 0.5);
+      border-radius: 24px;
+      padding: 20px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .qr-image-container {
+      flex: 0 0 180px;
+      height: 180px;
+      background: #fff;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed var(--gold-color);
+      overflow: hidden;
+    }
+    .qr-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'EB Garamond', serif;
+      color: #666;
+      font-size: 18px;
+      text-align: center;
+      background: #f9f9f9;
+    }
+    /* Quando verrà inserita l'immagine reale, sovrascriverà il placeholder */
+    .qr-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .qr-button {
+      flex: 1;
+      text-align: center;
+    }
+    .btn-gold {
+      display: inline-block;
+      padding: 18px 32px;
+      background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
+      color: #222;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 20px;
       text-decoration: none;
-      border: none;
-      cursor: pointer;
+      border-radius: 999px;
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
       transition: all 0.3s ease;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      border: 2px solid #D4AF37;
+      min-width: 240px;
     }
-    .upload-btn:hover {
+    .btn-gold:hover {
       transform: translateY(-3px);
-      background: var(--upload-btn-hover);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+      background: linear-gradient(135deg, #F4E4A6 0%, #D4AF37 100%);
     }
-    .upload-btn:active {
+    .btn-gold:active {
       transform: translateY(-1px);
     }
-    .upload-icon {
-      font-size: 20px;
-    }
-    .upload-note {
-      margin-top: 15px;
-      color: #666;
-      font-size: 14px;
+    /* Titolo "Momenti indimenticabili" */
+    .momenti-title {
+      text-align: center;
+      color: #D4AF37;
+      font-size: 28px;
+      font-family: 'EB Garamond', serif;
+      margin: 30px 0 20px;
+      font-style: italic;
     }
     
-    /* GALLERY GRID */
+    /* GALLERY GRID (invariata) */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -130,8 +164,8 @@
       padding: 12px 24px;
       border-radius: 999px;
       border: 1px solid rgba(0,0,0,0.12);
-  background: rgba(255, 248, 240, 0.7);
-  color: #222;
+      background: rgba(255, 248, 240, 0.7);
+      color: #222;
       font-weight: 700;
       text-decoration: none;
       box-shadow: 0 8px 20px rgba(0,0,0,0.05);
@@ -150,33 +184,57 @@
       opacity: 0.6;
       color: #666;
     }
-  /* 🌟 TUTTA LA PAGINA in EB Garamond, tranne il titolo principale */
-body, body * {
-  font-family: 'EB Garamond', serif;
-  /* 📏 PARAGRAFI E TESTI PIÙ GRANDI */
-.gallery-subtitle,
-.upload-btn,
-.upload-note,
-.photo-item,
-.back-btn,
-footer p,
-p {
-  font-size: 22px;
-  line-height: 1.6;
-}
 
-/* 📱 Su mobile */
-@media (max-width: 768px) {
-  .gallery-subtitle,
-  .upload-btn,
-  .upload-note,
-  .photo-item,
-  .back-btn,
-  footer p,
-  p {
-    font-size: 20px;
-  }
-}
+    /* Responsive per mobile */
+    @media (max-width: 768px) {
+      .qr-upload-section {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+      }
+      .qr-image-container {
+        flex: 0 0 auto;
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+      }
+      .btn-gold {
+        width: 100%;
+        font-size: 18px;
+        padding: 16px 20px;
+      }
+      .momenti-title {
+        font-size: 24px;
+      }
+    }
+
+    /* Stili generali testi */
+    body, body * {
+      font-family: 'EB Garamond', serif;
+    }
+    .gallery-subtitle,
+    .qr-placeholder,
+    .btn-gold,
+    .momenti-title,
+    .photo-item,
+    .back-btn,
+    footer p,
+    p {
+      font-size: 22px;
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+      .gallery-subtitle,
+      .qr-placeholder,
+      .btn-gold,
+      .momenti-title,
+      .photo-item,
+      .back-btn,
+      footer p,
+      p {
+        font-size: 20px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -210,15 +268,27 @@ p {
       <h1>Gallery</h1>
       <p class="gallery-subtitle">Alcuni momenti speciali del nostro percorso insieme</p>
       
-      <!-- PULSANTE UPLOAD -->
-      <div class="upload-section">
-        <a href="upload.html" class="upload-btn">
-          <span class="upload-icon">📸</span>
-          <span>Carica qui foto & video</span>
-        </a>
-        <p class="upload-note">Condividi con noi i tuoi scatti della giornata!</p>
+      <!-- NUOVO BLOCCO: QR CODE + PULSANTE -->
+      <div class="qr-upload-section">
+        <!-- Area per il QR code (sostituisci .qr-placeholder con <img src="..."> quando hai l'immagine) -->
+        <div class="qr-image-container">
+          <div class="qr-placeholder" id="qr-placeholder">
+            <!-- Inserisci qui il tag <img> con il percorso del QR code -->
+            QR Code
+          </div>
+        </div>
+        <!-- Pulsante dorato con link (modifica href con il tuo URL) -->
+        <div class="qr-button">
+          <a href="#" class="btn-gold" target="_blank" rel="noopener noreferrer" id="upload-link">
+            carica qui le tue foto
+          </a>
+        </div>
       </div>
+
+      <!-- TITOLO "Momenti indimenticabili" -->
+      <h2 class="momenti-title">Momenti indimenticabili</h2>
       
+      <!-- GALLERY GRID (invariata, solo placeholder) -->
       <div class="photo-grid">
         <div class="photo-item">Foto 1</div>
         <div class="photo-item">Foto 2</div>
