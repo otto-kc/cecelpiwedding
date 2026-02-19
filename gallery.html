@@ -25,9 +25,8 @@
       --btn-bg: rgba(255,255,255,0.95);
       --btn-border: rgba(0,0,0,0.20);
       --btn-hover: rgba(0,0,0,0.05);
-      --upload-btn: linear-gradient(90deg, #008CFF, #FF3B5B);
-      --upload-btn-hover: linear-gradient(90deg, #0077E6, #FF2A4D);
       --gold-color: #D4AF37;
+      --lightbox-bg: rgba(0,0,0,0.9);
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
@@ -59,7 +58,7 @@
       font-size: 18px;
     }
     
-    /* NUOVO BLOCCO QR + PULSANTE */
+    /* BLOCCO QR + PULSANTE */
     .qr-upload-section {
       display: flex;
       align-items: center;
@@ -128,7 +127,7 @@
     .btn-gold:active {
       transform: translateY(-1px);
     }
-    /* Titolo "Alcuni momenti speciali del nostro percorso insieme" */
+    /* Titolo sotto il QR */
     .momenti-title {
       text-align: center;
       color: #D4AF37;
@@ -139,7 +138,7 @@
       font-weight: normal;
     }
     
-    /* GALLERY GRID (8 foto con caricamento dinamico) */
+    /* GALLERY GRID */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -147,22 +146,22 @@
       margin-bottom: 40px;
     }
     .photo-item {
-      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+      background: #f0f0f0;  /* colore di sfondo per le bande */
       border-radius: 16px;
       height: 250px;
       display: grid;
       place-items: center;
-      color: #888;
-      font-style: italic;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       overflow: hidden;
       padding: 0;
+      cursor: pointer;
     }
     .photo-item img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;  /* 🔹 ORA L'IMMAGINE È INTERA (non tagliata) */
       display: block;
+      background-color: #f0f0f0; /* uniforme con lo sfondo del contenitore */
     }
     .photo-item:hover {
       transform: translateY(-5px);
@@ -196,7 +195,95 @@
       color: #666;
     }
 
-    /* Responsive per mobile */
+    /* ===== LIGHTBOX ===== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--lightbox-bg);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox.show {
+      display: flex;
+    }
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 90vh;
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 40px;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+      opacity: 0.8;
+    }
+    .lightbox-close:hover {
+      opacity: 1;
+    }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      font-size: 40px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      opacity: 0.7;
+    }
+    .lightbox-nav:hover {
+      background: rgba(255,255,255,0.4);
+      opacity: 1;
+    }
+    .lightbox-prev {
+      left: 20px;
+    }
+    .lightbox-next {
+      right: 20px;
+    }
+    @media (max-width: 768px) {
+      .lightbox-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+      }
+      .lightbox-close {
+        top: -30px;
+        font-size: 30px;
+      }
+    }
+
+    /* Responsive per mobile (sezione QR) */
     @media (max-width: 768px) {
       .qr-upload-section {
         flex-direction: column;
@@ -258,15 +345,11 @@
   <!-- NAVBAR CON HAMBURGER MENU -->
   <nav class="nav">
     <div class="logo-badge" aria-label="Logo E e C">E&amp;C</div>
-    
-    <!-- Hamburger menu button (mobile only) -->
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span>
       <span></span>
       <span></span>
     </button>
-    
-    <!-- Navigation links -->
     <div class="navlinks" id="navlinks">
       <a href="index.html">Home</a>
       <a href="cerimonia-ricevimento.html">Cerimonia & Ricevimento</a>
@@ -323,6 +406,16 @@
   <!-- BACK TO TOP BUTTON -->
   <button class="back-to-top" id="backToTop" aria-label="Torna all'inizio" title="Torna su">▲</button>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close">&times;</button>
+      <img class="lightbox-image" id="lightbox-image" src="" alt="">
+      <button class="lightbox-nav lightbox-prev" id="lightbox-prev">&#10094;</button>
+      <button class="lightbox-nav lightbox-next" id="lightbox-next">&#10095;</button>
+    </div>
+  </div>
+
   <script>
     // Anno corrente
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -364,6 +457,9 @@
     if (backBtn) backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
     // ===== FUNZIONE PER CARICARE IMMAGINI CON QUALSIASI ESTENSIONE =====
+    const imageBases = []; // conterrà tutti i data-base in ordine
+    const galleryImages = []; // conterrà gli elementi img (per i listener)
+
     function loadImagesWithFallback() {
       const images = document.querySelectorAll('.gallery-img');
       const extensions = [
@@ -372,31 +468,36 @@
         'bmp', 'BMP', 'tiff', 'TIFF'
       ];
 
-      images.forEach(img => {
+      images.forEach((img, index) => {
         const baseName = img.getAttribute('data-base');
         if (!baseName) return;
 
+        // Salva il baseName nell'array globale per la lightbox
+        imageBases[index] = baseName;
+        galleryImages[index] = img;
+
         // Funzione per provare a caricare un'estensione
-        function tryExtension(index) {
-          if (index >= extensions.length) {
-            // Nessuna estensione funziona: lascia il placeholder
+        function tryExtension(idx) {
+          if (idx >= extensions.length) {
             console.warn(`Impossibile caricare ${baseName} con nessuna estensione`);
             return;
           }
 
-          const ext = extensions[index];
+          const ext = extensions[idx];
           const src = `${baseName}.${ext}`;
           const testImg = new Image();
           
           testImg.onload = () => {
-            // Trovata! Imposta il src e mostra l'immagine
+            // Trovata! Imposta il src
             img.src = src;
             img.style.display = 'block';
+            // Aggiunge il listener per il click (solo dopo che l'immagine è caricata)
+            img.parentElement.addEventListener('click', () => openLightbox(index));
           };
           
           testImg.onerror = () => {
             // Passa alla prossima estensione
-            tryExtension(index + 1);
+            tryExtension(idx + 1);
           };
           
           testImg.src = src;
@@ -407,7 +508,94 @@
       });
     }
 
-    // Esegui il caricamento quando la pagina è pronta
+    // ===== LIGHTBOX =====
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-image');
+    const closeBtn = document.getElementById('lightbox-close');
+    const prevBtn = document.getElementById('lightbox-prev');
+    const nextBtn = document.getElementById('lightbox-next');
+    let currentIndex = 0;
+
+    // Funzione per aprire la lightbox
+    function openLightbox(index) {
+      currentIndex = index;
+      loadLightboxImage(currentIndex);
+      lightbox.classList.add('show');
+      document.body.style.overflow = 'hidden'; // impedisce lo scroll della pagina
+    }
+
+    // Funzione per chiudere la lightbox
+    function closeLightbox() {
+      lightbox.classList.remove('show');
+      document.body.style.overflow = ''; // ripristina scroll
+    }
+
+    // Carica l'immagine nella lightbox (con fallback)
+    function loadLightboxImage(index) {
+      const baseName = imageBases[index];
+      if (!baseName) return;
+
+      const extensions = [
+        'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 
+        'webp', 'WEBP', 'heic', 'HEIC', 'gif', 'GIF',
+        'bmp', 'BMP', 'tiff', 'TIFF'
+      ];
+
+      function tryExtension(idx) {
+        if (idx >= extensions.length) {
+          console.warn(`Immagine lightbox ${baseName} non trovata`);
+          lightboxImg.src = ''; // vuoto o placeholder
+          return;
+        }
+
+        const ext = extensions[idx];
+        const src = `${baseName}.${ext}`;
+        const testImg = new Image();
+        
+        testImg.onload = () => {
+          lightboxImg.src = src;
+        };
+        
+        testImg.onerror = () => {
+          tryExtension(idx + 1);
+        };
+        
+        testImg.src = src;
+      }
+
+      tryExtension(0);
+    }
+
+    // Event listener per i pulsanti della lightbox
+    closeBtn.addEventListener('click', closeLightbox);
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (imageBases.length === 0) return;
+      currentIndex = (currentIndex - 1 + imageBases.length) % imageBases.length;
+      loadLightboxImage(currentIndex);
+    });
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (imageBases.length === 0) return;
+      currentIndex = (currentIndex + 1) % imageBases.length;
+      loadLightboxImage(currentIndex);
+    });
+
+    // Chiudi la lightbox cliccando sullo sfondo (overlay)
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Chiudi con il tasto ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('show')) {
+        closeLightbox();
+      }
+    });
+
+    // Avvia il caricamento delle immagini
     document.addEventListener('DOMContentLoaded', loadImagesWithFallback);
   </script>
   <script src="auth-check.js"></script>
