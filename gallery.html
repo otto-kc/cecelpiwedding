@@ -63,7 +63,7 @@
     .qr-upload-section {
       display: flex;
       align-items: center;
-      justify-content: center; /* CENTRA IL BLOCCO */
+      justify-content: center;
       gap: 30px;
       margin-bottom: 50px;
       background: rgba(255, 248, 240, 0.5);
@@ -73,7 +73,7 @@
     }
     .qr-image-container {
       flex: 0 0 180px;
-      margin: 0;   /* azzerato */
+      margin: 0;
       height: 180px;
       background: #fff;
       border-radius: 16px;
@@ -95,17 +95,16 @@
       text-align: center;
       background: #f9f9f9;
     }
-    /* Quando verrà inserita l'immagine reale, sovrascriverà il placeholder */
     .qr-image-container img {
       width: 100%;
       height: 100%;
       object-fit: contain;
     }
     .qr-button {
-      flex: 0 0 auto;            /* NON OCCUPA TUTTO LO SPAZIO */
+      flex: 0 0 auto;
       text-align: center;
       margin: 0;
-      margin-left: 80px;          /* DISTANZA DAL QR CODE */
+      margin-left: 80px;
     }
     .btn-gold {
       display: inline-block;
@@ -137,10 +136,10 @@
       font-family: 'EB Garamond', serif;
       margin: 30px 0 20px;
       font-style: italic;
-      font-weight: normal; /* TOLTO IL GRASSETTO */
+      font-weight: normal;
     }
     
-    /* GALLERY GRID (6 foto) */
+    /* GALLERY GRID (8 foto con caricamento dinamico) */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -156,14 +155,14 @@
       color: #888;
       font-style: italic;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      overflow: hidden;          /* NASCONDE PARTI DELL'IMMAGINE CHE ESCONO */
-      padding: 0;                /* TOGLIE SPAZI INTERNI */
+      overflow: hidden;
+      padding: 0;
     }
     .photo-item img {
       width: 100%;
       height: 100%;
-      object-fit: cover;         /* RIEMPIE IL CONTENITORE SENZA DEFORMARE */
-      display: block;            /* ELIMINA SPAZI BIANCHI SOTTO */
+      object-fit: cover;
+      display: block;
     }
     .photo-item:hover {
       transform: translateY(-5px);
@@ -212,7 +211,7 @@
         margin: 0 auto;
       }
       .qr-button {
-        margin-left: 0;           /* AZZERA IL MARGINE SU MOBILE */
+        margin-left: 0;
         margin-right: 0;
       }
       .btn-gold {
@@ -287,14 +286,12 @@
       
       <!-- BLOCCO QR CODE + PULSANTE -->
       <div class="qr-upload-section">
-        <!-- Area per il QR code (sostituisci .qr-placeholder con <img src="..."> quando hai l'immagine) -->
         <div class="qr-image-container">
           <div class="qr-placeholder" id="qr-placeholder">
             <!-- Inserisci qui il tag <img> con il percorso del QR code -->
             QR Code
           </div>
         </div>
-        <!-- Pulsante dorato con link (modifica href con il tuo URL) -->
         <div class="qr-button">
           <a href="#" class="btn-gold" target="_blank" rel="noopener noreferrer" id="upload-link">
             carica qui le tue foto
@@ -302,17 +299,19 @@
         </div>
       </div>
 
-      <!-- TITOLO "Alcuni momenti speciali del nostro percorso insieme" -->
+      <!-- TITOLO -->
       <h2 class="momenti-title">Alcuni momenti speciali del nostro percorso insieme</h2>
       
-      <!-- GALLERY GRID con 6 foto (sostituisci i nomi dei file con i tuoi) -->
+      <!-- GALLERY GRID con 8 foto (caricate dinamicamente) -->
       <div class="photo-grid">
-        <div class="photo-item"><img src="foto1.jpg" alt="Foto 1"></div>
-        <div class="photo-item"><img src="foto2.jpg" alt="Foto 2"></div>
-        <div class="photo-item"><img src="foto3.jpg" alt="Foto 3"></div>
-        <div class="photo-item"><img src="foto4.jpg" alt="Foto 4"></div>
-        <div class="photo-item"><img src="foto5.jpg" alt="Foto 5"></div>
-        <div class="photo-item"><img src="foto6.jpg" alt="Foto 6"></div>
+        <div class="photo-item"><img class="gallery-img" data-base="gallery1" alt="Foto 1"></div>
+        <div class="photo-item"><img class="gallery-img" data-base="gallery2" alt="Foto 2"></div>
+        <div class="photo-item"><img class="gallery-img" data-base="gallery3" alt="Foto 3"></div>
+        <div class="photo-item"><img class="gallery-img" data-base="gallery4" alt="Foto 4"></div>
+        <div class="photo-item"><img class="gallery-img" data-base="gallery5" alt="Foto 5"></div>
+        <div class="photo-item"><img class="gallery-img" data-base="gallery6" alt="Foto 6"></div>
+        <div class="photo-item"><img class="gallery-img" data-base="gallery7" alt="Foto 7"></div>
+        <div class="photo-item"><img class="gallery-img" data-base="gallery8" alt="Foto 8"></div>
       </div>
 
       <a href="index.html" class="back-btn">← Torna alla Home</a>
@@ -363,6 +362,53 @@
     toggleBackBtn();
     window.addEventListener('scroll', toggleBackBtn);
     if (backBtn) backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ===== FUNZIONE PER CARICARE IMMAGINI CON QUALSIASI ESTENSIONE =====
+    function loadImagesWithFallback() {
+      const images = document.querySelectorAll('.gallery-img');
+      const extensions = [
+        'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 
+        'webp', 'WEBP', 'heic', 'HEIC', 'gif', 'GIF',
+        'bmp', 'BMP', 'tiff', 'TIFF'
+      ];
+
+      images.forEach(img => {
+        const baseName = img.getAttribute('data-base');
+        if (!baseName) return;
+
+        // Funzione per provare a caricare un'estensione
+        function tryExtension(index) {
+          if (index >= extensions.length) {
+            // Nessuna estensione funziona: lascia il placeholder
+            console.warn(`Impossibile caricare ${baseName} con nessuna estensione`);
+            return;
+          }
+
+          const ext = extensions[index];
+          const src = `${baseName}.${ext}`;
+          const testImg = new Image();
+          
+          testImg.onload = () => {
+            // Trovata! Imposta il src e mostra l'immagine
+            img.src = src;
+            img.style.display = 'block';
+          };
+          
+          testImg.onerror = () => {
+            // Passa alla prossima estensione
+            tryExtension(index + 1);
+          };
+          
+          testImg.src = src;
+        }
+
+        // Inizia a provare dalla prima estensione
+        tryExtension(0);
+      });
+    }
+
+    // Esegui il caricamento quando la pagina è pronta
+    document.addEventListener('DOMContentLoaded', loadImagesWithFallback);
   </script>
   <script src="auth-check.js"></script>
 </body>
