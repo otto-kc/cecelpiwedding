@@ -64,7 +64,7 @@
       display: flex;
       align-items: center;
       justify-content: center; /* SPOSTA TUTTO IL BLOCCO A DESTRA */
-      gap: 30px;
+      gap: 5px;
       margin-bottom: 50px;
       background: rgba(255, 248, 240, 0.5);
       border-radius: 24px;
@@ -73,7 +73,7 @@
     }
     .qr-image-container {
       flex: 0 0 180px;
-      margin-right: 0;   /* azzerato per evitare conflitti */
+      margin: 0;   /* azzerato per evitare conflitti */
       height: 180px;
       background: #fff;
       border-radius: 16px;
@@ -102,9 +102,9 @@
       object-fit: contain;
     }
     .qr-button {
-      flex: 1;
-      text-align: center;
-      margin-right: 20px; /* DISTANZA DAL BORDO DESTRO */
+      flex: 0 0 auto;            /* NON OCCUPA TUTTO LO SPAZIO */
+  text-align: center;
+  margin: 0;
     }
     .btn-gold {
       display: inline-block;
