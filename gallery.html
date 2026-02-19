@@ -215,6 +215,11 @@
       position: relative;
       max-width: 90vw;
       max-height: 90vh;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .lightbox-image {
       max-width: 100%;
@@ -222,6 +227,7 @@
       display: block;
       border-radius: 8px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      pointer-events: none; /* per permettere lo swipe sul contenitore */
     }
     .lightbox-close {
       position: absolute;
@@ -239,6 +245,7 @@
       justify-content: center;
       transition: opacity 0.2s;
       opacity: 0.8;
+      z-index: 2001;
     }
     .lightbox-close:hover {
       opacity: 1;
@@ -260,6 +267,7 @@
       cursor: pointer;
       transition: background 0.2s;
       opacity: 0.7;
+      z-index: 2001;
     }
     .lightbox-nav:hover {
       background: rgba(255,255,255,0.4);
@@ -278,8 +286,13 @@
         font-size: 30px;
       }
       .lightbox-close {
-        top: -30px;
-        font-size: 30px;
+        top: 10px;
+        right: 10px;
+        font-size: 40px;
+        background: rgba(0,0,0,0.3);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
       }
     }
 
@@ -408,7 +421,7 @@
 
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
-    <div class="lightbox-content">
+    <div class="lightbox-content" id="lightbox-content">
       <button class="lightbox-close" id="lightbox-close">&times;</button>
       <img class="lightbox-image" id="lightbox-image" src="" alt="">
       <button class="lightbox-nav lightbox-prev" id="lightbox-prev">&#10094;</button>
@@ -508,7 +521,13 @@
     const closeBtn = document.getElementById('lightbox-close');
     const prevBtn = document.getElementById('lightbox-prev');
     const nextBtn = document.getElementById('lightbox-next');
+    const lightboxContent = document.getElementById('lightbox-content');
     let currentIndex = 0;
+
+    // Variabili per il touch swipe
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const minSwipeDistance = 50; // distanza minima per considerare uno swipe
 
     function openLightbox(index) {
       currentIndex = index;
@@ -556,6 +575,7 @@
       tryExtension(0);
     }
 
+    // Navigazione con frecce
     closeBtn.addEventListener('click', closeLightbox);
     prevBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -570,17 +590,42 @@
       loadLightboxImage(currentIndex);
     });
 
+    // Chiudi cliccando fuori dall'immagine
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) {
         closeLightbox();
       }
     });
 
+    // Chiudi con ESC
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && lightbox.classList.contains('show')) {
         closeLightbox();
       }
     });
+
+    // ===== GESTIONE SWIPE PER TOUCH =====
+    lightboxContent.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    lightboxContent.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const distance = touchEndX - touchStartX;
+      if (Math.abs(distance) < minSwipeDistance) return;
+
+      if (distance > 0) {
+        // Swipe verso destra → immagine precedente
+        prevBtn.click();
+      } else {
+        // Swipe verso sinistra → immagine successiva
+        nextBtn.click();
+      }
+    }
 
     document.addEventListener('DOMContentLoaded', loadImagesWithFallback);
   </script>
