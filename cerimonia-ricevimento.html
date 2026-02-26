@@ -326,7 +326,43 @@ footer p {
     font-size: 24px;
   }
 }
+        /* STILI PER IL BOTTONE RSVP (copiati da contatti.html) */
+    .rsvp-button-container {
+      text-align: center;
+      margin: 30px 0;
+    }
+    .rsvp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
+      color: #222;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 18px;
+      border: 2px solid #D4AF37;
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+      transition: all 0.3s ease;
+    }
+    .rsvp-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
+    }
+    
+    /* Per mobile (opzionale, ma lo mettiamo per sicurezza) */
+    @media (max-width: 600px) {
+      .rsvp-btn {
+        padding: 8px 18px;
+        font-size: 16px;
+        width: auto;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
