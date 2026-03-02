@@ -116,16 +116,7 @@
     }
 
     * { box-sizing: border-box; }
-    html, body {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  overflow-x: hidden;
-  background: #FAF9F6;
-  min-height: var(--app-height, 100dvh);
-}
+    html, body { height: 100%; margin: 0; }
     
     /* MAIN CONTENT */
     .container {
@@ -330,7 +321,26 @@ p {
     font-size: 20px;
   }
 }
-    </style>
+    /* Aggiustamento per evitare spazio bianco sotto il footer */
+html, body {
+  height: 100%;            /* fa sì che la pagina occupi tutta l'altezza */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;           /* trasforma il body in un contenitore flessibile */
+  flex-direction: column;  /* i figli (nav, main, footer) si impilano in colonna */
+}
+
+main {
+  flex: 1 0 auto;          /* il contenuto principale si allarga per riempire lo spazio */
+}
+
+footer {
+  flex-shrink: 0;          /* il footer non si restringe, rimane in fondo */
+}
+  </style>
 </head>
 <body>
   <!-- POP-UP DI CONFERMA -->
@@ -512,17 +522,7 @@ p {
   <script>
     // Anno corrente nel footer
     document.getElementById('year').textContent = new Date().getFullYear();
-    function setAppHeight() {
-  const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-  document.documentElement.style.setProperty('--app-height', `${h}px`);
-}
 
-setAppHeight();
-window.addEventListener('resize', setAppHeight);
-
-if (window.visualViewport) {
-  window.visualViewport.addEventListener('resize', setAppHeight);
-}
     // Menu hamburger mobile
     const hamburger = document.getElementById('hamburger');
     const navlinks = document.getElementById('navlinks');
@@ -604,16 +604,10 @@ successPopup.addEventListener('click', function(e) {
     // Validazione in tempo reale
     const inputs = form.querySelectorAll('input, select, textarea');
     inputs.forEach(input => {
-  input.addEventListener('focus', () => {
-    setTimeout(() => {
-      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 350);
-  });
-
-  input.addEventListener('blur', () => validateField(input));
-  input.addEventListener('input', () => clearError(input));
-  input.addEventListener('change', () => clearError(input));
-});
+      input.addEventListener('blur', () => validateField(input));
+      input.addEventListener('input', () => clearError(input));
+      input.addEventListener('change', () => clearError(input));
+    });
 
     function validateField(field) {
       const errorElement = document.getElementById(`${field.id}-error`);
