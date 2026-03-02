@@ -123,6 +123,8 @@
 
 body {
   overflow-x: hidden;
+  background: #FAF9F6;
+  min-height: var(--app-height, 100dvh);
 }
     
     /* MAIN CONTENT */
@@ -510,7 +512,17 @@ p {
   <script>
     // Anno corrente nel footer
     document.getElementById('year').textContent = new Date().getFullYear();
+    function setAppHeight() {
+  const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+  document.documentElement.style.setProperty('--app-height', `${h}px`);
+}
 
+setAppHeight();
+window.addEventListener('resize', setAppHeight);
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', setAppHeight);
+}
     // Menu hamburger mobile
     const hamburger = document.getElementById('hamburger');
     const navlinks = document.getElementById('navlinks');
@@ -592,10 +604,16 @@ successPopup.addEventListener('click', function(e) {
     // Validazione in tempo reale
     const inputs = form.querySelectorAll('input, select, textarea');
     inputs.forEach(input => {
-      input.addEventListener('blur', () => validateField(input));
-      input.addEventListener('input', () => clearError(input));
-      input.addEventListener('change', () => clearError(input));
-    });
+  input.addEventListener('focus', () => {
+    setTimeout(() => {
+      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 350);
+  });
+
+  input.addEventListener('blur', () => validateField(input));
+  input.addEventListener('input', () => clearError(input));
+  input.addEventListener('change', () => clearError(input));
+});
 
     function validateField(field) {
       const errorElement = document.getElementById(`${field.id}-error`);
