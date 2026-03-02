@@ -16,91 +16,6 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* POP-UP DI CONFERMA */
-.popup {
-  display: none;  /* Inizia nascosta */
-  position: fixed;
-  z-index: 9999;  /* Sta sopra tutto */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6); /* Sfondo scuro intorno */
-  align-items: center;
-  justify-content: center;
-}
-
-.popup.show {
-  display: flex;  /* Quando ha la classe 'show' appare */
-}
-
-.popup-content {
-  background: #fff8f0;
-  padding: 30px;
-  border-radius: 20px;
-  max-width: 500px;
-  width: 90%;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  border: 2px solid #D4AF37;
-  position: relative;
-  animation: popupFadeIn 0.3s ease;
-}
-
-@keyframes popupFadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.popup-close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 30px;
-  font-weight: bold;
-  color: #666;
-  cursor: pointer;
-}
-
-.popup-close:hover {
-  color: #222;
-}
-
-.popup-content h3 {
-  color: #2e7d32;
-  margin: 0 0 15px;
-  font-size: 24px;
-  font-family: 'Playfair Display', serif;
-}
-
-.popup-content p {
-  font-size: 20px;
-  color: #444;
-  margin-bottom: 20px;
-  line-height: 1.5;
-}
-
-.popup-content strong {
-  color: #D4AF37;
-}
-
-.popup-close-btn {
-  background: #D4AF37;
-  color: #222;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 50px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: 1px solid #D4AF37;
-}
-
-.popup-close-btn:hover {
-  background: #f4e4a6;
-  transform: translateY(-2px);
-}
     :root {
       --pearl-white: #FAF9F6;
       --nav-text: #222222;
@@ -343,15 +258,6 @@ footer {
   </style>
 </head>
 <body>
-  <!-- POP-UP DI CONFERMA -->
-<div id="success-popup" class="popup">
-  <div class="popup-content">
-    <span class="popup-close">&times;</span>
-    <h3>Conferma inviata con successo!</h3>
-    <p>Grazie <strong id="popup-name"></strong> per aver confermato la tua presenza.</p>
-    <button class="popup-close-btn">Chiudi</button>
-  </div>
-</div>
 
   <!-- NAVBAR CON HAMBURGER MENU -->
   <nav class="nav">
@@ -492,6 +398,12 @@ footer {
           </button>
         </form>
 
+        <!-- MESSAGGIO SUCCESSO -->
+        <div class="success-message" id="success-message" role="status" aria-live="polite">
+          <h3>Conferma inviata con successo</h3>
+          <p>Grazie <strong><span id="success-name"></span></strong> per aver confermato la tua presenza.</p>
+        </div>
+
         <a href="index.html" class="back-btn">← Torna alla Home</a>
       </div>
     </div>
@@ -565,41 +477,11 @@ footer {
     const btnLoading = document.getElementById('btn-loading');
     const successMessage = document.getElementById('success-message');
     const successName = document.getElementById('success-name');
-    // Riferimenti al pop-up
-const successPopup = document.getElementById('success-popup');
-const popupName = document.getElementById('popup-name');
-const popupClose = document.querySelector('.popup-close');
-const popupCloseBtn = document.querySelector('.popup-close-btn');
-    function showPopup(nome) {
-  popupName.textContent = nome || '';   // Inserisce il nome nel posto giusto
-  successPopup.classList.add('show');    // Fa apparire il pop-up
-
-  // Dopo 4 secondi lo chiude da solo
-  setTimeout(() => {
-    closePopup();
-  }, 4000);
-}
-
-function closePopup() {
-  successPopup.classList.remove('show'); // Nasconde il pop-up
-}
-    popupClose.addEventListener('click', closePopup);
-if (popupCloseBtn) {
-  popupCloseBtn.addEventListener('click', closePopup);
-}
-
-// Se clicchi sullo sfondo scuro, si chiude
-successPopup.addEventListener('click', function(e) {
-  if (e.target === successPopup) {
-    closePopup();
-  }
-});    
 
     const gfForm = document.getElementById('gf-form');
     const gfIframe = document.getElementById('gf-iframe');
 
     let pendingSubmit = false;
-    
 
     // Validazione in tempo reale
     const inputs = form.querySelectorAll('input, select, textarea');
@@ -657,7 +539,7 @@ successPopup.addEventListener('click', function(e) {
       setLoading(false);
 
       const nome = document.getElementById('nome').value.trim();
-      showPopup(nome);
+      showSuccess(nome);
 
       // Reset form e bozza
       form.reset();
@@ -719,7 +601,7 @@ document.getElementById('gf_numero_bambini').value = document.getElementById('nu
         pendingSubmit = false;
         setLoading(false);
         const nome = document.getElementById('nome').value.trim();
-        showPopup(nome);
+        showSuccess(nome);
         form.reset();
         localStorage.removeItem('rsvpDraft');
       }, 2500);
