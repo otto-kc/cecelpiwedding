@@ -236,6 +236,25 @@ p {
     font-size: 20px;
   }
 }
+    /* Aggiustamento per evitare spazio bianco sotto il footer */
+html, body {
+  height: 100%;            /* fa sì che la pagina occupi tutta l'altezza */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;           /* trasforma il body in un contenitore flessibile */
+  flex-direction: column;  /* i figli (nav, main, footer) si impilano in colonna */
+}
+
+main {
+  flex: 1 0 auto;          /* il contenuto principale si allarga per riempire lo spazio */
+}
+
+footer {
+  flex-shrink: 0;          /* il footer non si restringe, rimane in fondo */
+}
   </style>
 </head>
 <body>
