@@ -316,23 +316,44 @@ footer {
             </div>
           </div>
 
-          <div class="form-group required">
-            <label for="persone">Numero di persone</label>
-            <select id="persone" name="persone" required>
-              <option value="" disabled selected>Seleziona il numero</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-            <div class="error-message" id="persone-error">Seleziona il numero di persone</div>
-          </div>
+          <div class="form-row">
+  <div class="form-group required">
+    <label for="numero_adulti">Numero di adulti</label>
+    <select id="numero_adulti" name="numero_adulti" required>
+      <option value="" disabled selected>Seleziona il numero</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <div class="error-message" id="numero_adulti-error">Seleziona il numero di adulti</div>
+  </div>
+
+  <div class="form-group required">
+    <label for="numero_bambini">Numero di bambini</label>
+    <select id="numero_bambini" name="numero_bambini" required>
+      <option value="" disabled selected>Seleziona il numero</option>
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+    <div class="error-message" id="numero_bambini-error">Seleziona il numero di bambini</div>
+  </div>
+</div>
 
           <div class="form-group required">
             <label for="partecipazione">Parteciperai a</label>
@@ -402,7 +423,8 @@ footer {
     <input type="text" name="entry.1275687098" id="gf_cognome">
     <input type="text" name="entry.959844416" id="gf_email">
     <input type="text" name="entry.281060993" id="gf_telefono">
-    <input type="text" name="entry.1192058120" id="gf_persone">
+    <input type="text" name="entry.1192058120" id="gf_numero_adulti">
+<input type="text" name="entry.1927491626" id="gf_numero_bambini">
     <input type="text" name="entry.579231647" id="gf_partecipazione">
     <textarea name="entry.605281712" id="gf_note"></textarea>
     <textarea name="entry.1427081091" id="gf_messaggio"></textarea>
@@ -559,7 +581,8 @@ footer {
       document.getElementById('gf_cognome').value = document.getElementById('cognome').value.trim();
       document.getElementById('gf_email').value = (document.getElementById('email').value || '').trim();
       document.getElementById('gf_telefono').value = (document.getElementById('telefono').value || '').trim();
-      document.getElementById('gf_persone').value = document.getElementById('persone').value;
+      document.getElementById('gf_numero_adulti').value = document.getElementById('numero_adulti').value;
+document.getElementById('gf_numero_bambini').value = document.getElementById('numero_bambini').value;
       document.getElementById('gf_partecipazione').value = document.getElementById('partecipazione').value;
       document.getElementById('gf_note').value = (document.getElementById('note').value || '').trim();
       document.getElementById('gf_messaggio').value = (document.getElementById('messaggio').value || '').trim();
