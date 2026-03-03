@@ -121,7 +121,7 @@
     /* MAIN CONTENT */
     .container {
       max-width: min(800px, 92vw);
-      margin: 100px auto 40px;
+      margin: 100px auto 0;
       padding: 0 20px;
     }
     .rsvp-card {
@@ -570,22 +570,28 @@ const successPopup = document.getElementById('success-popup');
 const popupName = document.getElementById('popup-name');
 const popupClose = document.querySelector('.popup-close');
 const popupCloseBtn = document.querySelector('.popup-close-btn');
+    let popupTimeout; // Serve per ricordarsi del timer
     function showPopup(nome) {
-  popupName.textContent = nome || '';   // Inserisce il nome nel posto giusto
-  successPopup.classList.add('show');    // Fa apparire il pop-up
+  popupName.textContent = nome || '';   // Inserisce il nome
+  successPopup.classList.add('show');    // Mostra il pop-up
 
-  // Dopo 4 secondi lo chiude da solo
-  setTimeout(() => {
+  // Se c'era già un timer in corso, lo cancella
+  if (popupTimeout) {
+    clearTimeout(popupTimeout);
+  }
+
+  // Imposta un nuovo timer per chiudere dopo 4 secondi
+  popupTimeout = setTimeout(() => {
     closePopup();
   }, 4000);
 }
 
 function closePopup() {
   successPopup.classList.remove('show'); // Nasconde il pop-up
-}
-    popupClose.addEventListener('click', closePopup);
-if (popupCloseBtn) {
-  popupCloseBtn.addEventListener('click', closePopup);
+  if (popupTimeout) {
+    clearTimeout(popupTimeout);           // Cancella il timer
+    popupTimeout = null;
+  }
 }
 
 // Se clicchi sullo sfondo scuro, si chiude
@@ -599,6 +605,25 @@ successPopup.addEventListener('click', function(e) {
     const gfIframe = document.getElementById('gf-iframe');
 
     let pendingSubmit = false;
+    // ===== FA SÌ CHE QUANDO TOCHI UN CAMPO, LA PAGINA SI SPOSTI PER MOSTRARLO BENE =====
+(function() {
+  // Funziona solo su telefoni (touch)
+  if ('ontouchstart' in window) {
+    var campi = document.querySelectorAll('#rsvp-form input, #rsvp-form select, #rsvp-form textarea');
+    
+    function centraCampo(e) {
+      var elemento = e.target;
+      // Aspetta 300 millisecondi (il tempo che la tastiera si apra) e poi centra il campo
+      setTimeout(function() {
+        elemento.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }, 300);
+    }
+    
+    for (var i = 0; i < campi.length; i++) {
+      campi[i].addEventListener('focus', centraCampo);
+    }
+  }
+})();
     
 
     // Validazione in tempo reale
@@ -642,15 +667,7 @@ successPopup.addEventListener('click', function(e) {
       btnLoading.style.display = isLoading ? 'inline' : 'none';
     }
 
-    function showSuccess(nome) {
-      successName.textContent = nome || '';
-      successMessage.classList.add('show');
-      successMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      setTimeout(() => successMessage.classList.remove('show'), 8000);
-    }
-
-    // Quando l'iframe carica dopo il POST, consideriamo la submission completata
+        // Quando l'iframe carica dopo il POST, consideriamo la submission completata
     gfIframe.addEventListener('load', () => {
       if (!pendingSubmit) return;
       pendingSubmit = false;
