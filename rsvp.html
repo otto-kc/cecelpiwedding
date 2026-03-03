@@ -238,7 +238,7 @@ p {
 }
     /* Aggiustamento per evitare spazio bianco sotto il footer */
 html, body {
-  height: 100%;            /* fa sì che la pagina occupi tutta l'altezza */
+  min-height: 100vh;            /* fa sì che la pagina occupi tutta l'altezza */
   margin: 0;
   padding: 0;
 }
@@ -637,5 +637,28 @@ document.getElementById('gf_numero_bambini').value = document.getElementById('nu
     });
   </script>
   <script src="auth-check.js"></script>
+  <script>
+  (function() {
+    // Funziona solo su telefoni (touch)
+    if ('ontouchstart' in window) {
+      // Seleziona tutti i campi del modulo (input, select, textarea)
+      var campi = document.querySelectorAll('#rsvp-form input, #rsvp-form select, #rsvp-form textarea');
+      
+      // Quando un campo riceve il focus (viene toccato)
+      function gestisciFocus(e) {
+        var elemento = e.target;
+        // Aspetta un attimo che la tastiera sia uscita, poi centra il campo
+        setTimeout(function() {
+          elemento.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }, 300);
+      }
+      
+      // Applica la funzione a tutti i campi
+      for (var i = 0; i < campi.length; i++) {
+        campi[i].addEventListener('focus', gestisciFocus);
+      }
+    }
+  })();
+</script>
 </body>
 </html>
