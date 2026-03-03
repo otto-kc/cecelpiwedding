@@ -173,18 +173,19 @@
     }
 
     .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,0.15);
-      font-family: inherit;
-      font-size: 16px;
-      line-height: 1.2;
-      transition: border 0.2s ease;
-      background: rgba(255, 248, 240, 0.7);
-    }
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.15);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.2;
+  transition: border 0.2s ease;
+  background: rgba(255, 248, 240, 0.7);
+  scroll-margin-top: 100px;
+}
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
@@ -321,24 +322,29 @@ p {
     font-size: 20px;
   }
 }
-    /* Aggiustamento per evitare spazio bianco sotto il footer */
-html, body {
-  height: 100%;            /* fa sì che la pagina occupi tutta l'altezza */
+    /* Layout più stabile su mobile */
+html {
   margin: 0;
   padding: 0;
+  scroll-padding-top: 100px;
 }
 
 body {
-  display: flex;           /* trasforma il body in un contenitore flessibile */
-  flex-direction: column;  /* i figli (nav, main, footer) si impilano in colonna */
+  margin: 0;
+  padding: 0;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
-main {
-  flex: 1 0 auto;          /* il contenuto principale si allarga per riempire lo spazio */
+main.container {
+  flex: 1 0 auto;
 }
 
 footer {
-  flex-shrink: 0;          /* il footer non si restringe, rimane in fondo */
+  flex-shrink: 0;
 }
   </style>
 </head>
@@ -605,27 +611,7 @@ successPopup.addEventListener('click', function(e) {
     const gfIframe = document.getElementById('gf-iframe');
 
     let pendingSubmit = false;
-    // ===== FA SÌ CHE QUANDO TOCHI UN CAMPO, LA PAGINA SI SPOSTI PER MOSTRARLO BENE =====
-(function() {
-  // Funziona solo su telefoni (touch)
-  if ('ontouchstart' in window) {
-    var campi = document.querySelectorAll('#rsvp-form input, #rsvp-form select, #rsvp-form textarea');
-    
-    function centraCampo(e) {
-      var elemento = e.target;
-      // Aspetta 300 millisecondi (il tempo che la tastiera si apra) e poi centra il campo
-      setTimeout(function() {
-        elemento.scrollIntoView({ block: 'center', behavior: 'smooth' });
-      }, 300);
-    }
-    
-    for (var i = 0; i < campi.length; i++) {
-      campi[i].addEventListener('focus', centraCampo);
-    }
-  }
-})();
-    
-
+     
     // Validazione in tempo reale
     const inputs = form.querySelectorAll('input, select, textarea');
     inputs.forEach(input => {
