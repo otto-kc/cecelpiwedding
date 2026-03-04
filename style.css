@@ -95,6 +95,28 @@ body {
   transition: var(--transition);
   transform-origin: center;
 }
+  .hamburger span {
+    position: absolute;
+    left: 8px;
+    width: 26px;
+    height: 3px;
+    background-color: #222;
+    border-radius: 3px;
+    transition: var(--transition);
+    transform-origin: center;
+  }
+
+  .hamburger span:nth-child(1) {
+    top: 10px;
+  }
+
+  .hamburger span:nth-child(2) {
+    top: 19px;
+  }
+
+  .hamburger span:nth-child(3) {
+    top: 28px;
+  }
 
 /* CORRETTO: animazione hamburger → X senza tagli */
 .hamburger.active span:nth-child(1) {
@@ -109,6 +131,23 @@ body {
 .hamburger.active span:nth-child(3) {
   transform: rotate(-45deg) translate(6px, -6px);
 }
+  .hamburger.active span:nth-child(1) {
+    top: 19px;
+    transform: rotate(45deg);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .hamburger.active span:nth-child(3) {
+    top: 19px;
+    transform: rotate(-45deg);
+  }
+  .nav {
+    padding-right: calc(20px + env(safe-area-inset-right));
+  }
 
 /* NAVLINKS - DESKTOP */
 .navlinks {
@@ -142,18 +181,21 @@ body {
 
 /* MOBILE STYLES */
 @media (max-width: 1024px) {
-  .hamburger {
-  display: flex;   /* ← lo riaccendiamo per mobile */
-  flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 30px;
-  background: transparent;  /* niente sfondo */
-  border: none;            /* niente bordo */
-  border-radius: 0;        /* niente angoli stondati */
-  padding: 0;             /* niente spazio interno */
-  cursor: pointer;
-  z-index: 1001;
+    .hamburger {
+    display: flex;
+    position: relative;
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    cursor: pointer;
+    z-index: 1003;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
   }
   .card {
     margin-top: 100px;
