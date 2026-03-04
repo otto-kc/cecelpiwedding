@@ -502,19 +502,19 @@ footer p {
             </div>
             <!-- Mobile apps selector (hidden by default) -->
             <div class="map-apps-tabs" id="villa-apps-tabs">
-              <h4>Scegli l'app di navigazione:</h4>
-              <div class="app-buttons">
-                <a href="#" class="nav-btn google" data-address="Via Maggiore, 50 - 26020 Bordolano (CR)" data-app="google">
-                  <span class="nav-btn-icon">🏎️</span> Google Maps
-                </a>
-                <a href="#" class="nav-btn waze" data-address="Via Maggiore, 50 - 26020 Bordolano (CR)" data-app="waze">
-                  <span class="nav-btn-icon">🚜</span> Waze
-                </a>
-                <a href="#" class="nav-btn apple" data-address="Via Maggiore, 50 - 26020 Bordolano (CR)" data-app="apple">
-                  <span class="nav-btn-icon">🛩️</span> Apple Maps
-                </a>
-              </div>
-            </div>
+  <h4>Scegli l'app di navigazione:</h4>
+  <div class="app-buttons">
+    <a href="#" class="nav-btn google" data-address="Via Guglielmo Marconi, 2, 26020 Bordolano CR" data-app="google">
+      <span class="nav-btn-icon">🏎️</span> Google Maps
+    </a>
+    <a href="#" class="nav-btn waze" data-address="Via Guglielmo Marconi, 2, 26020 Bordolano CR" data-app="waze">
+      <span class="nav-btn-icon">🚜</span> Waze
+    </a>
+    <a href="#" class="nav-btn apple" data-address="Via Guglielmo Marconi, 2, 26020 Bordolano CR" data-app="apple">
+      <span class="nav-btn-icon">🛩️</span> Apple Maps
+    </a>
+  </div>
+</div>
           </div>
         </div>
       </div>
@@ -576,21 +576,21 @@ footer p {
 
     // Indirizzi REALI
     const locations = {
-      chiesa: {
-        address: "Via S. Sisto, 9, 29121 Piacenza PC",
-        name: "Chiesa di San Sisto",
-        google: "https://www.google.com/maps/dir/?api=1&destination=Via%20S.%20Sisto,%209,%2029121%20Piacenza%20PC",
-        waze: "https://www.waze.com/ul?ll=45.058107,9.697961&navigate=yes",
-        apple: "https://maps.apple.com/?daddr=Via+S.+Sisto,+9,+29121+Piacenza+PC"
-      },
-      villa: {
-        address: "Via Maggiore, 50 - 26020 Bordolano (CR)",
-        name: "Villa Zaccaria",
-        google: "https://www.google.com/maps/dir/?api=1&destination=Via%20Maggiore%2050%20Bordolano%20CR",
-        waze: "https://www.waze.com/ul?ll=45.291293,9.985216&navigate=yes",
-        apple: "https://maps.apple.com/?daddr=Via+Maggiore+50+Bordolano+CR"
-      }
-    };
+  chiesa: {
+    address: "Via S. Sisto, 9, 29121 Piacenza PC",
+    name: "Chiesa di San Sisto",
+    google: "https://www.google.com/maps/dir/?api=1&destination=Via%20S.%20Sisto,%209,%2029121%20Piacenza%20PC",
+    waze: "https://www.waze.com/ul?q=Via%20S.%20Sisto%2C%209%2C%2029121%20Piacenza%20PC&navigate=yes",
+    apple: "https://maps.apple.com/?daddr=Via+S.+Sisto,+9,+29121+Piacenza+PC"
+  },
+  villa: {
+    address: "Via Guglielmo Marconi, 2, 26020 Bordolano CR",
+    name: "Villa Zaccaria",
+    google: "https://www.google.com/maps/dir/?api=1&destination=Via%20Guglielmo%20Marconi%2C%202%2C%2026020%20Bordolano%20CR",
+    waze: "https://www.waze.com/ul?q=Via%20Guglielmo%20Marconi%2C%202%2C%2026020%20Bordolano%20CR&navigate=yes",
+    apple: "https://maps.apple.com/?daddr=Via+Guglielmo+Marconi,+2,+26020+Bordolano+CR"
+  }
+};
 
     // Rileva se è mobile e sistema operativo
     function isMobile() {
