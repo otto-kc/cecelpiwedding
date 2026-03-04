@@ -589,12 +589,18 @@
       loadLightboxImage(currentIndex);
     });
 
-    // Chiudi cliccando fuori dall'immagine
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
-        closeLightbox();
-      }
-    });
+    // Chiudi la lightbox se si clicca fuori dall'immagine e dai pulsanti
+lightbox.addEventListener('click', function(e) {
+  // Se il clic è avvenuto sulla foto, su una freccia o sulla X (o su un loro figlio), non fare niente
+  if (e.target.closest('.lightbox-image') || 
+      e.target.closest('.lightbox-prev') || 
+      e.target.closest('.lightbox-next') || 
+      e.target.closest('.lightbox-close')) {
+    return; // Esce dalla funzione, quindi non chiude
+  }
+  // Altrimenti (clic sullo sfondo nero), chiudi
+  closeLightbox();
+});
 
     // Chiudi con ESC
     document.addEventListener('keydown', (e) => {
