@@ -189,6 +189,28 @@
       background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
       opacity: 0;
     }
+    .fountain-particle {
+  position: absolute;
+  bottom: -30px;
+  border-radius: 999px;
+  opacity: 0;
+  will-change: transform, opacity;
+  filter: blur(0.5px);
+}
+
+@keyframes fountainRise {
+  0% {
+    transform: translate(0, 0) scaleY(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--drift-x), calc(-110vh - var(--rise-extra))) scaleY(1.15);
+    opacity: 0;
+  }
+}
   
 
     /* =========================================================
@@ -495,7 +517,46 @@
       // Avvia l'effetto fuochi d'artificio pomposo
       startPompousFireworks();
     });
+function startLightFountains(overlay) {
+  const fountainColors = ['#FFD700', '#FFEC8B', '#FFFACD', '#D4AF37', '#F4E4A6'];
+  const emitters = [0.14, 0.32, 0.5, 0.68, 0.86]; // punti da cui partono le fontane
+  const fountainDuration = 1000; // 1 secondo
 
+  const fountainInterval = setInterval(() => {
+    emitters.forEach((position) => {
+      for (let i = 0; i < 4; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'fountain-particle';
+
+        const color = fountainColors[Math.floor(Math.random() * fountainColors.length)];
+        const width = 3 + Math.random() * 3;
+        const height = 18 + Math.random() * 18;
+
+        spark.style.width = `${width}px`;
+        spark.style.height = `${height}px`;
+        spark.style.left = `${window.innerWidth * position + (Math.random() - 0.5) * 50}px`;
+        spark.style.background = `linear-gradient(to top, transparent 0%, ${color} 45%, #ffffff 100%)`;
+        spark.style.boxShadow = `0 0 10px ${color}, 0 0 24px ${color}`;
+
+        spark.style.setProperty('--drift-x', `${(Math.random() - 0.5) * 120}px`);
+        spark.style.setProperty('--rise-extra', `${Math.random() * 120}px`);
+
+        const duration = 700 + Math.random() * 250;
+        spark.style.animation = `fountainRise ${duration}ms ease-out forwards`;
+
+        overlay.appendChild(spark);
+
+        setTimeout(() => {
+          if (spark.parentNode) spark.remove();
+        }, duration + 100);
+      }
+    });
+  }, 80);
+
+  setTimeout(() => {
+    clearInterval(fountainInterval);
+  }, fountainDuration);
+}
     // FUNZIONE FUOCHI D'ARTIFICIO POMPOSI (SENZA SUONI)
     function startPompousFireworks() {
       const overlay = document.getElementById('fireworks-overlay');
@@ -669,34 +730,16 @@
         }
       }, 250);
       
-      // Intensifica gli ultimi 3 secondi
-      setTimeout(() => {
-        // Fuochi più frequenti negli ultimi secondi
-        clearInterval(fireworkInterval);
-        
-        let rapidCount = 0;
-        const maxRapid = 8;
-        
-        const rapidInterval = setInterval(() => {
-          if (rapidCount < maxRapid) {
-            createPompousFirework(true); // Solo dorati per il finale
-            rapidCount++;
-            
-            // Doppio esplosione per alcuni
-            if (rapidCount % 3 === 0) {
-              setTimeout(() => createPompousFirework(false), 100);
-            }
-          } else {
-            clearInterval(rapidInterval);
-          }
-        }, 180);
-        
-        // Ferma l'intervallo rapido dopo 2 secondi
-        setTimeout(() => {
-          clearInterval(rapidInterval);
-        }, 2000);
-        
-      }, 1000);
+      // Dopo 2 secondi fermiamo i fuochi e facciamo partire le fontane luminose
+setTimeout(() => {
+  clearInterval(fireworkInterval);
+
+  // Togli subito le particelle dei fuochi rimaste sullo schermo
+  overlay.querySelectorAll('.firework-particle, .firework-flash').forEach(el => el.remove());
+
+  // Parte l'ultimo secondo con le fontane luminose
+  startLightFountains(overlay);
+}, 2000);
       
       // Rimuovi l'overlay dopo 3 secondi (dopo che tutti gli effetti sono finiti)
       setTimeout(() => {
