@@ -99,6 +99,63 @@
       font-size: 14px;
       margin-top: 10px;
     }
+    .copy-group {
+  margin: 18px 0;
+  text-align: center;
+}
+
+.copy-label {
+  font-family: 'EB Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.copy-value {
+  font-family: 'EB Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #222;
+  margin: 8px 0 14px;
+  word-break: break-word;
+}
+
+.copy-subvalue {
+  font-family: 'EB Garamond', serif;
+  font-size: 22px;
+  color: #444;
+  margin: 8px 0 14px;
+  line-height: 1.5;
+}
+
+.copy-btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255, 248, 240, 0.9);
+  color: #222;
+  font-family: 'EB Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(0,0,0,0.05);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.copy-divider {
+  width: 100%;
+  max-width: 420px;
+  margin: 22px auto;
+  border-top: 1px solid rgba(0,0,0,0.12);
+}
     .back-btn {
       display: block;
       width: fit-content;
@@ -189,11 +246,20 @@ p {
       
       <div class="info-item">
         <div class="iban-box">
-          <h3>IBAN</h3>
-          <div class="iban-number">ITXXXXXX</div>
-          <div class="iban-details">Intestato a Capasso Elpidio, Pizzagalli Cecilia</div>
-        </div>
-      </div>
+  <div class="copy-group">
+    <div class="copy-label">IBAN</div>
+    <div class="copy-value" id="ibanText">ITXXXXXXX</div>
+    <button class="copy-btn" onclick="copyText('ibanText', this)">Copia</button>
+  </div>
+
+  <div class="copy-divider"></div>
+
+  <div class="copy-group">
+    <div class="copy-label">Intestato a</div>
+    <div class="copy-subvalue" id="accountNameText">Elpidio Capasso e Cecilia Pizzagalli</div>
+    <button class="copy-btn" onclick="copyText('accountNameText', this)">Copia</button>
+  </div>
+</div>
 
       <a href="index.html" class="back-btn">← Torna alla Home</a>
     </div>
@@ -207,6 +273,20 @@ p {
   <script>
     // Anno corrente
     document.getElementById('year').textContent = new Date().getFullYear();
+    function copyText(elementId, button) {
+  const text = document.getElementById(elementId).textContent.trim();
+
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = button.textContent;
+    button.textContent = 'Copiato!';
+    
+    setTimeout(() => {
+      button.textContent = originalText;
+    }, 1500);
+  }).catch(() => {
+    alert('Non sono riuscito a copiare il testo.');
+  });
+}
 
     // Menu hamburger mobile
     const hamburger = document.getElementById('hamburger');
