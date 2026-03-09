@@ -201,44 +201,40 @@
   const error = document.getElementById('error');
   const loginBtn = document.getElementById('loginBtn');
 
-  // Reset errori
   error.style.display = 'none';
   error.classList.remove('shake');
   loginBtn.disabled = true;
   loginBtn.textContent = 'Verifica in corso...';
 
-  // Chiamata al guardiano (Google Apps Script)
-  fetch('https://script.google.com/macros/s/AKfycbw-A_BoyBqsXtKq4QHg5oMkfx6-3hm9z1DutOzfOPtlt-3SWcJF4lz1rcohy_nUzSHK/exec', {
+  // Chiamata con Content-Type application/x-www-form-urlencoded (simple request)
+  fetch('https://script.google.com/macros/s/AKfycby1Ucjq8lGQqQwkAlFLytM_sHk8vboFRjgLVG6RRVLznv8g6MrbQkrjtGOHeimT4PeH/exec', {
     method: 'POST',
-        headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ password: input })
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: 'password=' + encodeURIComponent(input)
   })
-  .then(response => response.text())  // PRENDI IL TESTO GREZZO
-.then(text => {
-  console.log('Risposta grezza:', text);
-  // Prova a convertire in JSON manualmente
-  try {
-    const data = JSON.parse(text);
-    if (data.success) {
-      const authData = {
-        token: data.token,
-        expires: Date.now() + (7 * 24 * 60 * 60 * 1000)
-      };
-      sessionStorage.setItem('weddingSession', 'authenticated');
-      localStorage.setItem('weddingAuth', JSON.stringify(authData));
-      window.location.href = 'index.html';
-    } else {
-      throw new Error('Password errata');
+  .then(response => response.text())  // Prima leggiamo come testo per debug
+  .then(text => {
+    console.log('Risposta grezza:', text);  // Controlliamo nella console
+    try {
+      const data = JSON.parse(text);
+      if (data.success) {
+        const authData = {
+          token: data.token,
+          expires: Date.now() + (7 * 24 * 60 * 60 * 1000)
+        };
+        sessionStorage.setItem('weddingSession', 'authenticated');
+        localStorage.setItem('weddingAuth', JSON.stringify(authData));
+        window.location.href = 'index.html';
+      } else {
+        throw new Error('Password errata');
+      }
+    } catch (e) {
+      console.error('Risposta non valida:', text);
+      throw new Error('Errore di comunicazione con il server');
     }
-  } catch (e) {
-    console.error('Risposta non valida:', text);
-    throw new Error('Errore di comunicazione con il server');
-  }
-})
+  })
   .catch(err => {
-    console.error(err);
+    console.error('Errore:', err);
     error.style.display = 'block';
     error.classList.add('shake');
     document.getElementById('password').value = '';
