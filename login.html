@@ -215,22 +215,28 @@
     },
     body: JSON.stringify({ password: input })
   })
-  .then(response => response.json())  // Legge la risposta
-  .then(data => {
+  .then(response => response.text())  // PRENDI IL TESTO GREZZO
+.then(text => {
+  console.log('Risposta grezza:', text);
+  // Prova a convertire in JSON manualmente
+  try {
+    const data = JSON.parse(text);
     if (data.success) {
-      // Password corretta! Salviamo il biglietto (token)
       const authData = {
         token: data.token,
-        expires: Date.now() + (7 * 24 * 60 * 60 * 1000) // 7 giorni
+        expires: Date.now() + (7 * 24 * 60 * 60 * 1000)
       };
       sessionStorage.setItem('weddingSession', 'authenticated');
       localStorage.setItem('weddingAuth', JSON.stringify(authData));
       window.location.href = 'index.html';
     } else {
-      // Password sbagliata
       throw new Error('Password errata');
     }
-  })
+  } catch (e) {
+    console.error('Risposta non valida:', text);
+    throw new Error('Errore di comunicazione con il server');
+  }
+})
   .catch(err => {
     console.error(err);
     error.style.display = 'block';
