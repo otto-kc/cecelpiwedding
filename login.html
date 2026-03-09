@@ -210,8 +210,7 @@
   // Chiamata al guardiano (Google Apps Script)
   fetch('https://script.google.com/macros/s/AKfycbyApb4bAxo8u9glsgBPHYHVMDlwpPi8ahDLDCsR4evkRpjCXuNm1YS3mRj-NOwuoYWy/exec', {
     method: 'POST',
-    mode: 'no-cors',        // importante per app web
-    headers: {
+        headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ password: input })
