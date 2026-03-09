@@ -1,4 +1,4 @@
-// auth-check.js - Sistema di protezione semplice e efficace
+// auth-check.js - Sistema di protezione con hidden body
 
 (function() {
   'use strict';
@@ -8,10 +8,17 @@
     return; // Esci, lascia che l'utente si logghi
   }
   
+  // Funzione per mostrare la pagina (rimuove il nascondimento CSS)
+  function showPage() {
+    document.body.style.visibility = 'visible';
+    document.body.style.opacity = '1';
+  }
+  
   // Controlla se l'utente è autenticato
   function checkAuth() {
     // 1. Prima controlla la sessione corrente (dura fino a chiusura browser)
     if (sessionStorage.getItem('weddingSession') === 'authenticated') {
+      showPage(); // <-- Mostra la pagina
       return true;
     }
     
@@ -23,6 +30,7 @@
         if (data.expires > Date.now()) {
           // Token valido! Crea la sessione per questa visita
           sessionStorage.setItem('weddingSession', 'authenticated');
+          showPage(); // <-- Mostra la pagina
           return true;
         } else {
           // Token scaduto, rimuovilo
@@ -42,7 +50,7 @@
   
   // Esegui il controllo quando la pagina carica
   document.addEventListener('DOMContentLoaded', function() {
-    // Piccolo delay per evitare flash
+    // Piccolo delay per sicurezza (ma puoi anche toglierlo)
     setTimeout(checkAuth, 100);
   });
   
