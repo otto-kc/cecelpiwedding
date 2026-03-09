@@ -195,66 +195,57 @@
   <script>
     // === PASSWORD OFFUSCATA PER "10luglio" ===
     // "10luglio" → invertita → "oilgul01" → base64 → "b2lsZ3VsMDE="
-    const OBFUSCATED = "b2lsZ3VsMDE=";
-    
-    function deobfuscate(str) {
-      // Password hardcoded per debug
-      console.log("DEBUG: Password hardcoded a '10luglio'");
-      return "10luglio";
-    }
-    
+              
     function login() {
-      const input = document.getElementById('password').value.trim();
-      const error = document.getElementById('error');
-      const loginBtn = document.getElementById('loginBtn');
-      
-      // Reset errori
+  const input = document.getElementById('password').value.trim();
+  const error = document.getElementById('error');
+  const loginBtn = document.getElementById('loginBtn');
+
+  // Reset errori
+  error.style.display = 'none';
+  error.classList.remove('shake');
+  loginBtn.disabled = true;
+  loginBtn.textContent = 'Verifica in corso...';
+
+  // Chiamata al guardiano (Google Apps Script)
+  fetch('IL_TUO_URL', {
+    method: 'POST',
+    mode: 'no-cors',        // importante per app web
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ password: input })
+  })
+  .then(response => response.json())  // Legge la risposta
+  .then(data => {
+    if (data.success) {
+      // Password corretta! Salviamo il biglietto (token)
+      const authData = {
+        token: data.token,
+        expires: Date.now() + (7 * 24 * 60 * 60 * 1000) // 7 giorni
+      };
+      sessionStorage.setItem('weddingSession', 'authenticated');
+      localStorage.setItem('weddingAuth', JSON.stringify(authData));
+      window.location.href = 'index.html';
+    } else {
+      // Password sbagliata
+      throw new Error('Password errata');
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    error.style.display = 'block';
+    error.classList.add('shake');
+    document.getElementById('password').value = '';
+    document.getElementById('password').focus();
+    loginBtn.disabled = false;
+    loginBtn.textContent = 'Accedi';
+    setTimeout(() => {
       error.style.display = 'none';
       error.classList.remove('shake');
-      loginBtn.disabled = true;
-      loginBtn.textContent = 'Verifica in corso...';
-      
-      // Decodifica la password offuscata
-      const correctPassword = deobfuscate(OBFUSCATED);
-      
-      // Piccolo delay per feedback visivo
-      setTimeout(() => {
-        if (input === correctPassword) {
-          // Password corretta! Crea autenticazione sicura
-          const authData = {
-            token: 'wedding_auth_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-            expires: Date.now() + (7 * 24 * 60 * 60 * 1000) // 7 giorni
-          };
-          
-          // Salva per la sessione corrente (finché il browser rimane aperto)
-          sessionStorage.setItem('weddingSession', 'authenticated');
-          
-          // Salva per i prossimi 7 giorni (se l'utente chiude e riapre)
-          localStorage.setItem('weddingAuth', JSON.stringify(authData));
-          
-          // Log per debug (solo in console)
-          console.log('✅ Accesso autorizzato. Token valido fino a:', new Date(authData.expires).toLocaleString());
-          
-          // Reindirizza alla home page
-          window.location.href = 'index.html';
-          
-        } else {
-          // Password sbagliata
-          error.style.display = 'block';
-          error.classList.add('shake');
-          document.getElementById('password').value = '';
-          document.getElementById('password').focus();
-          loginBtn.disabled = false;
-          loginBtn.textContent = 'Accedi';
-          
-          // Nascondi errore dopo 4 secondi
-          setTimeout(() => {
-            error.style.display = 'none';
-            error.classList.remove('shake');
-          }, 4000);
-        }
-      }, 300);
-    }
+    }, 4000);
+  });
+}
     
     // Permette l'invio con tasto Enter
     document.getElementById('password').addEventListener('keypress', function(e) {
