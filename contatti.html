@@ -249,8 +249,125 @@
   border-radius: 12px;
   background: white;
 }
+    .form-container {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.15);
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1.3;
+  transition: border 0.2s ease;
+  background: rgba(255, 248, 240, 0.7);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #222;
+}
+
+.form-group textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.submit-btn {
+  display: block;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 999px;
+  border: 1px solid #D4AF37;
+  background: linear-gradient(135deg, #D4AF37 0%, #F4E4A6 100%);
+  color: #222;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+  transition: all 0.2s ease;
+  margin-top: 26px;
+  min-height: 52px;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #F4E4A6 0%, #D4AF37 100%);
+  box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-top: 6px;
+  display: none;
+}
+
+.error-message.show {
+  display: block;
+}
+
+.success-message {
+  background: rgba(255, 248, 240, 0.7);
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 18px;
+  text-align: center;
+  display: none;
+}
+
+.success-message.show {
+  display: block;
+}
+
+.success-message h3 {
+  color: #2e7d32;
+  margin-top: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
     /* Responsive */
     @media (max-width: 600px) {
+      .form-group input,
+.form-group textarea {
+  font-size: 18px;
+}
+
+.submit-btn {
+  font-size: 18px;
+}
       .contact-buttons {
         flex-direction: column;
       }
@@ -290,6 +407,11 @@ footer p,
 p {
   font-size: 22px;
   line-height: 1.6;
+}
+    .contact-btn {
+  font-size: 16px;
+  padding: 10px 18px;
+  line-height: 1.2;
 }
 
 /* 📱 Su mobile */
@@ -430,16 +552,36 @@ p {
             </div>
           </div>
           <div id="googleContactForm" class="google-form-box" style="display: none;">
-    <iframe
-      src="https://docs.google.com/forms/d/e/1FAIpQLSfMj7X64BN2i5Yd0XAHK1nmaac1ASERCFF5ISCADygQHjSJTw/viewform?embedded=true"
-      width="100%"
-      height="950"
-      frameborder="0"
-      marginheight="0"
-      marginwidth="0">
-      Caricamento…
-    </iframe>
+  <div class="form-container">
+    <form id="contact-form" novalidate>
+      <div class="form-group">
+        <label for="contact-email">Mail</label>
+        <input type="email" id="contact-email" name="contact_email" placeholder="nome@esempio.com" autocomplete="email">
+        <div class="error-message" id="contact-email-error">Email non valida</div>
+      </div>
+
+      <div class="form-group">
+        <label for="contact-phone">Telefono</label>
+        <input type="tel" id="contact-phone" name="contact_phone" placeholder="+39 123 456 7890" autocomplete="tel">
+      </div>
+
+      <div class="form-group">
+        <label for="contact-message">Scrivici un messaggio</label>
+        <textarea id="contact-message" name="contact_message" placeholder="Scrivi qui il tuo messaggio..."></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn" id="contact-submit-btn">
+        <span id="contact-btn-text">Invia messaggio</span>
+        <span id="contact-btn-loading" style="display:none;">Invio in corso...</span>
+      </button>
+    </form>
+
+    <div class="success-message" id="contact-success-message">
+      <h3>Messaggio inviato!</h3>
+      <p>Grazie, ti risponderemo il prima possibile.</p>
+    </div>
   </div>
+</div>
 </div>
         </div>
       </div>
@@ -452,80 +594,147 @@ p {
 
   <!-- BACK TO TOP BUTTON -->
   <button class="back-to-top" id="backToTop" aria-label="Torna all'inizio" title="Torna su">▲</button>
+  <iframe id="contact-gf-iframe" name="contact-gf-iframe" class="sr-only" title="Invio contatti" aria-hidden="true"></iframe>
+
+<form id="contact-gf-form" class="sr-only" method="POST" target="contact-gf-iframe" action="https://docs.google.com/forms/d/e/1FAIpQLSfMj7X64BN2i5Yd0XAHK1nmaac1ASERCFF5ISCADygQHjSJTw/formResponse">
+  <input type="text" name="entry.273851373" id="gf_contact_email">
+  <input type="text" name="entry.526846608" id="gf_contact_phone">
+  <textarea name="entry.393893523" id="gf_contact_message"></textarea>
+</form>
 <script>
-      // Anno corrente
-    document.getElementById('year').textContent = new Date().getFullYear();
+  // Anno corrente
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Menu hamburger mobile
-    const hamburger = document.getElementById('hamburger');
-    const navlinks = document.getElementById('navlinks');
-    
-    if (hamburger && navlinks) {
-      hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navlinks.classList.toggle('active');
-        
-        document.querySelectorAll('.navlinks a').forEach(link => {
-          link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navlinks.classList.remove('active');
-          });
-        });
-      });
-      
-      document.addEventListener('click', (e) => {
-        if (!hamburger.contains(e.target) && !navlinks.contains(e.target)) {
-          hamburger.classList.remove('active');
-          navlinks.classList.remove('active');
-        }
-      });
-    }
+  // Menu hamburger mobile
+  const hamburger = document.getElementById('hamburger');
+  const navlinks = document.getElementById('navlinks');
 
-    // Back to top
-    const backBtn = document.getElementById('backToTop');
-    const toggleBackBtn = () => {
-      if (!backBtn) return;
-      if (window.scrollY > 300) backBtn.classList.add('show');
-      else backBtn.classList.remove('show');
-    };
-    toggleBackBtn();
-    window.addEventListener('scroll', toggleBackBtn);
-    if (backBtn) backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    
-    // Rileva se è un dispositivo mobile
-    function isMobileDevice() {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    }
-    
-    // Quando la pagina carica
-    document.addEventListener('DOMContentLoaded', function() {
-      if (isMobileDevice()) {
-        console.log('Dispositivo mobile rilevato - contatti ottimizzati');
+  if (hamburger && navlinks) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navlinks.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.navlinks a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navlinks.classList.remove('active');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !navlinks.contains(e.target)) {
+        hamburger.classList.remove('active');
+        navlinks.classList.remove('active');
       }
-      });
-    // Mostra o nasconde il form Google quando clicchi "Contattaci"
-const toggleContactFormBtn = document.getElementById('toggleContactForm');
-const googleContactForm = document.getElementById('googleContactForm');
+    });
+  }
 
-if (toggleContactFormBtn && googleContactForm) {
-  toggleContactFormBtn.addEventListener('click', () => {
-    const isHidden =
-      googleContactForm.style.display === 'none' ||
-      googleContactForm.style.display === '';
+  // Back to top
+  const backBtn = document.getElementById('backToTop');
+  const toggleBackBtn = () => {
+    if (!backBtn) return;
+    if (window.scrollY > 300) backBtn.classList.add('show');
+    else backBtn.classList.remove('show');
+  };
+  toggleBackBtn();
+  window.addEventListener('scroll', toggleBackBtn);
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
-    if (isHidden) {
-      googleContactForm.style.display = 'block';
-      toggleContactFormBtn.innerHTML = '<i class="fas fa-times"></i> Chiudi il form';
+  // Mostra o nasconde il form contatti
+  const toggleContactFormBtn = document.getElementById('toggleContactForm');
+  const googleContactForm = document.getElementById('googleContactForm');
+
+  if (toggleContactFormBtn && googleContactForm) {
+    toggleContactFormBtn.addEventListener('click', () => {
+      const isHidden =
+        googleContactForm.style.display === 'none' ||
+        googleContactForm.style.display === '';
+
+      if (isHidden) {
+        googleContactForm.style.display = 'block';
+        toggleContactFormBtn.innerHTML = '<i class="fas fa-times"></i> Chiudi il form';
+
+        setTimeout(() => {
+          googleContactForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      } else {
+        googleContactForm.style.display = 'none';
+        toggleContactFormBtn.innerHTML = '<i class="fas fa-envelope"></i> Contattaci';
+      }
+    });
+  }
+
+  // Invio form contatti
+  const contactForm = document.getElementById('contact-form');
+  const contactSubmitBtn = document.getElementById('contact-submit-btn');
+  const contactBtnText = document.getElementById('contact-btn-text');
+  const contactBtnLoading = document.getElementById('contact-btn-loading');
+  const contactSuccessMessage = document.getElementById('contact-success-message');
+
+  const contactGfForm = document.getElementById('contact-gf-form');
+  const contactGfIframe = document.getElementById('contact-gf-iframe');
+
+  let pendingContactSubmit = false;
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function setContactLoading(isLoading) {
+    if (!contactSubmitBtn) return;
+    contactSubmitBtn.disabled = isLoading;
+    if (contactBtnText) contactBtnText.style.display = isLoading ? 'none' : 'inline';
+    if (contactBtnLoading) contactBtnLoading.style.display = isLoading ? 'inline' : 'none';
+  }
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('contact-email').value.trim();
+      const phone = document.getElementById('contact-phone').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+      const emailError = document.getElementById('contact-email-error');
+
+      if (email && !isValidEmail(email)) {
+        if (emailError) emailError.classList.add('show');
+        return;
+      } else {
+        if (emailError) emailError.classList.remove('show');
+      }
+
+      document.getElementById('gf_contact_email').value = email;
+      document.getElementById('gf_contact_phone').value = phone;
+      document.getElementById('gf_contact_message').value = message;
+
+      pendingContactSubmit = true;
+      setContactLoading(true);
+      contactGfForm.submit();
 
       setTimeout(() => {
-        googleContactForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    } else {
-      googleContactForm.style.display = 'none';
-      toggleContactFormBtn.innerHTML = '<i class="fas fa-envelope"></i> Contattaci';
-    }
-  });
-}
-      </script>
+        if (!pendingContactSubmit) return;
+        pendingContactSubmit = false;
+        setContactLoading(false);
+        if (contactSuccessMessage) contactSuccessMessage.classList.add('show');
+        contactForm.reset();
+      }, 2500);
+    });
+  }
+
+  if (contactGfIframe) {
+    contactGfIframe.addEventListener('load', () => {
+      if (!pendingContactSubmit) return;
+      pendingContactSubmit = false;
+      setContactLoading(false);
+      if (contactSuccessMessage) contactSuccessMessage.classList.add('show');
+      if (contactForm) contactForm.reset();
+    });
+  }
+</script>
   <script src="auth-check.js"></script>
 </body>
